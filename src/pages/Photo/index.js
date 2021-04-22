@@ -19,7 +19,7 @@ class Photo extends React.Component {
   }
 
   render() {
-    return <h1>Photo Page</h1>;
+    return <h1>Photo</h1>;
   }
 }
 
