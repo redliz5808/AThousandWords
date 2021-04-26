@@ -9,4 +9,5 @@ export const Container = styled.div`
 export const StyledLink = styled(Link)`
   display: inline;
   text-decoration: none;
+  color: black;
 `

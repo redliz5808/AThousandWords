@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import queryString from "query-string";
 import LazyLoad from "react-lazyload";
-import { Loading, Pagination } from "components";
+import { Loading, Pagination, UserComponent, Likes } from "components";
 import { Container, StyledLink } from "./home.styles";
 
 class Home extends React.Component {
@@ -12,11 +12,11 @@ class Home extends React.Component {
     page: 1,
   };
 
-  retrievePhotos = async () => {
+  retrievePhotos = async (page) => {
     try {
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `https://api.unsplash.com/photos?page=${this.state.page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ data, isLoading: false });
     } catch (error) {
@@ -25,18 +25,35 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    if(this.props.location.search) {
+    if (this.props.location.search) {
       const parsed = queryString.parse(this.props.location.search, {
         parseNumbers: true,
       });
-      this.setState({ parsed });
+      this.setState(parsed);
+      this.retrievePhotos(parsed.page);
     } else {
       const { page } = this.state;
       const query = queryString.stringify({ page });
       this.props.history.push(`/?${query}`);
-      this.retrievePhotos();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { page } = this.state;
+    if (prevState.page !== page) {
+      const query = queryString.stringify({ page });
+      this.props.history.push(`/?${query}`);
+      this.retrievePhotos(page);
     }
 
+    if (prevProps.location.search !== this.props.location.search) {
+      this.retrievePhotos(page);
+    }
+
+    if (!this.props.location.search) {
+      const query = queryString.stringify({ page });
+      this.props.history.push(`/?${query}`);
+    }
   }
 
   handleClick = (button) => {
@@ -51,18 +68,6 @@ class Home extends React.Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.page !== this.state.page) {
-      const { page } = this.state;
-      const query = queryString.stringify({ page });
-      this.props.history.push(`/?${query}`);
-    }
-    
-    if(prevProps.location.search !== this.props.location.search) {
-      this.retrievePhotos();
-    }
-  }
-
   render() {
     return (
       <>
@@ -71,11 +76,16 @@ class Home extends React.Component {
           <>
             <Container>
               {Object.values(this.state.data).map((value) => {
+                console.log(value);
                 return (
                   <LazyLoad height={200}>
                     <StyledLink to={`/photo/${value.id}`}>
                       <img src={value.urls.small} alt={value.alt_description} />
                     </StyledLink>
+                    <StyledLink to={`/user/${value.user.id}`}>
+                      <UserComponent username={value.user.name} />
+                    </StyledLink>
+                    <Likes likes={value.likes} />
                   </LazyLoad>
                 );
               })}
