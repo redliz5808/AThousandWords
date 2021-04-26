@@ -23,7 +23,7 @@ export default function App() {
         </StyledNav>
 
         <Switch>
-          <Route component={(props) => <Home {...props} />} exact path="/"></Route>
+          <Route component={Home} exact path="/"></Route>
           <Route component={User} path="/user/:userid"></Route>
           <Route component={Photo} path="/photo/:photoid"></Route>
         </Switch>

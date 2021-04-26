@@ -64,7 +64,7 @@ class Home extends React.Component {
     } else if (button === "Next") {
       this.setState({ page: this.state.page + 1 });
     } else {
-      this.setState({ page: button });
+      this.setState({ page: Number(button) });
     }
   };
 
@@ -76,7 +76,6 @@ class Home extends React.Component {
           <>
             <Container>
               {Object.values(this.state.data).map((value) => {
-                console.log(value);
                 return (
                   <LazyLoad height={200}>
                     <StyledLink to={`/photo/${value.id}`}>
