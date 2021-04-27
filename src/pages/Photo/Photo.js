@@ -34,19 +34,22 @@ class Photo extends React.Component {
 
   render() {
     const { data } = this.state;
-    console.log(data);
-    const mappedData =
-      data &&
-      this.state.data.tags.map((tag) => {
-        return `${tag.title}, `;
-      });
+    const mappedData = () => {
+      if(data && data.tags === 1) return data.tags[0];
+      if(data) {
+        const arr = Object.values(data.tags).map(tag => {return tag.title})
+        const allButLast = arr.slice(0, arr.length - 1);
+        const last = arr[arr.length - 1];
+        return allButLast.join(", ").concat(", and ", last);
+      }
+    }
     return (
       this.state.data && (
         <Container>
           <UserInfo>
             <UserImage
               src={data.user.profile_image.medium}
-              alt="user profile"
+              alt={data.user.username}
             />
             <h4>{data.user.name}</h4>
           </UserInfo>
@@ -56,7 +59,7 @@ class Photo extends React.Component {
             <Views views={data.views} />
           </StyledDiv>
           <TagsTitle>Tags:</TagsTitle>
-          <Tags>{mappedData}</Tags>
+          <Tags>{mappedData()}</Tags>
         </Container>
       )
     );

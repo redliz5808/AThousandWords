@@ -1,10 +1,10 @@
-import { StyledInput } from "./searchComponent.styles";
+import { StyledInput } from "./searchBar.styles";
 
 const onSubmitHandler = (e) => {
   e.preventDefault();
 };
 
-const SearchComponent = () => {
+const SearchBar = () => {
   return (
     <form onSubmit={onSubmitHandler}>
       <StyledInput placeholder="Search" />
@@ -12,4 +12,4 @@ const SearchComponent = () => {
   );
 };
 
-export default SearchComponent;
+export default SearchBar;
