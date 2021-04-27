@@ -2,8 +2,14 @@ import React from "react";
 import axios from "axios";
 import queryString from "query-string";
 import LazyLoad from "react-lazyload";
-import { Loading, Pagination, UserComponent, Likes } from "components";
-import { Container, StyledLink } from "./home.styles";
+import { FaHeart } from "react-icons/fa";
+import { Loading, Pagination, UserComponent, Icon } from "components";
+import {
+  MainContainer,
+  StyledLink,
+  SubContainer,
+  ImageContainer,
+} from "./home.styles";
 
 class Home extends React.Component {
   state = {
@@ -74,22 +80,29 @@ class Home extends React.Component {
         {this.state.isLoading && <Loading />}
         {this.state.data && !this.state.isLoading && (
           <>
-            <Container>
+            <MainContainer>
               {Object.values(this.state.data).map((value) => {
                 return (
-                  <LazyLoad height={200}>
-                    <StyledLink to={`/photo/${value.id}`}>
-                      <img src={value.urls.small} alt={value.alt_description} />
-                    </StyledLink>
-                    <StyledLink to={`/user/${value.user.id}`}>
-                      <UserComponent username={value.user.name} />
-                    </StyledLink>
-                    <Likes likes={value.likes} />
+                  <LazyLoad height={200} key={value.id}>
+                    <SubContainer>
+                      <ImageContainer>
+                        <StyledLink to={`/photo/${value.id}`}>
+                          <img
+                            src={value.urls.small}
+                            alt={value.alt_description}
+                          />
+                        </StyledLink>
+                        <StyledLink to={`/user/${value.user.id}`}>
+                          <UserComponent username={value.user.name} />
+                        </StyledLink>
+                        <Icon icon={<FaHeart />} stats={value.likes} />
+                      </ImageContainer>
+                    </SubContainer>
                   </LazyLoad>
                 );
               })}
-            </Container>
-            <Pagination handleClick={this.handleClick} />
+              <Pagination handleClick={this.handleClick} />
+            </MainContainer>
           </>
         )}
       </>

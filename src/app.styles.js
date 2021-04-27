@@ -7,12 +7,14 @@ export const Logo = styled.img`
 
 export const StyledNav = styled.nav`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 `
 export const StyledUl = styled.ul`
   display: flex;
-  min-width: 1000px;
-  justify-content: space-around;
+  width: 100vw;
+  margin-right: 20px;
+  justify-content: space-between;
+  align-items: center;
 `
 
 export const StyledLi = styled.li`
