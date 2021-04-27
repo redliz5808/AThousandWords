@@ -2,7 +2,8 @@ import React from "react";
 import axios from "axios";
 import queryString from "query-string";
 import LazyLoad from "react-lazyload";
-import { Loading, Pagination, UserComponent, Likes } from "components";
+import { FaHeart } from "react-icons/fa";
+import { Loading, Pagination, UserComponent, Icon } from "components";
 import {
   MainContainer,
   StyledLink,
@@ -82,7 +83,7 @@ class Home extends React.Component {
             <MainContainer>
               {Object.values(this.state.data).map((value) => {
                 return (
-                  <LazyLoad height={200}>
+                  <LazyLoad height={200} key={value.id}>
                     <SubContainer>
                       <ImageContainer>
                         <StyledLink to={`/photo/${value.id}`}>
@@ -94,7 +95,7 @@ class Home extends React.Component {
                         <StyledLink to={`/user/${value.user.id}`}>
                           <UserComponent username={value.user.name} />
                         </StyledLink>
-                        <Likes likes={value.likes} />
+                        <Icon icon={<FaHeart />} stats={value.likes} />
                       </ImageContainer>
                     </SubContainer>
                   </LazyLoad>

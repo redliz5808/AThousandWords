@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { Likes, Views } from "components";
+import { FaHeart, FaEye } from "react-icons/fa";
+import { Icon } from "components";
 import {
   MainImage,
   Container,
@@ -55,8 +56,8 @@ class Photo extends React.Component {
           </UserInfo>
           <MainImage src={data.urls.regular} alt={data.alt_description} />
           <StyledDiv>
-            <Likes likes={data.likes} />
-            <Views views={data.views} />
+            <Icon icon={<FaHeart />} stats={data.likes} />
+            <Icon icon={<FaEye />} stats={data.views} />
           </StyledDiv>
           <TagsTitle>Tags:</TagsTitle>
           <Tags>{mappedData()}</Tags>
