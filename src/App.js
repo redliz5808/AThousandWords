@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import {Home, User, Photo} from "pages";
+import { Home, User, Photo } from "pages";
+import { SearchComponent } from "components";
 import logo from "./assets/AThousandWords.png";
 import { Logo, StyledNav, StyledUl, StyledLi, StyledLink } from "./app.styles";
 
@@ -15,6 +16,9 @@ export default function App() {
           <StyledUl>
             <StyledLi>
               <StyledLink to="/">Home</StyledLink>
+            </StyledLi>
+            <StyledLi>
+              <SearchComponent />
             </StyledLi>
             <StyledLi>
               <StyledLink to="/user/:userid">User</StyledLink>

@@ -1,9 +1,11 @@
 import { FaHeart } from "react-icons/fa";
+import { StyledSpan } from "./likes.styles";
+
 const Likes = ({ likes }) => {
   return (
-    <div>
+    <StyledSpan>
       <FaHeart /> {likes}
-    </div>
+    </StyledSpan>
   );
 };
 

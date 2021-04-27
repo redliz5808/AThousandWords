@@ -76,6 +76,7 @@ class Home extends React.Component {
           <>
             <Container>
               {Object.values(this.state.data).map((value) => {
+                console.log(value);
                 return (
                   <LazyLoad height={200}>
                     <StyledLink to={`/photo/${value.id}`}>

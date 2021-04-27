@@ -13,6 +13,7 @@ export const StyledUl = styled.ul`
   display: flex;
   min-width: 1000px;
   justify-content: space-around;
+  align-items: center;
 `
 
 export const StyledLi = styled.li`
