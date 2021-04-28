@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
+import LoadingBar from "react-top-loading-bar";
 import queryString from "query-string";
 import LazyLoad from "react-lazyload";
 import { FaHeart } from "react-icons/fa";
-import { Loading, Pagination, UserComponent, Icon } from "components";
+import { Pagination, UserComponent, Icon } from "components";
 import {
   MainContainer,
   StyledLink,
@@ -18,13 +19,17 @@ class Home extends React.Component {
     page: 1,
   };
 
+  loadingBar = React.createRef();
+
   retrievePhotos = async (page) => {
     try {
+      this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `https://api.unsplash.com/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ data, isLoading: false });
+      this.loadingBar.current.complete();
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +82,7 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        {this.state.isLoading && <Loading />}
+        <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {this.state.data && !this.state.isLoading && (
           <>
             <MainContainer>
@@ -92,7 +97,7 @@ class Home extends React.Component {
                             alt={value.alt_description}
                           />
                         </StyledLink>
-                        <StyledLink to={`/user/${value.user.id}`}>
+                        <StyledLink to={`/user/${value.user.username}`}>
                           <UserComponent username={value.user.name} />
                         </StyledLink>
                         <Icon icon={<FaHeart />} stats={value.likes} />
