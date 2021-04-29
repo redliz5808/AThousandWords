@@ -6,7 +6,7 @@ class Photos extends React.Component {
   state = {
     photos: null,
   };
-  
+
   baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
 
   retrieveUserPhotos = async (username) => {
@@ -29,11 +29,17 @@ class Photos extends React.Component {
 
     return (
       <>
-        {photos && photos.length === 0 && <div>This user has no photos</div>}{" "}
+        {photos && photos.length === 0 && <div>This user has no photos</div>}
         {photos && photos.length > 0 && (
           <div>
             {photos.map((photo) => {
-              return <StyledImage key={photo.id} src={photo.urls.small} alt={photo.id} />;
+              return (
+                <StyledImage
+                  key={photo.id}
+                  src={photo.urls.small}
+                  alt={photo.id}
+                />
+              );
             })}
           </div>
         )}
