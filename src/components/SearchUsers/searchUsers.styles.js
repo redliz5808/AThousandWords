@@ -8,11 +8,17 @@ export const Container = styled.div`
   align-items: flex-start;
 `;
 
-export const StyledImage = styled.img`
-  margin: 5px;
+export const StyledLink = styled(Link)`
+  display: inline-block;
+  text-align: center;
+  margin: 10px;
+  width: 300px;
+  color: black;
+  text-decoration: none;
+  border: 1px solid black;
+  border-radius: 5px;
 `
 
-export const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #6958f2;
+export const Bio = styled.p`
+  max-width: 300px;
 `

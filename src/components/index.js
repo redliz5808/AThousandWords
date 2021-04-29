@@ -5,3 +5,6 @@ export { default as SearchBar } from "./SearchBar";
 export { default as Photos } from "./Photos";
 export { default as Collections } from "./Collections";
 export { default as UserStats } from "./UserStats";
+export { default as SearchPhotos } from "./SearchPhotos";
+export { default as SearchCollections } from "./SearchCollections";
+export { default as SearchUsers } from "./SearchUsers";

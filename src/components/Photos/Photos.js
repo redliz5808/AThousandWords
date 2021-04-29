@@ -1,20 +1,27 @@
 import React from "react";
 import axios from "axios";
-import { StyledImage } from "./photos.styles";
+import LoadingBar from "react-top-loading-bar";
+import { Container, StyledLink, StyledImage } from "./photos.styles";
 
 class Photos extends React.Component {
   state = {
     photos: null,
+    isLoading: false,
   };
+
+  loadingBar = React.createRef();
 
   baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
 
   retrieveUserPhotos = async (username) => {
     try {
+      this.loadingBar.current.continuousStart();
+      this.setState({ isLoading: true });
       const { data } = await axios(
         `${this.baseUrl}/${username}/photos?per_page=12&client_id=${process.env.REACT_APP_API_KEY}`
       );
-      this.setState({ photos: data });
+      this.setState({ photos: data, isLoading: false });
+      this.loadingBar.current.complete();
     } catch (error) {
       console.log(error);
     }
@@ -29,19 +36,21 @@ class Photos extends React.Component {
 
     return (
       <>
+        <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {photos && photos.length === 0 && <div>This user has no photos</div>}
         {photos && photos.length > 0 && (
-          <div>
+          <Container>
             {photos.map((photo) => {
               return (
-                <StyledImage
-                  key={photo.id}
-                  src={photo.urls.small}
-                  alt={photo.id}
-                />
+                <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
+                  <StyledImage
+                    src={photo.urls.small}
+                    alt={photo.id}
+                  />
+                </StyledLink>
               );
             })}
-          </div>
+          </Container>
         )}
       </>
     );

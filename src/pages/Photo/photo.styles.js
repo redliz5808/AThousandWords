@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   display: flex;
@@ -7,12 +8,23 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const UserInfo = styled.div`
+export const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px;
+  text-decoration: none;
+  color: #6958f2;
 `;
+
+export const TagLink = styled(Link)`
+  text-decoration: none;
+  color: #6958f2;
+  border: 1px solid #6958f2;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 5px;
+`
 
 export const UserImage = styled.img`
   max-width: 50px;

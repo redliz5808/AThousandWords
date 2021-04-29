@@ -1,15 +1,34 @@
+import React from "react";
+import { withRouter } from "react-router-dom";
 import { StyledInput } from "./searchBar.styles";
 
-const onSubmitHandler = (e) => {
-  e.preventDefault();
-};
+class SearchBar extends React.Component {
+  state = {
+    value: "",
+  };
 
-const SearchBar = () => {
-  return (
-    <form onSubmit={onSubmitHandler}>
-      <StyledInput placeholder="Search" />
-    </form>
-  );
-};
+  handleChange = (e) => {
+    const { value } = e.target;
+    this.setState({ value });
+  };
 
-export default SearchBar;
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.history.push(`/search/${this.state.value}`);
+    this.setState({ value: "" });
+  };
+  
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <StyledInput
+          onChange={this.handleChange}
+          value={this.state.value}
+          placeholder="Search"
+        />
+      </form>
+    );
+  }
+}
+
+export default withRouter(SearchBar);

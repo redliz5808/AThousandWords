@@ -6,9 +6,10 @@ import { Icon } from "components";
 import {
   MainImage,
   Container,
-  UserInfo,
+  StyledLink,
   UserImage,
   StyledDiv,
+  TagLink,
   TagsTitle,
   Tags,
 } from "./photo.styles";
@@ -50,11 +51,9 @@ class Photo extends React.Component {
         return <span>There are no tags for this photo.</span>;
       if (data && data.tags[2] !== undefined) {
         const arr = Object.values(data.tags).map((tag) => {
-          return tag.title;
+          return <TagLink to={`/search/${tag.title}`}>{tag.title}</TagLink>;
         });
-        const allButLast = arr.slice(0, arr.length - 1);
-        const last = arr[arr.length - 1];
-        return allButLast.join(", ").concat(", and ", last);
+        return arr;
       }
     };
     return (
@@ -62,13 +61,13 @@ class Photo extends React.Component {
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {this.state.data && (
           <Container>
-            <UserInfo>
+            <StyledLink to={`/user/${data.user.username}`}>
               <UserImage
                 src={data.user.profile_image.medium}
                 alt={data.user.username}
               />
               <h4>{data.user.name}</h4>
-            </UserInfo>
+            </StyledLink>
             <MainImage src={data.urls.regular} alt={data.alt_description} />
             <StyledDiv>
               <Icon icon={<FaHeart />} stats={data.likes} />
