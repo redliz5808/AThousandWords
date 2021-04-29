@@ -14,7 +14,6 @@ class Collections extends React.Component {
         `${this.baseUrl}/${username}/collections?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ collections: data });
-      console.log(data)
     } catch (error) {
       console.log(error);
     }

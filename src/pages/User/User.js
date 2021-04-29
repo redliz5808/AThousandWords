@@ -27,7 +27,6 @@ class User extends React.Component {
       const { data } = await axios(
         `${this.baseUrl}/${username}?client_id=${process.env.REACT_APP_API_KEY}`
       );
-      console.log(data);
       this.setState({ data, isLoading: false });
       this.loadingBar.current.complete();
     } catch (error) {
@@ -41,8 +40,15 @@ class User extends React.Component {
     this.setState({ username });
   }
 
+  handleChange = (event, newValue) => {
+    this.setState({ value: newValue });
+  }
+
   render() {
     const { data, value } = this.state;
+    const isPhotos = value === 0 ;
+    const isCollections = value === 1;
+    const isStats = value === 2;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
@@ -64,17 +70,15 @@ class User extends React.Component {
                 value={value}
                 textColor="primary"
                 indicatorColor="primary"
-                onChange={(event, newValue) => {
-                  this.setState({ value: newValue });
-                }}
+                onChange={this.handleChange}
               >
                 <Tab label="Photos" />
                 <Tab label="Collections" />
                 <Tab label="Stats" />
               </Tabs>
-              {value === 0 && <Photos username={this.state.username} />}
-              {value === 1 && <Collections username={this.state.username} />}
-              {value === 2 && <UserStats username={this.state.username} />}
+              {isPhotos && <Photos username={this.state.username} />}
+              {isCollections && <Collections username={this.state.username} />}
+              {isStats && <UserStats username={this.state.username} />}
             </Paper>
           </>
         )}
