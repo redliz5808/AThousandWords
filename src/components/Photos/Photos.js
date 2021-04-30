@@ -33,20 +33,19 @@ class Photos extends React.Component {
 
   render() {
     const { photos } = this.state;
+    const readyWithoutPhotos = photos && photos.length === 0;
+    const readyWithPhotos = photos && photos.length > 0;
 
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {photos && photos.length === 0 && <div>This user has no photos</div>}
-        {photos && photos.length > 0 && (
+        {readyWithoutPhotos && <div>This user has no photos</div>}
+        {readyWithPhotos && (
           <Container>
             {photos.map((photo) => {
               return (
                 <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
-                  <StyledImage
-                    src={photo.urls.small}
-                    alt={photo.id}
-                  />
+                  <StyledImage src={photo.urls.small} alt={photo.id} />
                 </StyledLink>
               );
             })}

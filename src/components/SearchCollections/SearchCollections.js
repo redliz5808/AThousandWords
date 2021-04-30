@@ -49,17 +49,20 @@ class SearchCollections extends React.Component {
 
   render() {
     const { collectionData, searchTerm } = this.state;
+    const readyWithoutCollections =
+      collectionData && collectionData.total === 0;
+    const readyWithCollections = collectionData && collectionData.total > 0;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {collectionData && collectionData.total === 0 && (
+        {readyWithoutCollections && (
           <div>There are no results for {searchTerm}.</div>
         )}
-        {collectionData && collectionData.total > 0 && (
+        {readyWithCollections && (
           <StyledDiv>
             {collectionData.results.map((collection) => {
               return (
-                <Container>
+                <Container key={collection.id}>
                   <h3>{collection.title}</h3>
                   <img
                     src={collection.cover_photo.urls.small}
@@ -73,7 +76,9 @@ class SearchCollections extends React.Component {
                     })}
                   </PreviewPhotos>
                   <p>Total Photos: {collection.total_photos}</p>
-                  <StyledLink to={`/user/${collection.user.username}`}>{collection.user.name}</StyledLink>
+                  <StyledLink to={`/user/${collection.user.username}`}>
+                    {collection.user.name}
+                  </StyledLink>
                 </Container>
               );
             })}

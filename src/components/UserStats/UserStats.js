@@ -34,6 +34,8 @@ class UserStats extends React.Component {
 
   render() {
     const { stats } = this.state;
+    const readyWithoutUserStats = stats === undefined;
+    const readyWithUserStats = stats && stats !== undefined;
 
     const convertedNumbers = (x) => {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -42,11 +44,15 @@ class UserStats extends React.Component {
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {stats === undefined && <div>There are no stats for this user.</div>}
-        {stats && stats !== undefined && (
+        {readyWithoutUserStats && <div>There are no stats for this user.</div>}
+        {readyWithUserStats && (
           <div>
-            <div><ImCloudDownload /> {convertedNumbers(stats.downloads.total)}</div>
-            <div><FaEye /> {convertedNumbers(stats.views.total)}</div>
+            <div>
+              <ImCloudDownload /> {convertedNumbers(stats.downloads.total)}
+            </div>
+            <div>
+              <FaEye /> {convertedNumbers(stats.views.total)}
+            </div>
           </div>
         )}
       </>

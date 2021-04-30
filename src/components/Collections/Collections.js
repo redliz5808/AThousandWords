@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
+import unavilableCover from "assets/UnavailableCover.png";
 import {
   Container,
   StyledDiv,
@@ -10,7 +11,6 @@ import {
   PreviewPhotos,
   Preview,
 } from "./collections.styles";
-import unavilableCover from "../../assets/UnavailableCover.png";
 
 class Collections extends React.Component {
   state = {
@@ -31,7 +31,6 @@ class Collections extends React.Component {
       );
       this.setState({ collections: data, isLoading: false });
       this.loadingBar.current.complete();
-      console.log(this.state.collections)
     } catch (error) {
       console.log(error);
     }
@@ -43,34 +42,34 @@ class Collections extends React.Component {
 
   render() {
     const { collections } = this.state;
+    const readyWithoutCollections = collections && collections.length === 0;
+    const readyWithCollections = collections && collections.length > 0;
 
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {collections && collections.length === 0 && <div>This user does not have any collections.</div>}
-        {collections && collections.length > 0 && (
+        {readyWithoutCollections && (
+          <div>This user does not have any collections.</div>
+        )}
+        {readyWithCollections && (
           <Container>
             {collections.map((collection) => {
-              let imageSrc = "";
-              if (!collection.cover_photo) {
-                imageSrc = unavilableCover;
-              } else if (collection.cover_photo) {
-                imageSrc = collection.cover_photo.urls.small;
-              }
-              let previewPhotos = [];
-              if (!collection.preview_photos) {
-                previewPhotos = [];
-              } else if (collection.preview_photos) {
-                previewPhotos = collection.preview_photos;
-              }
+              let imageSrc = collection.cover_photo
+                ? collection.cover_photo.urls.small
+                : unavilableCover;
+              let previewPhotos = collection.preview_photos || [];
               return (
                 <StyledDiv key={collection.id}>
                   <Title>{collection.title}</Title>
-                  <img src={imageSrc} alt={collection.id} />
+                  <img src={imageSrc} alt={collection.title} />
                   <PreviewPhotos>
                     {previewPhotos.map((preview) => {
                       return (
-                        <Preview key={preview.id} src={preview.urls.thumb} alt={preview.id} />
+                        <Preview
+                          key={preview.id}
+                          src={preview.urls.thumb}
+                          alt={preview.id}
+                        />
                       );
                     })}
                   </PreviewPhotos>

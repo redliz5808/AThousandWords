@@ -45,17 +45,6 @@ class Photo extends React.Component {
 
   render() {
     const { data } = this.state;
-    const mappedData = () => {
-      if (data && data.tags === 1) return data.tags[0];
-      if (data && data.tags[2] === undefined)
-        return <span>There are no tags for this photo.</span>;
-      if (data && data.tags[2] !== undefined) {
-        const arr = Object.values(data.tags).map((tag) => {
-          return <TagLink to={`/search/${tag.title}`}>{tag.title}</TagLink>;
-        });
-        return arr;
-      }
-    };
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
@@ -74,7 +63,21 @@ class Photo extends React.Component {
               <Icon icon={<FaEye />} stats={data.views} />
             </StyledDiv>
             <TagsTitle>Tags:</TagsTitle>
-            <Tags>{mappedData()}</Tags>
+            <Tags>
+              {data && data.tags.length === 0 && (
+                <span>There are no tags for this photo.</span>
+              )}
+              {data &&
+                data.tags.length > 0 &&
+                data.tags.map((tag, index) => {
+                  if (index < 6) {
+                    return (
+                      <TagLink key={tag.title} to={`/search/${tag.title}`}>{tag.title}</TagLink>
+                    );
+                  }
+                  return null;
+                })}
+            </Tags>
           </Container>
         )}
       </>

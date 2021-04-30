@@ -43,20 +43,20 @@ class SearchUsers extends React.Component {
 
   render() {
     const { userData, searchTerm } = this.state;
+    const readyWithoutUsers = userData && userData.total === 0;
+    const readyWithUsers = userData && userData.total > 0;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {userData && userData.total === 0 && (
-          <div>There are no results for {searchTerm}.</div>
-        )}
-        {userData && userData.total > 0 && (
+        {readyWithoutUsers && <div>There are no results for {searchTerm}.</div>}
+        {readyWithUsers && (
           <Container>
             {userData.results.map((user) => {
               return (
-                <StyledLink to={`/user/${user.username}`}>
+                <StyledLink key={user.id} to={`/user/${user.username}`}>
                   <h3>{user.name}</h3>
                   <img src={user.profile_image.large} alt={user.name} />
-                  <Bio>{user.bio}</Bio>
+                  {user.bio ? <Bio>{user.bio}</Bio> : null}
                 </StyledLink>
               );
             })}

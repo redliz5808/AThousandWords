@@ -43,16 +43,22 @@ class SearchPhotos extends React.Component {
 
   render() {
     const { photoData, searchTerm } = this.state;
+    const readyWithoutPhotos = photoData && photoData.total === 0;
+    const readyWithPhotos = photoData && photoData.total > 0;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {photoData && photoData.total === 0 && (
+        {readyWithoutPhotos && (
           <div>There are no results for {searchTerm}.</div>
         )}
-        {photoData && photoData.total > 0 && (
+        {readyWithPhotos && (
           <Container>
             {photoData.results.map((photo) => {
-              return (<StyledLink to={`/photo/${photo.id}`}><StyledImage src={photo.urls.small} alt={photo.id} /></StyledLink>);
+              return (
+                <StyledLink to={`/photo/${photo.id}`}>
+                  <StyledImage src={photo.urls.small} alt={photo.id} />
+                </StyledLink>
+              );
             })}
           </Container>
         )}

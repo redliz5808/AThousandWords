@@ -44,4 +44,8 @@ export const TagsTitle = styled.h4`
 
 export const Tags = styled.p`
   margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 `;

@@ -56,7 +56,7 @@ class User extends React.Component {
             <img src={data.profile_image.large} alt={data.name} />
             <h1>{data.name}</h1>
             {data.badge ? <Verified>Verified ✓</Verified> : ""}
-            <h3>{data.bio}</h3>
+            {data.bio ? <h4>{data.bio}</h4> : null}
             {data.instagram_username && (
               <InstagramUser
                 href={`https://www.instagram.com/${data.instagram_username}`}
