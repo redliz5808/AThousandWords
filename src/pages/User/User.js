@@ -4,7 +4,6 @@ import axios from "axios";
 import Paper from "@material-ui/core/Paper";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
-import { RiInstagramFill } from "react-icons/ri";
 import { Photos, Collections, UserStats } from "components";
 import { Verified, InstagramUser } from "./user.styles";
 
@@ -42,11 +41,11 @@ class User extends React.Component {
 
   handleChange = (event, newValue) => {
     this.setState({ value: newValue });
-  }
+  };
 
   render() {
     const { data, value } = this.state;
-    const isPhotos = value === 0 ;
+    const isPhotos = value === 0;
     const isCollections = value === 1;
     const isStats = value === 2;
     return (
@@ -54,17 +53,18 @@ class User extends React.Component {
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {this.state.data && !this.state.isLoading && (
           <>
-            <img src={data.profile_image.medium} alt={data.name} />
+            <img src={data.profile_image.large} alt={data.name} />
             <h1>{data.name}</h1>
             {data.badge ? <Verified>Verified ✓</Verified> : ""}
-            <h3>{data.bio}</h3>
-            <RiInstagramFill />
-            <InstagramUser
-              href={`https://www.instagram.com/${data.instagram_username}`}
-              target="_blank"
-            >
-              @{data.instagram_username}
-            </InstagramUser>
+            {data.bio ? <h4>{data.bio}</h4> : null}
+            {data.instagram_username && (
+              <InstagramUser
+                href={`https://www.instagram.com/${data.instagram_username}`}
+                target="_blank"
+              >
+                @{data.instagram_username}
+              </InstagramUser>
+            )}
             <Paper square>
               <Tabs
                 value={value}

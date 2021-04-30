@@ -8,11 +8,13 @@ export const Container = styled.div`
   align-items: flex-start;
 `;
 
-export const StyledImage = styled.img`
-  margin: 5px;
-`
-
 export const StyledLink = styled(Link)`
+  color: black;
   text-decoration: none;
-  color: #6958f2;
-`
+`;
+
+export const StyledImage = styled.img`
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid black;
+`;
