@@ -19,13 +19,12 @@ class SearchCollections extends React.Component {
   loadingBar = React.createRef();
 
   getCollectionData = async (searchTerm) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/search`;
 
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${baseUrl}/collections?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/search/collections?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ collectionData: data, isLoading: false });
       this.loadingBar.current.complete();

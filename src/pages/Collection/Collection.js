@@ -13,13 +13,12 @@ class Collection extends React.Component {
   loadingBar = React.createRef();
 
   retrieveData = async (collectionid) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/collections`;
 
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${baseUrl}/${collectionid}?client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/collections/${collectionid}?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ data, isLoading: false });
       this.loadingBar.current.complete();

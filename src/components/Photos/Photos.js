@@ -12,13 +12,12 @@ class Photos extends React.Component {
   loadingBar = React.createRef();
 
   retrieveUserPhotos = async (username) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
-
+    
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${baseUrl}/${username}/photos?per_page=12&client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/users/${username}/photos?per_page=12&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ photos: data, isLoading: false });
       this.loadingBar.current.complete();

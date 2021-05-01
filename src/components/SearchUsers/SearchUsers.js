@@ -12,13 +12,12 @@ class SearchUsers extends React.Component {
   loadingBar = React.createRef();
 
   getUserData = async (searchTerm) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/search`;
   
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${baseUrl}/users?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/search/users?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ userData: data, isLoading: false });
       this.loadingBar.current.complete();

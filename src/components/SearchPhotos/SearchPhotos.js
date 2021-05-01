@@ -12,13 +12,12 @@ class SearchPhotos extends React.Component {
   loadingBar = React.createRef();
 
   getPhotoData = async (searchTerm) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/search`;
 
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${baseUrl}/photos?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/search/photos?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ photoData: data, isLoading: false });
       this.loadingBar.current.complete();

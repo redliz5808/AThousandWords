@@ -22,13 +22,12 @@ class Photo extends React.Component {
   loadingBar = React.createRef();
 
   retrievePhoto = async (photoid) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/photos`;
 
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${baseUrl}/${photoid}?client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/photos/${photoid}?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ data, isLoading: false });
       this.loadingBar.current.complete();

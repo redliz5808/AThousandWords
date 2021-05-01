@@ -23,13 +23,12 @@ class Collections extends React.Component {
   baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
 
   retrieveCollections = async (username) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
   
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${baseUrl}/${username}/collections?client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/users/${username}/collections?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ collections: data, isLoading: false });
       this.loadingBar.current.complete();

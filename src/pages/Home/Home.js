@@ -22,6 +22,7 @@ class Home extends React.Component {
   loadingBar = React.createRef();
 
   retrievePhotos = async (page) => {
+    
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });

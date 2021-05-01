@@ -10,11 +10,10 @@ class CollectionPhotos extends React.Component {
   };
 
   retrieveCollectionPhotos = async (collectionid) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/collections`;
 
     try {
       const { data } = await axios(
-        `${baseUrl}/${collectionid}/photos?client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/collections/${collectionid}/photos?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ data });
     } catch (error) {

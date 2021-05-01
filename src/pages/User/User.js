@@ -18,13 +18,12 @@ class User extends React.Component {
   loadingBar = React.createRef();
 
   retrieveUserData = async (username) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
 
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${baseUrl}/${username}?client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/users/${username}?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ data, isLoading: false });
       this.loadingBar.current.complete();
@@ -56,16 +55,16 @@ class User extends React.Component {
           <>
             <img src={data.profile_image.large} alt={data.name} />
             <h1>{data.name}</h1>
-            {data.badge ? <Verified>Verified ✓</Verified> : null}
-            {data.bio ? <h4>{data.bio}</h4> : null}
-            {data.instagram_username ? (
+            {data.badge && <Verified>Verified ✓</Verified>}
+            {data.bio && <h4>{data.bio}</h4>}
+            {data.instagram_username && (
               <InstagramUser
                 href={`https://www.instagram.com/${data.instagram_username}`}
                 target="_blank"
               >
                 @{data.instagram_username}
               </InstagramUser>
-            ) : null}
+            )}
             <Paper square>
               <Tabs
                 value={value}
