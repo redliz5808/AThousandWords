@@ -3,10 +3,11 @@ import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import {
   StyledDiv,
-  Container,
+  CollectionLink,
   PreviewPhotos,
   Preview,
   StyledLink,
+  Total,
 } from "./searchCollections.styles.js";
 
 class SearchCollections extends React.Component {
@@ -17,14 +18,14 @@ class SearchCollections extends React.Component {
 
   loadingBar = React.createRef();
 
-  baseUrl = `${process.env.REACT_APP_API_BASE_URL}/search`;
-
   getCollectionData = async (searchTerm) => {
+    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/search`;
+
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${this.baseUrl}/collections?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
+        `${baseUrl}/collections?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ collectionData: data, isLoading: false });
       this.loadingBar.current.complete();
@@ -36,19 +37,18 @@ class SearchCollections extends React.Component {
   componentDidMount() {
     const { searchTerm } = this.props;
     this.getCollectionData(searchTerm);
-    this.setState({ searchTerm });
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { searchTerm } = this.props;
     if (prevProps.searchTerm !== searchTerm) {
       this.getCollectionData(searchTerm);
-      this.setState({ searchTerm });
     }
   }
 
   render() {
-    const { collectionData, searchTerm } = this.state;
+    const { searchTerm } = this.props;
+    const { collectionData } = this.state;
     const readyWithoutCollections =
       collectionData && collectionData.total === 0;
     const readyWithCollections = collectionData && collectionData.total > 0;
@@ -62,7 +62,10 @@ class SearchCollections extends React.Component {
           <StyledDiv>
             {collectionData.results.map((collection) => {
               return (
-                <Container key={collection.id}>
+                <CollectionLink
+                  key={collection.id}
+                  to={`/collection/${collection.id}`}
+                >
                   <h3>{collection.title}</h3>
                   <img
                     src={collection.cover_photo.urls.small}
@@ -75,11 +78,11 @@ class SearchCollections extends React.Component {
                       );
                     })}
                   </PreviewPhotos>
-                  <p>Total Photos: {collection.total_photos}</p>
+                  <Total>Total Photos: {collection.total_photos}</Total>
                   <StyledLink to={`/user/${collection.user.username}`}>
                     {collection.user.name}
                   </StyledLink>
-                </Container>
+                </CollectionLink>
               );
             })}
           </StyledDiv>

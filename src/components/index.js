@@ -1,5 +1,4 @@
 export { default as Pagination } from "./Pagination";
-export { default as UserName } from "./UserName";
 export { default as Icon } from "./Icon";
 export { default as SearchBar } from "./SearchBar";
 export { default as Photos } from "./Photos";
@@ -8,3 +7,4 @@ export { default as UserStats } from "./UserStats";
 export { default as SearchPhotos } from "./SearchPhotos";
 export { default as SearchCollections } from "./SearchCollections";
 export { default as SearchUsers } from "./SearchUsers";
+export { default as CollectionPhotos } from "./CollectionPhotos";

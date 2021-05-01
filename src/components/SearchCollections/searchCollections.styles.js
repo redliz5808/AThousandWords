@@ -8,11 +8,13 @@ export const StyledDiv = styled.div`
   flex-wrap: wrap;
 `
 
-export const Container = styled.div`
+export const CollectionLink = styled(Link)`
   display: inline-block;
   border: 1px solid black;
   border-radius: 5px;
   margin: 20px;
+  text-decoration: none;
+  color: #6958f2;
 `
 
 export const PreviewPhotos = styled.div`
@@ -28,4 +30,8 @@ export const Preview = styled.img`
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: #6958f2;
+`
+
+export const Total = styled.p`
+  color: black;
 `

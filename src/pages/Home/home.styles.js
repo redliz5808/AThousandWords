@@ -11,7 +11,7 @@ export const MainContainer = styled.div`
 export const StyledLink = styled(Link)`
   display: inline;
   text-decoration: none;
-  color: black;
+  color: #6958f2;
 `
 
 export const SubContainer = styled.div`

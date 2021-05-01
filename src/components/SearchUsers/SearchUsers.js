@@ -11,14 +11,14 @@ class SearchUsers extends React.Component {
 
   loadingBar = React.createRef();
 
-  baseUrl = `${process.env.REACT_APP_API_BASE_URL}/search`;
-
   getUserData = async (searchTerm) => {
+    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/search`;
+  
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${this.baseUrl}/users?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
+        `${baseUrl}/users?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ userData: data, isLoading: false });
       this.loadingBar.current.complete();
@@ -30,19 +30,18 @@ class SearchUsers extends React.Component {
   componentDidMount() {
     const { searchTerm } = this.props;
     this.getUserData(searchTerm);
-    this.setState({ searchTerm });
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { searchTerm } = this.props;
     if (prevProps.searchTerm !== searchTerm) {
       this.getUserData(searchTerm);
-      this.setState({ searchTerm });
     }
   }
 
   render() {
-    const { userData, searchTerm } = this.state;
+    const { searchTerm } = this.props;
+    const { userData } = this.state;
     const readyWithoutUsers = userData && userData.total === 0;
     const readyWithUsers = userData && userData.total > 0;
     return (

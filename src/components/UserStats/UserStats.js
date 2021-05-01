@@ -12,14 +12,14 @@ class UserStats extends React.Component {
 
   loadingBar = React.createRef();
 
-  baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
-
   retrieveStats = async (username) => {
+    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
+  
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${this.baseUrl}/${username}/statistics?client_id=${process.env.REACT_APP_API_KEY}`
+        `${baseUrl}/${username}/statistics?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ stats: data, isLoading: false });
       this.loadingBar.current.complete();
@@ -46,14 +46,14 @@ class UserStats extends React.Component {
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {readyWithoutUserStats && <div>There are no stats for this user.</div>}
         {readyWithUserStats && (
-          <div>
+          <>
             <div>
               <ImCloudDownload /> {convertedNumbers(stats.downloads.total)}
             </div>
             <div>
               <FaEye /> {convertedNumbers(stats.views.total)}
             </div>
-          </div>
+          </>
         )}
       </>
     );

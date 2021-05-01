@@ -1,19 +1,10 @@
 import React from "react";
 import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
-import { FaHeart, FaEye } from "react-icons/fa";
-import { Icon } from "components";
-import {
-  MainImage,
-  Container,
-  StyledLink,
-  UserImage,
-  StyledDiv,
-  TagLink,
-  Tags,
-} from "./photo.styles";
+import { CollectionPhotos } from "components";
+import { StyledLink, Tags, TagLink } from "./collection.styles";
 
-class Photo extends React.Component {
+class Collection extends React.Component {
   state = {
     data: null,
     isLoading: false,
@@ -21,14 +12,14 @@ class Photo extends React.Component {
 
   loadingBar = React.createRef();
 
-  retrievePhoto = async (photoid) => {
-    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/photos`;
+  retrieveData = async (collectionid) => {
+    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/collections`;
 
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${baseUrl}/${photoid}?client_id=${process.env.REACT_APP_API_KEY}`
+        `${baseUrl}/${collectionid}?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ data, isLoading: false });
       this.loadingBar.current.complete();
@@ -38,31 +29,25 @@ class Photo extends React.Component {
   };
 
   componentDidMount() {
-    const { photoid } = this.props.match.params;
-    this.retrievePhoto(photoid);
+    const { collectionid } = this.props.match.params;
+    this.retrieveData(collectionid);
   }
 
   render() {
     const { data } = this.state;
+    const readyToLoad = this.state.data && !this.state.isLoading;
     const tagsAvailable = data && data.tags.length > 0;
 
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {data && (
-          <Container>
+        {readyToLoad && (
+          <>
+            <h1>{data.title}</h1>
+            {data.description ? <h3>{data.description}</h3> : null}
             <StyledLink to={`/user/${data.user.username}`}>
-              <UserImage
-                src={data.user.profile_image.medium}
-                alt={data.user.username}
-              />
-              <h4>{data.user.name}</h4>
+              {data.user.name}
             </StyledLink>
-            <MainImage src={data.urls.regular} alt={data.alt_description} />
-            <StyledDiv>
-              <Icon icon={<FaHeart />} stats={data.likes} />
-              <Icon icon={<FaEye />} stats={data.views} />
-            </StyledDiv>
             <Tags>
               {tagsAvailable &&
                 data.tags.map((tag, index) => {
@@ -76,11 +61,12 @@ class Photo extends React.Component {
                   return null;
                 })}
             </Tags>
-          </Container>
+            <CollectionPhotos collectionid={data.id} />
+          </>
         )}
       </>
     );
   }
 }
 
-export default Photo;
+export default Collection;
