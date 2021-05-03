@@ -1,14 +1,20 @@
-import { StyledSpan, StyledIcon } from "./icon.styles";
+import { StyledSpan, StyledIcon, StyledButton } from "./icon.styles";
 
 const convertedNumbers = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const Icon = ({ icon, stats }) => {
+const Icon = (props) => {
+  const handleFavoriteClick = () => {
+    props.handleFavoriteClick(props.id);
+  };
+
   return (
     <StyledSpan>
-      <StyledIcon>{icon}</StyledIcon>
-      {convertedNumbers(stats)}
+      <StyledButton color={props.color} onClick={handleFavoriteClick}>
+        <StyledIcon>{props.icon}</StyledIcon>
+      </StyledButton>
+      {convertedNumbers(props.stats)}
     </StyledSpan>
   );
 };

@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import { Photos, Collections, UserStats } from "components";
-import { Verified, InstagramUser } from "./user.styles";
+import { Container, Verified, InstagramUser } from "./user.styles";
 
 class User extends React.Component {
   state = {
@@ -18,7 +18,6 @@ class User extends React.Component {
   loadingBar = React.createRef();
 
   retrieveUserData = async (username) => {
-
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
@@ -49,7 +48,7 @@ class User extends React.Component {
     const isStats = value === 2;
     const readyToLoad = this.state.data && !this.state.isLoading;
     return (
-      <>
+      <Container>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {readyToLoad && (
           <>
@@ -82,7 +81,7 @@ class User extends React.Component {
             </Paper>
           </>
         )}
-      </>
+      </Container>
     );
   }
 }

@@ -7,4 +7,11 @@ export const StyledSpan = styled.span`
 
 export const StyledIcon = styled.span`
   margin-right: 4px;
-`
+`;
+
+export const StyledButton = styled.button`
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: ${(props) => props.color || "black"};
+`;

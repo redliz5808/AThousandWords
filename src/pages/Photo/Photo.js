@@ -17,12 +17,12 @@ class Photo extends React.Component {
   state = {
     data: null,
     isLoading: false,
+    favoritePhotos: {},
   };
 
   loadingBar = React.createRef();
 
   retrievePhoto = async (photoid) => {
-
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
@@ -39,7 +39,24 @@ class Photo extends React.Component {
   componentDidMount() {
     const { photoid } = this.props.match.params;
     this.retrievePhoto(photoid);
+    let favoritePhotos =
+      JSON.parse(localStorage.getItem("favoritePhotos")) || {};
+    this.setState({ favoritePhotos });
   }
+
+  handleFavoriteClick = (id) => {
+    if (this.state.favoritePhotos[id]) {
+      const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
+      delete favoritesList[id];
+      this.setState({ favoritePhotos: favoritesList });
+      localStorage.setItem("favoritePhotos", JSON.stringify(favoritesList));
+    } else {
+      const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
+      const newFavoritesList = { ...favoritesList, [id]: id };
+      this.setState({ favoritePhotos: newFavoritesList });
+      localStorage.setItem("favoritePhotos", JSON.stringify(newFavoritesList));
+    }
+  };
 
   render() {
     const { data } = this.state;
@@ -59,7 +76,25 @@ class Photo extends React.Component {
             </StyledLink>
             <MainImage src={data.urls.regular} alt={data.alt_description} />
             <StyledDiv>
-              <Icon icon={<FaHeart />} stats={data.likes} />
+              {Object.values(this.state.favoritePhotos).find((id) => {
+                return id === data.id;
+              }) ? (
+                <Icon
+                  id={data.id}
+                  handleFavoriteClick={this.handleFavoriteClick}
+                  icon={<FaHeart />}
+                  stats={data.likes}
+                  color="#6958f2"
+                />
+              ) : (
+                <Icon
+                  id={data.id}
+                  handleFavoriteClick={this.handleFavoriteClick}
+                  icon={<FaHeart />}
+                  stats={data.likes}
+                  color="#000"
+                />
+              )}
               <Icon icon={<FaEye />} stats={data.views} />
             </StyledDiv>
             <Tags>

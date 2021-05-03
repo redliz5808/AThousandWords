@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import { CollectionPhotos } from "components";
-import { StyledLink, Tags, TagLink } from "./collection.styles";
+import { Container, StyledLink, Tags, TagLink } from "./collection.styles";
 
 class Collection extends React.Component {
   state = {
@@ -13,7 +13,6 @@ class Collection extends React.Component {
   loadingBar = React.createRef();
 
   retrieveData = async (collectionid) => {
-
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
@@ -38,7 +37,7 @@ class Collection extends React.Component {
     const tagsAvailable = data && data.tags.length > 0;
 
     return (
-      <>
+      <Container>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {readyToLoad && (
           <>
@@ -63,7 +62,7 @@ class Collection extends React.Component {
             <CollectionPhotos collectionid={data.id} />
           </>
         )}
-      </>
+      </Container>
     );
   }
 }
