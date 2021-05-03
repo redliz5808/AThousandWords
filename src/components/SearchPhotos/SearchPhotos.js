@@ -11,14 +11,13 @@ class SearchPhotos extends React.Component {
 
   loadingBar = React.createRef();
 
-  baseUrl = `${process.env.REACT_APP_API_BASE_URL}/search`;
-
   getPhotoData = async (searchTerm) => {
+
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${this.baseUrl}/photos?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/search/photos?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ photoData: data, isLoading: false });
       this.loadingBar.current.complete();
@@ -30,19 +29,18 @@ class SearchPhotos extends React.Component {
   componentDidMount() {
     const { searchTerm } = this.props;
     this.getPhotoData(searchTerm);
-    this.setState({ searchTerm });
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { searchTerm } = this.props;
     if (prevProps.searchTerm !== searchTerm) {
       this.getPhotoData(searchTerm);
-      this.setState({ searchTerm });
     }
   }
 
   render() {
-    const { photoData, searchTerm } = this.state;
+    const { searchTerm } = this.props;
+    const { photoData } = this.state;
     const readyWithoutPhotos = photoData && photoData.total === 0;
     const readyWithPhotos = photoData && photoData.total > 0;
     return (

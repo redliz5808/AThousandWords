@@ -4,7 +4,7 @@ import LoadingBar from "react-top-loading-bar";
 import queryString from "query-string";
 import LazyLoad from "react-lazyload";
 import { FaHeart } from "react-icons/fa";
-import { Pagination, UserName, Icon } from "components";
+import { Pagination, Icon } from "components";
 import {
   MainContainer,
   StyledLink,
@@ -22,6 +22,7 @@ class Home extends React.Component {
   loadingBar = React.createRef();
 
   retrievePhotos = async (page) => {
+    
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
@@ -98,7 +99,7 @@ class Home extends React.Component {
                           />
                         </StyledLink>
                         <StyledLink to={`/user/${value.user.username}`}>
-                          <UserName username={value.user.name} />
+                          <div>{value.user.name}</div>
                         </StyledLink>
                         <Icon icon={<FaHeart />} stats={value.likes} />
                       </ImageContainer>

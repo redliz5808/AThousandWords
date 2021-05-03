@@ -4,7 +4,7 @@ import LoadingBar from "react-top-loading-bar";
 import unavilableCover from "assets/UnavailableCover.png";
 import {
   Container,
-  StyledDiv,
+  StyledLink,
   Title,
   Description,
   Total,
@@ -23,11 +23,12 @@ class Collections extends React.Component {
   baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
 
   retrieveCollections = async (username) => {
+  
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${this.baseUrl}/${username}/collections?client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/users/${username}/collections?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ collections: data, isLoading: false });
       this.loadingBar.current.complete();
@@ -59,7 +60,7 @@ class Collections extends React.Component {
                 : unavilableCover;
               let previewPhotos = collection.preview_photos || [];
               return (
-                <StyledDiv key={collection.id}>
+                <StyledLink key={collection.id} to={`/collection/${collection.id}`}>
                   <Title>{collection.title}</Title>
                   <img src={imageSrc} alt={collection.title} />
                   <PreviewPhotos>
@@ -75,7 +76,7 @@ class Collections extends React.Component {
                   </PreviewPhotos>
                   <Description>{collection.description}</Description>
                   <Total>Total Photos: {collection.total_photos}</Total>
-                </StyledDiv>
+                </StyledLink>
               );
             })}
           </Container>

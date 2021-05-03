@@ -38,12 +38,9 @@ export const MainImage = styled.img`
 export const StyledDiv = styled.div`
   margin-top: 10px;
 `;
-export const TagsTitle = styled.h4`
-  margin-bottom: 5px;
-`;
 
 export const Tags = styled.p`
-  margin-top: 0px;
+  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

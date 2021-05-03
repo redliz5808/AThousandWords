@@ -6,10 +6,11 @@ export const Container = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
-`;
+`
 
 export const StyledLink = styled(Link)`
   margin: 20px;
+  padding: 5px;
   border: 1px solid black;
   border-radius: 5px;
   display: inline-block;
@@ -17,24 +18,6 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-export const Title = styled.h1`
-  font-size: 18px;
+export const StyledDiv = styled.div`
+  margin-top: 10px;
 `;
-
-export const Description = styled.p`
-  font-size: 14px;
-`;
-
-export const Total = styled.p`
-  font-size: 14px;
-`;
-
-export const PreviewPhotos = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Preview = styled.img`
-  max-width: 100px;
-`

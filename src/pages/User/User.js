@@ -15,16 +15,15 @@ class User extends React.Component {
     isLoading: false,
   };
 
-  baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
-
   loadingBar = React.createRef();
 
   retrieveUserData = async (username) => {
+
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${this.baseUrl}/${username}?client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/users/${username}?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ data, isLoading: false });
       this.loadingBar.current.complete();
@@ -44,19 +43,20 @@ class User extends React.Component {
   };
 
   render() {
-    const { data, value } = this.state;
+    const { data, value, username } = this.state;
     const isPhotos = value === 0;
     const isCollections = value === 1;
     const isStats = value === 2;
+    const readyToLoad = this.state.data && !this.state.isLoading;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {this.state.data && !this.state.isLoading && (
+        {readyToLoad && (
           <>
             <img src={data.profile_image.large} alt={data.name} />
             <h1>{data.name}</h1>
-            {data.badge ? <Verified>Verified ✓</Verified> : ""}
-            {data.bio ? <h4>{data.bio}</h4> : null}
+            {data.badge && <Verified>Verified ✓</Verified>}
+            {data.bio && <h4>{data.bio}</h4>}
             {data.instagram_username && (
               <InstagramUser
                 href={`https://www.instagram.com/${data.instagram_username}`}
@@ -76,9 +76,9 @@ class User extends React.Component {
                 <Tab label="Collections" />
                 <Tab label="Stats" />
               </Tabs>
-              {isPhotos && <Photos username={this.state.username} />}
-              {isCollections && <Collections username={this.state.username} />}
-              {isStats && <UserStats username={this.state.username} />}
+              {isPhotos && <Photos username={username} />}
+              {isCollections && <Collections username={username} />}
+              {isStats && <UserStats username={username} />}
             </Paper>
           </>
         )}
