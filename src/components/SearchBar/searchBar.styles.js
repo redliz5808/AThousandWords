@@ -8,4 +8,9 @@ export const StyledInput = styled.input`
   font-size: 16px;
   padding: 7px;
   width: 300px;
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
 `;

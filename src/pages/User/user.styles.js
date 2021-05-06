@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  margin-left: 10px;
+  @media (max-width: 768px) {
+    margin-left: 30px;
+  }
+`;
+
 export const Verified = styled.span`
   background-color: green;
   color: white;
@@ -12,4 +19,8 @@ export const Followers = styled.div``;
 export const InstagramUser = styled.a`
   text-decoration: none;
   color: black;
+`;
+
+export const StyledSpan = styled.span`
+  margin-top: 10px;
 `;

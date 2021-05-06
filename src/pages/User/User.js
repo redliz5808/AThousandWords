@@ -4,8 +4,9 @@ import axios from "axios";
 import Paper from "@material-ui/core/Paper";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
-import { Photos, Collections, UserStats } from "components";
-import { Verified, InstagramUser } from "./user.styles";
+import { FaHeart } from "react-icons/fa";
+import { Photos, Collections, UserStats, Icon } from "components";
+import { Container, Verified, InstagramUser, StyledSpan } from "./user.styles";
 
 class User extends React.Component {
   state = {
@@ -13,12 +14,12 @@ class User extends React.Component {
     username: "",
     value: 0,
     isLoading: false,
+    favoriteUsers: {},
   };
 
   loadingBar = React.createRef();
 
   retrieveUserData = async (username) => {
-
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
@@ -36,10 +37,26 @@ class User extends React.Component {
     const { username } = this.props.match.params;
     this.retrieveUserData(username);
     this.setState({ username });
+    let favoriteUsers = JSON.parse(localStorage.getItem("favoriteUsers")) || {};
+    this.setState({ favoriteUsers });
   }
 
   handleChange = (event, newValue) => {
     this.setState({ value: newValue });
+  };
+
+  handleFavoriteClick = (id) => {
+    if (this.state.favoriteUsers[id]) {
+      const favoritesList = JSON.parse(localStorage.getItem("favoriteUsers"));
+      delete favoritesList[id];
+      this.setState({ favoriteUsers: favoritesList });
+      localStorage.setItem("favoriteUsers", JSON.stringify(favoritesList));
+    } else {
+      const favoritesList = JSON.parse(localStorage.getItem("favoriteUsers"));
+      const newFavoritesList = { ...favoritesList, [id]: id };
+      this.setState({ favoriteUsers: newFavoritesList });
+      localStorage.setItem("favoriteUsers", JSON.stringify(newFavoritesList));
+    }
   };
 
   render() {
@@ -49,12 +66,31 @@ class User extends React.Component {
     const isStats = value === 2;
     const readyToLoad = this.state.data && !this.state.isLoading;
     return (
-      <>
+      <Container>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {readyToLoad && (
           <>
             <img src={data.profile_image.large} alt={data.name} />
             <h1>{data.name}</h1>
+            <StyledSpan>
+              {this.state.favoriteUsers[data.username] ? (
+                <Icon
+                  id={data.username}
+                  handleFavoriteClick={this.handleFavoriteClick}
+                  icon={<FaHeart />}
+                  color="#6958f2"
+                  stats=""
+                />
+              ) : (
+                <Icon
+                  id={data.username}
+                  handleFavoriteClick={this.handleFavoriteClick}
+                  icon={<FaHeart />}
+                  color="#000"
+                  stats=""
+                />
+              )}
+            </StyledSpan>
             {data.badge && <Verified>Verified ✓</Verified>}
             {data.bio && <h4>{data.bio}</h4>}
             {data.instagram_username && (
@@ -82,7 +118,7 @@ class User extends React.Component {
             </Paper>
           </>
         )}
-      </>
+      </Container>
     );
   }
 }

@@ -1,12 +1,18 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const Container = styled.div`
+  margin-left: 10px;
+  @media (max-width: 768px) {
+    margin-left: 30px;
+  }
+`;
+
 export const StyledLink = styled(Link)`
   display: inline;
   text-decoration: none;
   color: #6958f2;
-`
-
+`;
 
 export const TagLink = styled(Link)`
   text-decoration: none;
@@ -15,7 +21,7 @@ export const TagLink = styled(Link)`
   border-radius: 3px;
   padding: 5px;
   margin: 5px;
-`
+`;
 
 export const Tags = styled.p`
   margin-top: 10px;

@@ -17,12 +17,12 @@ class Home extends React.Component {
     data: null,
     isLoading: false,
     page: 1,
+    favoritePhotos: {},
   };
 
   loadingBar = React.createRef();
 
   retrievePhotos = async (page) => {
-    
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
@@ -43,6 +43,9 @@ class Home extends React.Component {
       });
       this.setState(parsed);
       this.retrievePhotos(parsed.page);
+      let favoritePhotos =
+        JSON.parse(localStorage.getItem("favoritePhotos")) || {};
+      this.setState({ favoritePhotos });
     } else {
       const { page } = this.state;
       const query = queryString.stringify({ page });
@@ -80,11 +83,30 @@ class Home extends React.Component {
     }
   };
 
+  handleFavoriteClick = (id) => {
+    if (this.state.favoritePhotos[id]) {
+      const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
+      delete favoritesList[id];
+      this.setState({ favoritePhotos: favoritesList });
+      localStorage.setItem("favoritePhotos", JSON.stringify(favoritesList));
+    } else {
+      const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
+      const newFavoritesList = { ...favoritesList, [id]: id };
+      this.setState({ favoritePhotos: newFavoritesList });
+      localStorage.setItem("favoritePhotos", JSON.stringify(newFavoritesList));
+    }
+  };
+
+  handleHeartclick = () => {
+    this.setState({ isClick: !this.state.isClick });
+  };
+
   render() {
+    const readyToLoad = this.state.data && !this.state.isLoading;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {this.state.data && !this.state.isLoading && (
+        {readyToLoad && (
           <>
             <MainContainer>
               {Object.values(this.state.data).map((value) => {
@@ -101,7 +123,23 @@ class Home extends React.Component {
                         <StyledLink to={`/user/${value.user.username}`}>
                           <div>{value.user.name}</div>
                         </StyledLink>
-                        <Icon icon={<FaHeart />} stats={value.likes} />
+                        {this.state.favoritePhotos[value.id] ? (
+                          <Icon
+                            id={value.id}
+                            handleFavoriteClick={this.handleFavoriteClick}
+                            icon={<FaHeart />}
+                            stats={value.likes}
+                            color="#6958f2"
+                          />
+                        ) : (
+                          <Icon
+                            id={value.id}
+                            handleFavoriteClick={this.handleFavoriteClick}
+                            icon={<FaHeart />}
+                            stats={value.likes}
+                            color="#000"
+                          />
+                        )}
                       </ImageContainer>
                     </SubContainer>
                   </LazyLoad>

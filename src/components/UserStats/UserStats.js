@@ -3,6 +3,7 @@ import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import { FaEye } from "react-icons/fa";
 import { ImCloudDownload } from "react-icons/im";
+import { StyledDiv } from "./userStats.styles";
 
 class UserStats extends React.Component {
   state = {
@@ -13,7 +14,6 @@ class UserStats extends React.Component {
   loadingBar = React.createRef();
 
   retrieveStats = async (username) => {
-  
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
@@ -46,12 +46,12 @@ class UserStats extends React.Component {
         {readyWithoutUserStats && <div>There are no stats for this user.</div>}
         {readyWithUserStats && (
           <>
-            <div>
+            <StyledDiv>
               <ImCloudDownload /> {convertedNumbers(stats.downloads.total)}
-            </div>
-            <div>
+            </StyledDiv>
+            <StyledDiv>
               <FaEye /> {convertedNumbers(stats.views.total)}
-            </div>
+            </StyledDiv>
           </>
         )}
       </>

@@ -7,15 +7,16 @@ import { Container, StyledLink, StyledDiv } from "./collectionPhotos.styles";
 class CollectionPhotos extends React.Component {
   state = {
     data: null,
+    isLoading: false,
   };
 
   retrieveCollectionPhotos = async (collectionid) => {
-
     try {
+      this.setState({ isLoading: true });
       const { data } = await axios(
         `${process.env.REACT_APP_API_BASE_URL}/collections/${collectionid}/photos?client_id=${process.env.REACT_APP_API_KEY}`
       );
-      this.setState({ data });
+      this.setState({ data, isLoading: false });
     } catch (error) {
       console.log(error);
     }
@@ -27,8 +28,8 @@ class CollectionPhotos extends React.Component {
   }
 
   render() {
-    const { data } = this.state;
-    const readyWithPhotos = data;
+    const { data, isLoading } = this.state;
+    const readyWithPhotos = data && !isLoading;
 
     return (
       <>
