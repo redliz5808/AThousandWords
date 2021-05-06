@@ -12,7 +12,6 @@ class SearchPhotos extends React.Component {
   loadingBar = React.createRef();
 
   getPhotoData = async (searchTerm) => {
-
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
@@ -53,7 +52,7 @@ class SearchPhotos extends React.Component {
           <Container>
             {photoData.results.map((photo) => {
               return (
-                <StyledLink to={`/photo/${photo.id}`}>
+                <StyledLink key={photo.id} to={`/photo/${photo.id}`}>
                   <StyledImage src={photo.urls.small} alt={photo.id} />
                 </StyledLink>
               );

@@ -1,7 +1,9 @@
 import { StyledSpan, StyledIcon, StyledButton } from "./icon.styles";
 
 const convertedNumbers = (x) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  if (x !== undefined) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 };
 
 const Icon = (props) => {

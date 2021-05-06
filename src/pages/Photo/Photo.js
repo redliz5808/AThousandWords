@@ -76,9 +76,7 @@ class Photo extends React.Component {
             </StyledLink>
             <MainImage src={data.urls.regular} alt={data.alt_description} />
             <StyledDiv>
-              {Object.values(this.state.favoritePhotos).find((id) => {
-                return id === data.id;
-              }) ? (
+              {this.state.favoritePhotos[data.id] ? (
                 <Icon
                   id={data.id}
                   handleFavoriteClick={this.handleFavoriteClick}
@@ -99,16 +97,13 @@ class Photo extends React.Component {
             </StyledDiv>
             <Tags>
               {tagsAvailable &&
-                data.tags.map((tag, index) => {
-                  if (index < 6) {
-                    return (
-                      <TagLink key={tag.title} to={`/search/${tag.title}`}>
-                        {tag.title}
-                      </TagLink>
-                    );
-                  }
-                  return null;
-                })}
+                data.tags
+                  .filter((tag, index) => index < 6)
+                  .map((tag) => (
+                    <TagLink key={tag.title} to={`/search/${tag.title}`}>
+                      {tag.title}
+                    </TagLink>
+                  ))}
             </Tags>
           </Container>
         )}

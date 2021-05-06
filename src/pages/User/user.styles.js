@@ -20,3 +20,7 @@ export const InstagramUser = styled.a`
   text-decoration: none;
   color: black;
 `;
+
+export const StyledSpan = styled.span`
+  margin-top: 10px;
+`;

@@ -97,6 +97,10 @@ class Home extends React.Component {
     }
   };
 
+  handleHeartclick = () => {
+    this.setState({ isClick: !this.state.isClick });
+  };
+
   render() {
     const readyToLoad = this.state.data && !this.state.isLoading;
     return (
@@ -119,9 +123,7 @@ class Home extends React.Component {
                         <StyledLink to={`/user/${value.user.username}`}>
                           <div>{value.user.name}</div>
                         </StyledLink>
-                        {Object.values(this.state.favoritePhotos).find((id) => {
-                          return id === value.id;
-                        }) ? (
+                        {this.state.favoritePhotos[value.id] ? (
                           <Icon
                             id={value.id}
                             handleFavoriteClick={this.handleFavoriteClick}

@@ -1,52 +1,52 @@
 import React from "react";
-import axios from "axios";
-import { Container, ImageContainer, StyledLink } from "./favorites.styles";
+import Paper from "@material-ui/core/Paper";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import { FavoritePhoto, FavoriteCollection, FavoriteUser } from "components";
+import { Container } from "./favorites.styles";
 
 class Favorites extends React.Component {
   state = {
-    photos: [],
-    isLoading: false,
+    value: 0,
   };
 
-  retrieveFavoritePhotos = (favoritePhotos) => {
-    Object.values(favoritePhotos).map(async (photo) => {
-      try {
-        this.setState({ isLoading: true });
-        const { data } = await axios(
-          `${process.env.REACT_APP_API_BASE_URL}/photos/${photo}?client_id=${process.env.REACT_APP_API_KEY}`
-        );
-        this.setState({
-          photos: [...this.state.photos, data],
-          isLoading: false,
-        });
-        console.log(this.state.photos);
-      } catch (error) {
-        console.log(error);
-      }
-    });
+  handleChange = (event, newValue) => {
+    this.setState({ value: newValue });
   };
-
-  componentDidMount() {
-    let favoritePhotos = JSON.parse(localStorage.getItem("favoritePhotos"));
-    this.retrieveFavoritePhotos(favoritePhotos);
-  }
 
   render() {
-    const { photos, isLoading } = this.state;
+    const { value } = this.state;
+    const isPhotos = value === 0;
+    const isCollections = value === 1;
+    const isUsers = value === 2;
     return (
-      <Container>
-        {photos &&
-          !isLoading &&
-          photos.map((photo) => {
-            return (
-              <ImageContainer>
-                <StyledLink to={`/photo/${photo.id}`}>
-                  <img src={photo.urls.small} alt={photo.description} />
-                </StyledLink>
-              </ImageContainer>
-            );
-          })}
-      </Container>
+      <Paper square>
+        <Tabs
+          value={value}
+          textColor="primary"
+          indicatorColor="primary"
+          onChange={this.handleChange}
+        >
+          <Tab label="Photos" />
+          <Tab label="Collections" />
+          <Tab label="Users" />
+        </Tabs>
+        {isPhotos && (
+          <Container>
+            <FavoritePhoto />
+          </Container>
+        )}
+        {isCollections && (
+          <Container>
+            <FavoriteCollection />
+          </Container>
+        )}
+        {isUsers && (
+          <Container>
+            <FavoriteUser />
+          </Container>
+        )}
+      </Paper>
     );
   }
 }

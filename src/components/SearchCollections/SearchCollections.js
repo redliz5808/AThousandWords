@@ -1,7 +1,12 @@
 import React from "react";
 import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
+import { Icon } from "components";
+import { FaHeart } from "react-icons/fa";
 import {
+  Container,
+  Title,
+  TitleContainer,
   StyledDiv,
   CollectionLink,
   PreviewPhotos,
@@ -14,12 +19,12 @@ class SearchCollections extends React.Component {
   state = {
     collectionData: null,
     isLoading: false,
+    favoriteCollections: {},
   };
 
   loadingBar = React.createRef();
 
   getCollectionData = async (searchTerm) => {
-
     try {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
@@ -36,6 +41,9 @@ class SearchCollections extends React.Component {
   componentDidMount() {
     const { searchTerm } = this.props;
     this.getCollectionData(searchTerm);
+    let favoriteCollections =
+      JSON.parse(localStorage.getItem("favoriteCollections")) || {};
+    this.setState({ favoriteCollections });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -44,6 +52,30 @@ class SearchCollections extends React.Component {
       this.getCollectionData(searchTerm);
     }
   }
+
+  handleFavoriteClick = (id) => {
+    if (this.state.favoriteCollections[id]) {
+      const favoritesList = JSON.parse(
+        localStorage.getItem("favoriteCollections")
+      );
+      delete favoritesList[id];
+      this.setState({ favoriteCollections: favoritesList });
+      localStorage.setItem(
+        "favoriteCollections",
+        JSON.stringify(favoritesList)
+      );
+    } else {
+      const favoritesList = JSON.parse(
+        localStorage.getItem("favoriteCollections")
+      );
+      const newFavoritesList = { ...favoritesList, [id]: id };
+      this.setState({ favoriteCollections: newFavoritesList });
+      localStorage.setItem(
+        "favoriteCollections",
+        JSON.stringify(newFavoritesList)
+      );
+    }
+  };
 
   render() {
     const { searchTerm } = this.props;
@@ -61,11 +93,31 @@ class SearchCollections extends React.Component {
           <StyledDiv>
             {collectionData.results.map((collection) => {
               return (
-                <CollectionLink
-                  key={collection.id}
-                  to={`/collection/${collection.id}`}
-                >
-                  <h3>{collection.title}</h3>
+                <Container key={collection.id}>
+                  <TitleContainer>
+                    <CollectionLink to={`/collection/${collection.id}`}>
+                      <Title>{collection.title}</Title>
+                    </CollectionLink>
+                    <Title>
+                      {this.state.favoriteCollections[collection.id] ? (
+                        <Icon
+                          id={collection.id}
+                          handleFavoriteClick={this.handleFavoriteClick}
+                          icon={<FaHeart />}
+                          color="#6958f2"
+                          stats=""
+                        />
+                      ) : (
+                        <Icon
+                          id={collection.id}
+                          handleFavoriteClick={this.handleFavoriteClick}
+                          icon={<FaHeart />}
+                          color="#000"
+                          stats=""
+                        />
+                      )}
+                    </Title>
+                  </TitleContainer>
                   <img
                     src={collection.cover_photo.urls.small}
                     alt={collection.title}
@@ -81,7 +133,7 @@ class SearchCollections extends React.Component {
                   <StyledLink to={`/user/${collection.user.username}`}>
                     {collection.user.name}
                   </StyledLink>
-                </CollectionLink>
+                </Container>
               );
             })}
           </StyledDiv>
