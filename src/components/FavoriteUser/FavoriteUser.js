@@ -1,6 +1,9 @@
 import React from "react";
 import axios from "axios";
+import LoadingBar from "react-top-loading-bar";
+import Masonry from "react-responsive-masonry";
 import {
+  StyledResponsiveMasonry,
   Container,
   ImageContainer,
   StyledLink,
@@ -13,7 +16,10 @@ class FavoritePhoto extends React.Component {
     isLoading: false,
   };
 
+  loadingBar = React.createRef();
+
   retrieveFavoriteUsers = async (favoriteUsers) => {
+    this.loadingBar.current.continuousStart();
     this.setState({ isLoading: true });
     try {
       const users = await Promise.all(
@@ -28,6 +34,7 @@ class FavoritePhoto extends React.Component {
         users,
         isLoading: false,
       });
+      this.loadingBar.current.complete();
     } catch (error) {
       console.log(error);
     }
@@ -42,19 +49,30 @@ class FavoritePhoto extends React.Component {
     const { users, isLoading } = this.state;
     const readyToLoad = users && !isLoading;
     return (
-      readyToLoad &&
-      users.map((user) => {
-        return (
-          <Container key={user.id}>
-            <ImageContainer>
-              <StyledLink to={`/user/${user.username}`}>
-                <img src={user.profile_image.large} alt={user.name} />
-                <StyledDiv>{user.name}</StyledDiv>
-              </StyledLink>
-            </ImageContainer>
-          </Container>
-        );
-      })
+      <>
+        <LoadingBar color="#6958f2" ref={this.loadingBar} />
+        {readyToLoad && (
+          <StyledResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 1, 900: 2, 1285: 3 }}
+            gutter="0"
+          >
+            <Masonry>
+              {users.map((user) => {
+                return (
+                  <Container key={user.id}>
+                    <ImageContainer>
+                      <StyledLink to={`/user/${user.username}`}>
+                        <img src={user.profile_image.large} alt={user.name} />
+                        <StyledDiv>{user.name}</StyledDiv>
+                      </StyledLink>
+                    </ImageContainer>
+                  </Container>
+                );
+              })}
+            </Masonry>
+          </StyledResponsiveMasonry>
+        )}
+      </>
     );
   }
 }

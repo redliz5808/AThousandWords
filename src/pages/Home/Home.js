@@ -3,13 +3,15 @@ import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import queryString from "query-string";
 import LazyLoad from "react-lazyload";
+import Masonry from "react-responsive-masonry";
 import { FaHeart } from "react-icons/fa";
-import { Pagination, Icon } from "components";
+import { Pagination, Icon, FavoritesSlider } from "components";
 import {
-  MainContainer,
+  StyledH2,
   StyledLink,
   SubContainer,
   ImageContainer,
+  StyledResponsiveMasonry,
 } from "./home.styles";
 
 class Home extends React.Component {
@@ -108,45 +110,53 @@ class Home extends React.Component {
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {readyToLoad && (
           <>
-            <MainContainer>
-              {Object.values(this.state.data).map((value) => {
-                return (
-                  <LazyLoad height={200} key={value.id}>
-                    <SubContainer>
-                      <ImageContainer>
-                        <StyledLink to={`/photo/${value.id}`}>
-                          <img
-                            src={value.urls.small}
-                            alt={value.alt_description}
-                          />
-                        </StyledLink>
-                        <StyledLink to={`/user/${value.user.username}`}>
-                          <div>{value.user.name}</div>
-                        </StyledLink>
-                        {this.state.favoritePhotos[value.id] ? (
-                          <Icon
-                            id={value.id}
-                            handleFavoriteClick={this.handleFavoriteClick}
-                            icon={<FaHeart />}
-                            stats={value.likes}
-                            color="#6958f2"
-                          />
-                        ) : (
-                          <Icon
-                            id={value.id}
-                            handleFavoriteClick={this.handleFavoriteClick}
-                            icon={<FaHeart />}
-                            stats={value.likes}
-                            color="#000"
-                          />
-                        )}
-                      </ImageContainer>
-                    </SubContainer>
-                  </LazyLoad>
-                );
-              })}
-              <Pagination handleClick={this.handleClick} />
-            </MainContainer>
+            <FavoritesSlider />
+            <StyledH2>New Photos</StyledH2>
+            <StyledResponsiveMasonry
+              columnsCountBreakPoints={{ 350: 1, 900: 2, 1285: 3 }}
+              gutter="0"
+            >
+              <Masonry>
+              
+                {Object.values(this.state.data).map((value) => {
+                  return (
+                    <LazyLoad height={200} key={value.id}>
+                      <SubContainer>
+                        <ImageContainer>
+                          <StyledLink to={`/photo/${value.id}`}>
+                            <img
+                              src={value.urls.small}
+                              alt={value.alt_description}
+                            />
+                          </StyledLink>
+                          <StyledLink to={`/user/${value.user.username}`}>
+                            <div>{value.user.name}</div>
+                          </StyledLink>
+                          {this.state.favoritePhotos[value.id] ? (
+                            <Icon
+                              id={value.id}
+                              handleFavoriteClick={this.handleFavoriteClick}
+                              icon={<FaHeart />}
+                              stats={value.likes}
+                              color="#6958f2"
+                            />
+                          ) : (
+                            <Icon
+                              id={value.id}
+                              handleFavoriteClick={this.handleFavoriteClick}
+                              icon={<FaHeart />}
+                              stats={value.likes}
+                              color="#000"
+                            />
+                          )}
+                        </ImageContainer>
+                      </SubContainer>
+                    </LazyLoad>
+                  );
+                })}
+              </Masonry>
+            </StyledResponsiveMasonry>
+            <Pagination handleClick={this.handleClick} />
           </>
         )}
       </>

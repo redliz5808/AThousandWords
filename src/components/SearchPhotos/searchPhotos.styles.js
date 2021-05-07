@@ -1,12 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
-export const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-`;
+import { ResponsiveMasonry } from "react-responsive-masonry";
 
 export const StyledLink = styled(Link)`
   color: black;
@@ -17,4 +11,8 @@ export const StyledImage = styled.img`
   padding: 5px;
   margin: 10px;
   border: 1px solid black;
+`;
+
+export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
+  margin-left: 20px;
 `;

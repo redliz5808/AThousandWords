@@ -3,7 +3,6 @@ import Paper from "@material-ui/core/Paper";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import { FavoritePhoto, FavoriteCollection, FavoriteUser } from "components";
-import { Container } from "./favorites.styles";
 
 class Favorites extends React.Component {
   state = {
@@ -31,21 +30,9 @@ class Favorites extends React.Component {
           <Tab label="Collections" />
           <Tab label="Users" />
         </Tabs>
-        {isPhotos && (
-          <Container>
-            <FavoritePhoto />
-          </Container>
-        )}
-        {isCollections && (
-          <Container>
-            <FavoriteCollection />
-          </Container>
-        )}
-        {isUsers && (
-          <Container>
-            <FavoriteUser />
-          </Container>
-        )}
+        {isPhotos && <FavoritePhoto />}
+        {isCollections && <FavoriteCollection />}
+        {isUsers && <FavoriteUser />}
       </Paper>
     );
   }
