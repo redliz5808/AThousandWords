@@ -1,6 +1,14 @@
 import React from "react";
 import axios from "axios";
-import { Container, ImageContainer, StyledLink } from "./favoritePhoto.styles";
+import LoadingBar from "react-top-loading-bar";
+import Masonry from "react-responsive-masonry";
+import { ColumnBreaks } from "utils";
+import {
+  Container,
+  ImageContainer,
+  StyledLink,
+  StyledResponsiveMasonry,
+} from "./favoritePhoto.styles";
 
 class FavoritePhoto extends React.Component {
   state = {
@@ -8,7 +16,10 @@ class FavoritePhoto extends React.Component {
     isLoading: false,
   };
 
+  loadingBar = React.createRef();
+
   retrieveFavoritePhotos = async (favoritePhotos) => {
+    this.loadingBar.current.continuousStart();
     this.setState({ isLoading: true });
     try {
       const photos = await Promise.all(
@@ -23,6 +34,7 @@ class FavoritePhoto extends React.Component {
         photos,
         isLoading: false,
       });
+      this.loadingBar.current.complete();
     } catch (error) {
       console.log(error);
     }
@@ -38,18 +50,29 @@ class FavoritePhoto extends React.Component {
     const { photos, isLoading } = this.state;
     const readyToLoad = photos && !isLoading;
     return (
-      readyToLoad &&
-      photos.map((photo) => {
-        return (
-          <Container>
-            <ImageContainer>
-              <StyledLink to={`/photo/${photo.id}`}>
-                <img src={photo.urls.small} alt={photo.description} />
-              </StyledLink>
-            </ImageContainer>
-          </Container>
-        );
-      })
+      <>
+        <LoadingBar color="#6958f2" ref={this.loadingBar} />
+        {readyToLoad && (
+          <StyledResponsiveMasonry
+            columnsCountBreakPoints={ColumnBreaks}
+            gutter="0"
+          >
+            <Masonry>
+              {photos.map((photo) => {
+                return (
+                  <Container>
+                    <ImageContainer>
+                      <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
+                        <img src={photo.urls.small} alt={photo.description} />
+                      </StyledLink>
+                    </ImageContainer>
+                  </Container>
+                );
+              })}
+            </Masonry>
+          </StyledResponsiveMasonry>
+        )}
+      </>
     );
   }
 }

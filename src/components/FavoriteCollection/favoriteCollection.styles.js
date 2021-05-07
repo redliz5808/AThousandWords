@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { ResponsiveMasonry } from "react-responsive-masonry";
 
 export const ImageContainer = styled.div`
   margin: 10px;
@@ -36,4 +37,8 @@ export const Preview = styled.img`
 
 export const Total = styled.p`
   color: black;
+`;
+
+export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
+  margin-left: 20px;
 `;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const StyledDiv = styled.div`
+  margin-left: 10px;
   @media (max-width: 768px) {
     margin-left: 20px;
   }

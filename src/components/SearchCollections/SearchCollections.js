@@ -1,13 +1,15 @@
 import React from "react";
 import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
+import Masonry from "react-responsive-masonry";
 import { Icon } from "components";
 import { FaHeart } from "react-icons/fa";
+import { ColumnBreaks } from "utils";
 import {
+  StyledResponsiveMasonry,
   Container,
   Title,
   TitleContainer,
-  StyledDiv,
   CollectionLink,
   PreviewPhotos,
   Preview,
@@ -29,7 +31,7 @@ class SearchCollections extends React.Component {
       this.loadingBar.current.continuousStart();
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `${process.env.REACT_APP_API_BASE_URL}/search/collections?query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_API_BASE_URL}/search/collections?query=${searchTerm}&per_page=30&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ collectionData: data, isLoading: false });
       this.loadingBar.current.complete();
@@ -90,53 +92,58 @@ class SearchCollections extends React.Component {
           <div>There are no results for {searchTerm}.</div>
         )}
         {readyWithCollections && (
-          <StyledDiv>
-            {collectionData.results.map((collection) => {
-              return (
-                <Container key={collection.id}>
-                  <TitleContainer>
-                    <CollectionLink to={`/collection/${collection.id}`}>
-                      <Title>{collection.title}</Title>
-                    </CollectionLink>
-                    <Title>
-                      {this.state.favoriteCollections[collection.id] ? (
-                        <Icon
-                          id={collection.id}
-                          handleFavoriteClick={this.handleFavoriteClick}
-                          icon={<FaHeart />}
-                          color="#6958f2"
-                          stats=""
-                        />
-                      ) : (
-                        <Icon
-                          id={collection.id}
-                          handleFavoriteClick={this.handleFavoriteClick}
-                          icon={<FaHeart />}
-                          color="#000"
-                          stats=""
-                        />
-                      )}
-                    </Title>
-                  </TitleContainer>
-                  <img
-                    src={collection.cover_photo.urls.small}
-                    alt={collection.title}
-                  />
-                  <PreviewPhotos>
-                    {collection.preview_photos.map((preview) => {
-                      return (
-                        <Preview src={preview.urls.thumb} alt={preview.id} />
-                      );
-                    })}
-                  </PreviewPhotos>
-                  <Total>Total Photos: {collection.total_photos}</Total>
-                  <StyledLink to={`/user/${collection.user.username}`}>
-                    {collection.user.name}
-                  </StyledLink>
-                </Container>
-              );
-            })}
-          </StyledDiv>
+          <StyledResponsiveMasonry
+            columnsCountBreakPoints={ColumnBreaks}
+            gutter="0"
+          >
+            <Masonry>
+              {collectionData.results.map((collection) => {
+                return (
+                  <Container key={collection.id}>
+                    <TitleContainer>
+                      <CollectionLink to={`/collection/${collection.id}`}>
+                        <Title>{collection.title}</Title>
+                      </CollectionLink>
+                      <Title>
+                        {this.state.favoriteCollections[collection.id] ? (
+                          <Icon
+                            id={collection.id}
+                            handleFavoriteClick={this.handleFavoriteClick}
+                            icon={<FaHeart />}
+                            color="#6958f2"
+                            stats=""
+                          />
+                        ) : (
+                          <Icon
+                            id={collection.id}
+                            handleFavoriteClick={this.handleFavoriteClick}
+                            icon={<FaHeart />}
+                            color="#000"
+                            stats=""
+                          />
+                        )}
+                      </Title>
+                    </TitleContainer>
+                    <img
+                      src={collection.cover_photo.urls.small}
+                      alt={collection.title}
+                    />
+                    <PreviewPhotos>
+                      {collection.preview_photos.map((preview) => {
+                        return (
+                          <Preview src={preview.urls.thumb} alt={preview.id} />
+                        );
+                      })}
+                    </PreviewPhotos>
+                    <Total>Total Photos: {collection.total_photos}</Total>
+                    <StyledLink to={`/user/${collection.user.username}`}>
+                      {collection.user.name}
+                    </StyledLink>
+                  </Container>
+                );
+              })}
+            </Masonry>
+          </StyledResponsiveMasonry>
         )}
       </>
     );

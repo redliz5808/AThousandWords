@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { ResponsiveMasonry } from "react-responsive-masonry";
 
-export const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
+  margin-left: 20px;
 `;
 
 export const StyledLink = styled(Link)`
@@ -17,8 +15,8 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   border: 1px solid black;
   border-radius: 5px;
-`
+`;
 
 export const Bio = styled.p`
   max-width: 300px;
-`
+`;

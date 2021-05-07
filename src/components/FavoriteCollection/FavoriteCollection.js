@@ -1,6 +1,10 @@
 import React from "react";
 import axios from "axios";
+import LoadingBar from "react-top-loading-bar";
+import Masonry from "react-responsive-masonry";
+import { ColumnBreaks } from "utils";
 import {
+  StyledResponsiveMasonry,
   ImageContainer,
   StyledLink,
   Title,
@@ -16,7 +20,10 @@ class FavoriteCollection extends React.Component {
     isLoading: false,
   };
 
+  loadingBar = React.createRef();
+
   retrieveFavoriteCollections = async (favoriteCollections) => {
+    this.loadingBar.current.continuousStart();
     this.setState({ isLoading: true });
     try {
       const collections = await Promise.all(
@@ -31,6 +38,7 @@ class FavoriteCollection extends React.Component {
         collections,
         isLoading: false,
       });
+      this.loadingBar.current.complete();
     } catch (error) {
       console.log(error);
     }
@@ -47,38 +55,47 @@ class FavoriteCollection extends React.Component {
     const collectionsAreReady = collections && !isLoading;
     return (
       <>
-        {collectionsAreReady &&
-          collections.map((collection) => {
-            return (
-              <CollectionContainer key={collection.id}>
-                <ImageContainer>
-                  <StyledLink to={`/collection/${collection.id}`}>
-                    <Title>{collection.title}</Title>
-                  </StyledLink>
-                  <img
-                    src={collection.cover_photo.urls.small}
-                    alt={collection.cover_photo.description}
-                  />
+        <LoadingBar color="#6958f2" ref={this.loadingBar} />
+        {collectionsAreReady && (
+          <StyledResponsiveMasonry
+            columnsCountBreakPoints={ColumnBreaks}
+            gutter="0"
+          >
+            <Masonry>
+              {collections.map((collection) => {
+                return (
+                  <CollectionContainer key={collection.id}>
+                    <ImageContainer>
+                      <StyledLink to={`/collection/${collection.id}`}>
+                        <Title>{collection.title}</Title>
+                      </StyledLink>
+                      <img
+                        src={collection.cover_photo.urls.small}
+                        alt={collection.cover_photo.description}
+                      />
 
-                  <PreviewPhotos>
-                    {collection.preview_photos.map((preview) => {
-                      return (
-                        <Preview
-                          key={preview.id}
-                          src={preview.urls.thumb}
-                          alt={preview.id}
-                        />
-                      );
-                    })}
-                  </PreviewPhotos>
-                  <Total>Total Photos: {collection.total_photos}</Total>
-                  <StyledLink to={`/user/${collection.user.username}`}>
-                    {collection.user.name}
-                  </StyledLink>
-                </ImageContainer>
-              </CollectionContainer>
-            );
-          })}
+                      <PreviewPhotos>
+                        {collection.preview_photos.map((preview) => {
+                          return (
+                            <Preview
+                              key={preview.id}
+                              src={preview.urls.thumb}
+                              alt={preview.id}
+                            />
+                          );
+                        })}
+                      </PreviewPhotos>
+                      <Total>Total Photos: {collection.total_photos}</Total>
+                      <StyledLink to={`/user/${collection.user.username}`}>
+                        {collection.user.name}
+                      </StyledLink>
+                    </ImageContainer>
+                  </CollectionContainer>
+                );
+              })}
+            </Masonry>
+          </StyledResponsiveMasonry>
+        )}
       </>
     );
   }

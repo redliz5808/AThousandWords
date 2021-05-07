@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { ResponsiveMasonry } from "react-responsive-masonry";
 
 export const Container = styled.div`
   display: inline-block;
@@ -19,4 +20,8 @@ export const StyledLink = styled(Link)`
 
 export const StyledDiv = styled.div`
   text-align: center;
+`;
+
+export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
+  margin-left: 20px;
 `;
