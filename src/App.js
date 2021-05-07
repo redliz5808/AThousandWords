@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Home, User, Photo, Search, Collection, Favorites } from "pages";
 import { SearchBar } from "components";
-import logo from "./assets/AThousandWords.png";
+import { logo } from "assets";
 import {
   StyledDiv,
   Logo,

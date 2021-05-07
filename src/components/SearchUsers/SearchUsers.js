@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
+import { ColumnBreaks } from "utils";
 import { StyledResponsiveMasonry, StyledLink, Bio } from "./searchUsers.styles";
 
 class SearchUsers extends React.Component {
@@ -49,7 +50,7 @@ class SearchUsers extends React.Component {
         {readyWithoutUsers && <div>There are no results for {searchTerm}.</div>}
         {readyWithUsers && (
           <StyledResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 900: 2, 1285: 3 }}
+            columnsCountBreakPoints={ColumnBreaks}
             gutter="0"
           >
             <Masonry>

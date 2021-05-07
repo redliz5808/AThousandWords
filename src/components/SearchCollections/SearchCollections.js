@@ -4,6 +4,7 @@ import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
 import { Icon } from "components";
 import { FaHeart } from "react-icons/fa";
+import { ColumnBreaks } from "utils";
 import {
   StyledResponsiveMasonry,
   Container,
@@ -92,7 +93,7 @@ class SearchCollections extends React.Component {
         )}
         {readyWithCollections && (
           <StyledResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 900: 2, 1285: 3 }}
+            columnsCountBreakPoints={ColumnBreaks}
             gutter="0"
           >
             <Masonry>

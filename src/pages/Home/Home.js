@@ -6,6 +6,7 @@ import LazyLoad from "react-lazyload";
 import Masonry from "react-responsive-masonry";
 import { FaHeart } from "react-icons/fa";
 import { Pagination, Icon, FavoritesSlider } from "components";
+import { ColumnBreaks } from "utils";
 import {
   StyledH2,
   StyledLink,
@@ -113,11 +114,10 @@ class Home extends React.Component {
             <FavoritesSlider />
             <StyledH2>New Photos</StyledH2>
             <StyledResponsiveMasonry
-              columnsCountBreakPoints={{ 350: 1, 900: 2, 1285: 3 }}
+              columnsCountBreakPoints={ColumnBreaks}
               gutter="0"
             >
               <Masonry>
-              
                 {Object.values(this.state.data).map((value) => {
                   return (
                     <LazyLoad height={200} key={value.id}>

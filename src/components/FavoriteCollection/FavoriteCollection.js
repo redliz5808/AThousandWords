@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
+import { ColumnBreaks } from "utils";
 import {
   StyledResponsiveMasonry,
   ImageContainer,
@@ -57,7 +58,7 @@ class FavoriteCollection extends React.Component {
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {collectionsAreReady && (
           <StyledResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 900: 2, 1285: 3 }}
+            columnsCountBreakPoints={ColumnBreaks}
             gutter="0"
           >
             <Masonry>

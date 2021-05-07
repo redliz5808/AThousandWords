@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Slider from "react-slick";
-import favorites from "../../assets/favoritesBlur.png";
+import { favoritesBlur } from "assets";
 
 export const StyledSlider = styled(Slider)`
   margin-bottom: 40px;
   height: 100%;
   padding: 20px 0px;
-  background-image: url(${favorites});
+  background-image: url(${favoritesBlur});
   background-repeat: repeat;
 `;
 
