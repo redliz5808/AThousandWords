@@ -60,7 +60,7 @@ class FavoritePhoto extends React.Component {
             <Masonry>
               {photos.map((photo) => {
                 return (
-                  <Container>
+                  <Container key={photo.id}>
                     <ImageContainer>
                       <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
                         <img src={photo.urls.small} alt={photo.description} />

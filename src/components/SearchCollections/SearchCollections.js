@@ -131,7 +131,7 @@ class SearchCollections extends React.Component {
                     <PreviewPhotos>
                       {collection.preview_photos.map((preview) => {
                         return (
-                          <Preview src={preview.urls.thumb} alt={preview.id} />
+                          <Preview key={preview.id} src={preview.urls.thumb} alt={preview.id} />
                         );
                       })}
                     </PreviewPhotos>
