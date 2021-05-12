@@ -1,8 +1,9 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
+import { retrieveFavoritePhotos } from "../../store/favoritePhoto/favoritePhotoActions";
 import {
   Container,
   ImageContainer,
@@ -11,43 +12,16 @@ import {
 } from "./favoritePhoto.styles";
 
 class FavoritePhoto extends React.Component {
-  state = {
-    photos: [],
-    isLoading: false,
-  };
-
   loadingBar = React.createRef();
-
-  retrieveFavoritePhotos = async (favoritePhotos) => {
-    this.loadingBar.current.continuousStart();
-    this.setState({ isLoading: true });
-    try {
-      const photos = await Promise.all(
-        Object.values(favoritePhotos).map(async (photo) => {
-          const { data } = await axios(
-            `${process.env.REACT_APP_API_BASE_URL}/photos/${photo}?client_id=${process.env.REACT_APP_API_KEY}`
-          );
-          return data;
-        })
-      );
-      this.setState({
-        photos,
-        isLoading: false,
-      });
-      this.loadingBar.current.complete();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   componentDidMount() {
     let favoritePhotos =
       JSON.parse(localStorage.getItem("favoritePhotos")) || {};
-    this.retrieveFavoritePhotos(favoritePhotos);
+    this.props.retrieveFavoritePhotos(favoritePhotos);
   }
 
   render() {
-    const { photos, isLoading } = this.state;
+    const { photos, isLoading } = this.props.favoritePhoto;
     const readyToLoad = photos && !isLoading;
     return (
       <>
@@ -77,4 +51,12 @@ class FavoritePhoto extends React.Component {
   }
 }
 
-export default FavoritePhoto;
+const mapStateToProps = (state) => ({
+  favoritePhoto: state.favoritePhoto,
+});
+
+const mapDispatchToProps = {
+  retrieveFavoritePhotos,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritePhoto);

@@ -4,15 +4,40 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import collection from "./collection/collectionReducer";
 import home from "./home/homeReducer";
+import photo from "./photo/photoReducer";
+import user from "./user/userReducer";
+import collectionPhoto from "./collectionPhoto/collectionPhotoReducer";
+import userCollections from "./userCollections/userCollectionsReducer";
+import favoriteCollection from "./favoriteCollection/favoriteCollectionReducer";
+import favoritePhoto from "./favoritePhoto/favoritePhotoReducer";
+import favoritesSlider from "./favoriteSlider/favoriteSliderReducer";
+import favoriteUser from "./favoriteUser/favoriteUserReducer";
+import userPhotos from "./userPhotos/userPhotosReducer";
+import searchCollections from "./searchCollections/searchCollectionsReducer";
+import searchPhotos from "./searchPhotos/searchPhotosReducer";
+import searchUsers from "./searchUsers/searchUsersReducer";
 
 const persistConfig = {
   key: "root",
   storage,
+  whitelist: ["searchCollections"]
 };
 
 const reducers = combineReducers({
   collection,
   home,
+  photo,
+  user,
+  collectionPhoto,
+  userCollections,
+  favoriteCollection,
+  favoritePhoto,
+  favoritesSlider,
+  favoriteUser,
+  userPhotos,
+  searchCollections,
+  searchPhotos,
+  searchUsers,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -1,34 +1,18 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import { Icon } from "components";
 import { FaHeart } from "react-icons/fa";
+import { retrieveCollectionPhotos } from "../../store/collectionPhoto/collectionPhotoActions";
 import { Container, StyledLink, StyledDiv } from "./collectionPhotos.styles";
 
 class CollectionPhotos extends React.Component {
-  state = {
-    data: null,
-    isLoading: false,
-  };
-
-  retrieveCollectionPhotos = async (collectionid) => {
-    try {
-      this.setState({ isLoading: true });
-      const { data } = await axios(
-        `${process.env.REACT_APP_API_BASE_URL}/collections/${collectionid}/photos?client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      this.setState({ data, isLoading: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   componentDidMount() {
     const { collectionid } = this.props;
-    this.retrieveCollectionPhotos(collectionid);
+    this.props.retrieveCollectionPhotos(collectionid);
   }
 
   render() {
-    const { data, isLoading } = this.state;
+    const { data, isLoading } = this.props.collectionPhoto;
     const readyWithPhotos = data && !isLoading;
 
     return (
@@ -52,4 +36,12 @@ class CollectionPhotos extends React.Component {
   }
 }
 
-export default CollectionPhotos;
+const mapStateToProps = (state) => ({
+  collectionPhoto: state.collectionPhoto,
+});
+
+const mapDispatchToProps = {
+  retrieveCollectionPhotos,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionPhotos);

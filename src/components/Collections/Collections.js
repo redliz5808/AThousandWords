@@ -1,7 +1,8 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import unavilableCover from "assets/UnavailableCover.png";
+import { retrieveCollections } from "../../store/userCollections/userCollectionsActions";
 import {
   Container,
   StyledLink,
@@ -13,36 +14,14 @@ import {
 } from "./collections.styles";
 
 class Collections extends React.Component {
-  state = {
-    collections: null,
-    isLoading: false,
-  };
-
   loadingBar = React.createRef();
 
-  baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
-
-  retrieveCollections = async (username) => {
-  
-    try {
-      this.loadingBar.current.continuousStart();
-      this.setState({ isLoading: true });
-      const { data } = await axios(
-        `${process.env.REACT_APP_API_BASE_URL}/users/${username}/collections?client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      this.setState({ collections: data, isLoading: false });
-      this.loadingBar.current.complete();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   componentDidMount() {
-    this.retrieveCollections(this.props.username);
+    this.props.retrieveCollections(this.props.username);
   }
 
   render() {
-    const { collections } = this.state;
+    const { collections } = this.props.userCollections;
     const readyWithoutCollections = collections && collections.length === 0;
     const readyWithCollections = collections && collections.length > 0;
 
@@ -60,7 +39,10 @@ class Collections extends React.Component {
                 : unavilableCover;
               let previewPhotos = collection.preview_photos || [];
               return (
-                <StyledLink key={collection.id} to={`/collection/${collection.id}`}>
+                <StyledLink
+                  key={collection.id}
+                  to={`/collection/${collection.id}`}
+                >
                   <Title>{collection.title}</Title>
                   <img src={imageSrc} alt={collection.title} />
                   <PreviewPhotos>
@@ -86,4 +68,12 @@ class Collections extends React.Component {
   }
 }
 
-export default Collections;
+const mapStateToProps = (state) => ({
+  userCollections: state.userCollections,
+});
+
+const mapDispatchToProps = {
+  retrieveCollections,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Collections);

@@ -1,10 +1,15 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
 import { Icon } from "components";
 import { FaHeart } from "react-icons/fa";
 import { ColumnBreaks } from "utils";
+import {
+  getCollectionData,
+  // setFavoriteCollections,
+  addCollectionAsFavorite,
+} from "../../store/searchCollections/searchCollectionsActions";
 import {
   StyledResponsiveMasonry,
   Container,
@@ -18,70 +23,28 @@ import {
 } from "./searchCollections.styles.js";
 
 class SearchCollections extends React.Component {
-  state = {
-    collectionData: null,
-    isLoading: false,
-    favoriteCollections: {},
-  };
-
   loadingBar = React.createRef();
-
-  getCollectionData = async (searchTerm) => {
-    try {
-      this.loadingBar.current.continuousStart();
-      this.setState({ isLoading: true });
-      const { data } = await axios(
-        `${process.env.REACT_APP_API_BASE_URL}/search/collections?query=${searchTerm}&per_page=30&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      this.setState({ collectionData: data, isLoading: false });
-      this.loadingBar.current.complete();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   componentDidMount() {
     const { searchTerm } = this.props;
-    this.getCollectionData(searchTerm);
-    let favoriteCollections =
-      JSON.parse(localStorage.getItem("favoriteCollections")) || {};
-    this.setState({ favoriteCollections });
+    this.props.getCollectionData(searchTerm);
+    // this.props.setFavoriteCollections();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { searchTerm } = this.props;
     if (prevProps.searchTerm !== searchTerm) {
-      this.getCollectionData(searchTerm);
+      this.props.getCollectionData(searchTerm);
     }
   }
 
   handleFavoriteClick = (id) => {
-    if (this.state.favoriteCollections[id]) {
-      const favoritesList = JSON.parse(
-        localStorage.getItem("favoriteCollections")
-      );
-      delete favoritesList[id];
-      this.setState({ favoriteCollections: favoritesList });
-      localStorage.setItem(
-        "favoriteCollections",
-        JSON.stringify(favoritesList)
-      );
-    } else {
-      const favoritesList = JSON.parse(
-        localStorage.getItem("favoriteCollections")
-      );
-      const newFavoritesList = { ...favoritesList, [id]: id };
-      this.setState({ favoriteCollections: newFavoritesList });
-      localStorage.setItem(
-        "favoriteCollections",
-        JSON.stringify(newFavoritesList)
-      );
-    }
+    this.props.addCollectionAsFavorite(id);
   };
 
   render() {
     const { searchTerm } = this.props;
-    const { collectionData } = this.state;
+    const { collectionData } = this.props.searchCollections;
     const readyWithoutCollections =
       collectionData && collectionData.total === 0;
     const readyWithCollections = collectionData && collectionData.total > 0;
@@ -105,7 +68,9 @@ class SearchCollections extends React.Component {
                         <Title>{collection.title}</Title>
                       </CollectionLink>
                       <Title>
-                        {this.state.favoriteCollections[collection.id] ? (
+                        {this.props.searchCollections.favoriteCollections[
+                          collection.id
+                        ] ? (
                           <Icon
                             id={collection.id}
                             handleFavoriteClick={this.handleFavoriteClick}
@@ -131,7 +96,11 @@ class SearchCollections extends React.Component {
                     <PreviewPhotos>
                       {collection.preview_photos.map((preview) => {
                         return (
-                          <Preview key={preview.id} src={preview.urls.thumb} alt={preview.id} />
+                          <Preview
+                            key={preview.id}
+                            src={preview.urls.thumb}
+                            alt={preview.id}
+                          />
                         );
                       })}
                     </PreviewPhotos>
@@ -150,4 +119,14 @@ class SearchCollections extends React.Component {
   }
 }
 
-export default SearchCollections;
+const mapStateToProps = (state) => ({
+  searchCollections: state.searchCollections,
+});
+
+const mapDispatchToProps = {
+  getCollectionData,
+  // setFavoriteCollections,
+  addCollectionAsFavorite,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchCollections);

@@ -23,7 +23,7 @@ class Collection extends React.Component {
   };
 
   render() {
-    const { data, isLoading, favoriteCollections } = this.props.collections;
+    const { data, isLoading, favoriteCollections } = this.props.collection;
     const readyToLoad = data && !isLoading;
     const tagsAvailable = data && data.tags.length > 0;
     return (

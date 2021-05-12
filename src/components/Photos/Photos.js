@@ -1,37 +1,18 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
+import { retrieveUserPhotos } from "../../store/userPhotos/userPhotosActions";
 import { Container, StyledLink, StyledImage } from "./photos.styles";
 
 class Photos extends React.Component {
-  state = {
-    photos: null,
-    isLoading: false,
-  };
-
   loadingBar = React.createRef();
 
-  retrieveUserPhotos = async (username) => {
-    
-    try {
-      this.loadingBar.current.continuousStart();
-      this.setState({ isLoading: true });
-      const { data } = await axios(
-        `${process.env.REACT_APP_API_BASE_URL}/users/${username}/photos?per_page=12&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      this.setState({ photos: data, isLoading: false });
-      this.loadingBar.current.complete();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   componentDidMount() {
-    this.retrieveUserPhotos(this.props.username);
+    this.props.retrieveUserPhotos(this.props.username);
   }
 
   render() {
-    const { photos } = this.state;
+    const { photos } = this.props.userPhotos;
     const readyWithoutPhotos = photos && photos.length === 0;
     const readyWithPhotos = photos && photos.length > 0;
 
@@ -55,4 +36,12 @@ class Photos extends React.Component {
   }
 }
 
-export default Photos;
+const mapStateToProps = (state) => ({
+  userPhotos: state.userPhotos,
+});
+
+const mapDispatchToProps = {
+  retrieveUserPhotos,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Photos);
