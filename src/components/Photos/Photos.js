@@ -11,6 +11,16 @@ class Photos extends React.Component {
     this.props.retrieveUserPhotos(this.props.username);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.userPhotos;
+    if (prevProps.userPhotos.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.userPhotos.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
+  }
+
   render() {
     const { photos } = this.props.userPhotos;
     const readyWithoutPhotos = photos && photos.length === 0;

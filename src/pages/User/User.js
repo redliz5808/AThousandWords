@@ -28,6 +28,16 @@ class User extends React.Component {
     this.props.setFavoriteUsers();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.user;
+    if (prevProps.user.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.user.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
+  }
+
   handleChange = (event, newValue) => {
     this.setState({ value: newValue });
   };

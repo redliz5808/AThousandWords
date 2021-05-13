@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Home, User, Photo, Search, Collection, Favorites } from "pages";
 import { SearchBar } from "components";
 import { logo } from "assets";
+import { AiFillHome, AiFillHeart } from "react-icons/ai";
+import { GiStripedSun } from "react-icons/gi";
 import {
   StyledDiv,
   Logo,
@@ -10,6 +12,7 @@ import {
   StyledUl,
   StyledLi,
   StyledLink,
+  NavButtonLi,
 } from "./app.styles";
 
 export default function App() {
@@ -23,14 +26,30 @@ export default function App() {
             </Link>
             <StyledUl>
               <StyledLi>
-                <StyledLink to="/">Home</StyledLink>
-              </StyledLi>
-              <StyledLi>
-                <StyledLink to="/favorites">Favorites</StyledLink>
-              </StyledLi>
-              <StyledLi>
                 <SearchBar />
               </StyledLi>
+              <NavButtonLi>
+                <StyledLink to="/">
+                  <div>
+                    <AiFillHome />
+                  </div>
+                  <div>Home</div>
+                </StyledLink>
+              </NavButtonLi>
+              <NavButtonLi>
+                <StyledLink to="/favorites">
+                  <div>
+                    <AiFillHeart />
+                  </div>
+                  <div>Favorites</div>
+                </StyledLink>
+              </NavButtonLi>
+              <NavButtonLi>
+                <div>
+                  <GiStripedSun />
+                </div>
+                <div>Mode</div>
+              </NavButtonLi>
             </StyledUl>
           </StyledNav>
         </StyledDiv>

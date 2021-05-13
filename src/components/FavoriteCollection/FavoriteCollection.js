@@ -16,15 +16,22 @@ import {
 } from "./favoriteCollection.styles";
 
 class FavoriteCollection extends React.Component {
-  // MAINTAINING FOR REFERENCE. WILL BE REMOVED LATER
-  // loadingBar = React.createRef();
-  // this.loadingBar.current.continuousStart();
-  // this.loadingBar.current.complete();
+  loadingBar = React.createRef();
 
   componentDidMount() {
     let favoriteCollections =
       JSON.parse(localStorage.getItem("favoriteCollections")) || {};
     this.props.retrieveFavoriteCollections(favoriteCollections);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.favoriteCollection;
+    if (prevProps.favoriteCollection.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.favoriteCollection.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
   }
 
   render() {

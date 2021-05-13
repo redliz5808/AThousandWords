@@ -18,6 +18,16 @@ class Collection extends React.Component {
     this.props.setFavoritesData();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.collection;
+    if (prevProps.collection.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.collection.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
+  }
+
   handleFavoriteClick = (id) => {
     this.props.getFavoritesData(id);
   };

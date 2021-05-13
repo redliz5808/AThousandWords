@@ -7,10 +7,11 @@ export const StyledInput = styled.input`
   color: #6958f2;
   font-size: 16px;
   padding: 7px;
-  width: 300px;
+  width: 95%;
 
-  @media (max-width: 768px) {
+  @media (max-width: 780px) {
     margin-top: 10px;
     margin-bottom: 20px;
+    width: 95%;
   }
 `;

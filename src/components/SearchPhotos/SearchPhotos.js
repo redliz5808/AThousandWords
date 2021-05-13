@@ -20,8 +20,15 @@ class SearchPhotos extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { searchTerm } = this.props;
+    const { isLoading } = this.props.searchPhotos;
     if (prevProps.searchTerm !== searchTerm) {
       this.props.getPhotoData(searchTerm);
+    }
+    if (prevProps.searchPhotos.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.searchPhotos.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
     }
   }
 

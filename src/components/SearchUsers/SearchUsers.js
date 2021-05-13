@@ -16,8 +16,15 @@ class SearchUsers extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { searchTerm } = this.props;
+    const { isLoading } = this.props.searchUsers;
     if (prevProps.searchTerm !== searchTerm) {
       this.props.getUserData(searchTerm);
+    }
+    if (prevProps.searchUsers.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.searchUsers.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
     }
   }
 

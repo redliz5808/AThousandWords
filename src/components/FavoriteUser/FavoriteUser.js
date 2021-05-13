@@ -20,6 +20,16 @@ class FavoritePhoto extends React.Component {
     this.props.retrieveFavoriteUsers(favoriteUsers);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.favoriteUser;
+    if (prevProps.favoriteUser.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.favoriteUser.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
+  }
+
   render() {
     const { users, isLoading } = this.props.favoriteUser;
     const readyToLoad = users && !isLoading;

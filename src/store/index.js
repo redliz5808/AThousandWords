@@ -16,11 +16,12 @@ import userPhotos from "./userPhotos/userPhotosReducer";
 import searchCollections from "./searchCollections/searchCollectionsReducer";
 import searchPhotos from "./searchPhotos/searchPhotosReducer";
 import searchUsers from "./searchUsers/searchUsersReducer";
+import userStats from "./userStats/userStatsReducer";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["searchCollections"]
+  whitelist: ["searchCollections"],
 };
 
 const reducers = combineReducers({
@@ -38,6 +39,7 @@ const reducers = combineReducers({
   searchCollections,
   searchPhotos,
   searchUsers,
+  userStats,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

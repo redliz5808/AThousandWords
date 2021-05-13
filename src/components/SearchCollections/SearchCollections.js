@@ -7,7 +7,7 @@ import { FaHeart } from "react-icons/fa";
 import { ColumnBreaks } from "utils";
 import {
   getCollectionData,
-  // setFavoriteCollections,
+  setFavoriteCollections,
   addCollectionAsFavorite,
 } from "../../store/searchCollections/searchCollectionsActions";
 import {
@@ -28,13 +28,20 @@ class SearchCollections extends React.Component {
   componentDidMount() {
     const { searchTerm } = this.props;
     this.props.getCollectionData(searchTerm);
-    // this.props.setFavoriteCollections();
+    this.props.setFavoriteCollections();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { searchTerm } = this.props;
+    const { isLoading } = this.props.searchCollections;
     if (prevProps.searchTerm !== searchTerm) {
       this.props.getCollectionData(searchTerm);
+    }
+    if (prevProps.searchCollections.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.searchCollections.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
     }
   }
 
@@ -125,7 +132,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getCollectionData,
-  // setFavoriteCollections,
+  setFavoriteCollections,
   addCollectionAsFavorite,
 };
 

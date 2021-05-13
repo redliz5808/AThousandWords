@@ -42,7 +42,7 @@ class Home extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { page } = this.props.home;
+    const { page, isLoading } = this.props.home;
     if (prevProps.home.page !== page) {
       const query = queryString.stringify({ page });
       this.props.history.push(`/?${query}`);
@@ -56,6 +56,12 @@ class Home extends React.Component {
     if (!this.props.location.search) {
       const query = queryString.stringify({ page });
       this.props.history.push(`/?${query}`);
+    }
+    if (prevProps.home.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.home.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
     }
   }
 

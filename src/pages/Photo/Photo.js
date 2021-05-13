@@ -27,6 +27,16 @@ class Photo extends React.Component {
     this.props.setFavorites();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.photo;
+    if (prevProps.photo.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.photo.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
+  }
+
   handleFavoriteClick = (id) => {
     this.props.setFavoriteImage(id);
   };

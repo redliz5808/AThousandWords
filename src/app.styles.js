@@ -2,47 +2,58 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const StyledDiv = styled.div`
-  margin-left: 10px;
+  display: flex;
+`;
+
+export const Logo = styled.img`
+margin-left: 10px;
+  margin-top: 10px;
+  max-height: 100px;
   @media (max-width: 768px) {
     margin-left: 20px;
   }
 `;
 
-export const Logo = styled.img`
-  margin-top: 10px;
-  max-height: 100px;
-`;
-
 export const StyledNav = styled.nav`
   display: flex;
-  justify-content: space-around;
+  width: 100vw;
 
-  @media (max-width: 768px) {
+  @media (max-width: 780px) {
     flex-direction: column;
     align-items: flex-start;
     flex-wrap: wrap;
     overflow: hidden;
   }
 `;
+
 export const StyledUl = styled.ul`
   display: flex;
-  width: 100vw;
-  margin-right: 20px;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-around;
+  margin-right: 20px;
+  width: 100%;
 
-  @media (max-width: 768px) {
-    margin-left: -30px;
+  @media (max-width: 780px) {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
   }
 `;
 
 export const StyledLi = styled.li`
   list-style: none;
+  flex-grow: 10;
 `;
+
+export const NavButtonLi = styled.li`
+  list-style: none;
+  text-align: center;
+  flex-grow: 1;
+  color: #6958f2;
+`
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: #6958f2;
 `;

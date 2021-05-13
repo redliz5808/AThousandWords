@@ -25,12 +25,12 @@ export const getCollectionData = (searchTerm) => async (dispatch, getState) => {
   }
 };
 
-// export const setFavoriteCollections = () => {
-//   return {
-//     type: SET_FAVORITE_COLLECTIONS,
-//     payload: JSON.parse(localStorage.getItem("favoriteCollections")) || {},
-//   };
-// };
+export const setFavoriteCollections = () => {
+  return {
+    type: SET_FAVORITE_COLLECTIONS,
+    payload: JSON.parse(localStorage.getItem("favoriteCollections")) || {},
+  };
+};
 
 export const addCollectionAsFavorite = (id) => (dispatch, getState) => {
   const state = getState();

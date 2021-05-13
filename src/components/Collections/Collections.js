@@ -20,6 +20,16 @@ class Collections extends React.Component {
     this.props.retrieveCollections(this.props.username);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.userCollections;
+    if (prevProps.userCollections.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.userCollections.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
+  }
+
   render() {
     const { collections } = this.props.userCollections;
     const readyWithoutCollections = collections && collections.length === 0;
