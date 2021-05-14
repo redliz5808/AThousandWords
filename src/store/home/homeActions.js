@@ -1,10 +1,10 @@
 import axios from "axios";
 import {
-  FETCH_ALL_PHOTOS_SUCCESS,
-  FETCH_ALL_PHOTOS_ERROR,
-  FETCH_ALL_PHOTOS_PENDING,
-  SET_PARSED_DATA,
-  SET_FAVORITES_DATA,
+  GET_ALL_PHOTOS_SUCCESS,
+  GET_ALL_PHOTOS_ERROR,
+  GET_ALL_PHOTOS_PENDING,
+  GET_PARSED_DATA,
+  GET_FAVORITES_DATA,
   SET_PAGE_NUMBER,
   SET_FAVORITE_IMAGE,
 } from "./homeTypes";
@@ -12,32 +12,32 @@ import {
 export const getAllPhotos = (page) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: FETCH_ALL_PHOTOS_PENDING,
+      type: GET_ALL_PHOTOS_PENDING,
     });
     const { data } = await axios(
       `${process.env.REACT_APP_API_BASE_URL}/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
     );
     dispatch({
-      type: FETCH_ALL_PHOTOS_SUCCESS,
+      type: GET_ALL_PHOTOS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: FETCH_ALL_PHOTOS_ERROR,
+      type: GET_ALL_PHOTOS_ERROR,
     });
   }
 };
 
-export const setParsed = (parsed) => {
+export const getParsed = (parsed) => {
   return {
-    type: SET_PARSED_DATA,
+    type: GET_PARSED_DATA,
     payload: parsed,
   };
 }
 
-export const setFavorites = () => {
+export const getFavorites = () => {
   return {
-    type: SET_FAVORITES_DATA,
+    type: GET_FAVORITES_DATA,
     payload: JSON.parse(localStorage.getItem("favoritePhotos")) || {},
   }
 }

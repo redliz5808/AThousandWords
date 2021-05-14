@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Icon } from "components";
 import { FaHeart } from "react-icons/fa";
-import { retrieveCollectionPhotos } from "../../store/collectionPhoto/collectionPhotoActions";
+import { retrieveCollectionPhotos } from "store/collectionPhoto/collectionPhotoActions";
 import { Container, StyledLink, StyledDiv } from "./collectionPhotos.styles";
 
 class CollectionPhotos extends React.Component {

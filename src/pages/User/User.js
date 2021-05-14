@@ -11,7 +11,7 @@ import {
   retrieveUserData,
   setUsername,
   setFavoriteUsers,
-} from "../../store/user/userActions";
+} from "store/user/userActions";
 import { Container, Verified, InstagramUser, StyledSpan } from "./user.styles";
 
 class User extends React.Component {

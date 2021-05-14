@@ -9,7 +9,7 @@ import {
   getCollectionData,
   setFavoriteCollections,
   addCollectionAsFavorite,
-} from "../../store/searchCollections/searchCollectionsActions";
+} from "store/searchCollections/searchCollectionsActions";
 import {
   StyledResponsiveMasonry,
   Container,

@@ -5,9 +5,11 @@ import { Icon } from "components";
 import { FaHeart } from "react-icons/fa";
 import { CollectionPhotos } from "components";
 import { Container, StyledLink, Tags, TagLink } from "./collection.styles";
-import { getCollectionData } from "../../store/collection/collectionActions";
-import { setFavoritesData } from "../../store/collection/collectionActions";
-import { getFavoritesData } from "../../store/collection/collectionActions";
+import {
+  getCollectionData,
+  setFavoritesData,
+  getFavoritesData,
+} from "store/collection/collectionActions";
 
 class Collection extends React.Component {
   loadingBar = React.createRef();

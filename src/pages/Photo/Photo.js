@@ -7,7 +7,7 @@ import {
   retrievePhoto,
   setFavorites,
   setFavoriteImage,
-} from "../../store/photo/photoActions";
+} from "store/photo/photoActions";
 import {
   MainImage,
   Container,

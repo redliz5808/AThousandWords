@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { retrievePhotos } from "../../store/favoriteSlider/favoriteSliderActions";
+import { retrievePhotos } from "store/favoriteSlider/favoriteSliderActions";
 import {
   StyledSlider,
   Container,

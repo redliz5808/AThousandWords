@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
-import { retrieveFavoriteCollections } from "../../store/favoriteCollection/favoriteCollectionActions";
+import { retrieveFavoriteCollections } from "store/favoriteCollection/favoriteCollectionActions";
 import {
   StyledResponsiveMasonry,
   ImageContainer,

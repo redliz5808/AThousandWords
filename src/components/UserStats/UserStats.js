@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import { FaEye } from "react-icons/fa";
 import { ImCloudDownload } from "react-icons/im";
-import { retrieveStats } from "../../store/userStats/userStatsActions";
+import { retrieveStats } from "store/userStats/userStatsActions";
 import { StyledDiv } from "./userStats.styles";
 
 class UserStats extends React.Component {

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
-import { getUserData } from "../../store/searchUsers/searchUsersActions";
+import { getUserData } from "store/searchUsers/searchUsersActions";
 import { StyledResponsiveMasonry, StyledLink, Bio } from "./searchUsers.styles";
 
 class SearchUsers extends React.Component {

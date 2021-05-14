@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
-import { retrieveUserPhotos } from "../../store/userPhotos/userPhotosActions";
+import { retrieveUserPhotos } from "store/userPhotos/userPhotosActions";
 import { Container, StyledLink, StyledImage } from "./photos.styles";
 
 class Photos extends React.Component {

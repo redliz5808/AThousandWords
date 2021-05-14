@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
-import { getPhotoData } from "../../store/searchPhotos/searchPhotosActions";
+import { getPhotoData } from "store/searchPhotos/searchPhotosActions";
 import {
   StyledResponsiveMasonry,
   StyledLink,

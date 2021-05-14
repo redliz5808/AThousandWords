@@ -9,11 +9,11 @@ import { Pagination, Icon, FavoritesSlider } from "components";
 import { ColumnBreaks } from "utils";
 import {
   getAllPhotos,
-  setParsed,
-  setFavorites,
+  getParsed,
+  getFavorites,
   setPage,
   setFavoriteImage,
-} from "../../store/home/homeActions";
+} from "store/home/homeActions";
 import {
   StyledH2,
   StyledLink,
@@ -31,9 +31,9 @@ class Home extends React.Component {
       const parsed = queryString.parse(this.props.location.search, {
         parseNumbers: true,
       });
-      this.props.setParsed(parsed);
+      this.props.getParsed(parsed);
       this.props.getAllPhotos(parsed.page);
-      this.props.setFavorites();
+      this.props.getFavorites();
     } else {
       const { page } = this.props.home;
       const query = queryString.stringify({ page });
@@ -144,8 +144,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getAllPhotos,
-  setParsed,
-  setFavorites,
+  getParsed,
+  getFavorites,
   setPage,
   setFavoriteImage,
 };

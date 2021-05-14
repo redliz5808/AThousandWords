@@ -1,9 +1,9 @@
 import {
-  FETCH_ALL_PHOTOS_SUCCESS,
-  FETCH_ALL_PHOTOS_ERROR,
-  FETCH_ALL_PHOTOS_PENDING,
-  SET_PARSED_DATA,
-  SET_FAVORITES_DATA,
+  GET_ALL_PHOTOS_SUCCESS,
+  GET_ALL_PHOTOS_ERROR,
+  GET_ALL_PHOTOS_PENDING,
+  GET_PARSED_DATA,
+  GET_FAVORITES_DATA,
   SET_PAGE_NUMBER,
   SET_FAVORITE_IMAGE,
 } from "./homeTypes";
@@ -18,29 +18,29 @@ const initialState = {
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_ALL_PHOTOS_SUCCESS:
+    case GET_ALL_PHOTOS_SUCCESS:
       return {
         ...state,
         data: action.payload,
         isLoading: false,
       };
-    case FETCH_ALL_PHOTOS_PENDING:
+    case GET_ALL_PHOTOS_PENDING:
       return {
         ...state,
         isLoading: true,
       };
-    case FETCH_ALL_PHOTOS_ERROR:
+    case GET_ALL_PHOTOS_ERROR:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
-    case SET_PARSED_DATA:
+    case GET_PARSED_DATA:
       return {
         ...state,
         parsed: action.payload,
       };
-    case SET_FAVORITES_DATA:
+    case GET_FAVORITES_DATA:
       return {
         ...state,
         parsed: action.payload,
