@@ -1,38 +1,30 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import { FaEye } from "react-icons/fa";
 import { ImCloudDownload } from "react-icons/im";
+import { retrieveStats } from "store/userStats/userStatsActions";
 import { StyledDiv } from "./userStats.styles";
 
 class UserStats extends React.Component {
-  state = {
-    stats: null,
-    isLoading: false,
-  };
-
   loadingBar = React.createRef();
 
-  retrieveStats = async (username) => {
-    try {
-      this.loadingBar.current.continuousStart();
-      this.setState({ isLoading: true });
-      const { data } = await axios(
-        `${process.env.REACT_APP_API_BASE_URL}/users/${username}/statistics?client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      this.setState({ stats: data, isLoading: false });
-      this.loadingBar.current.complete();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   componentDidMount() {
-    this.retrieveStats(this.props.username);
+    this.props.retrieveStats(this.props.username);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.userStats;
+    if (prevProps.userStats.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.userStats.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
   }
 
   render() {
-    const { stats } = this.state;
+    const { stats } = this.props.userStats;
     const readyWithoutUserStats = stats === undefined;
     const readyWithUserStats = stats && stats !== undefined;
 
@@ -59,4 +51,12 @@ class UserStats extends React.Component {
   }
 }
 
-export default UserStats;
+const mapStateToProps = (state) => ({
+  userStats: state.userStats,
+});
+
+const mapDispatchToProps = {
+  retrieveStats,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserStats);

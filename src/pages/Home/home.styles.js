@@ -20,10 +20,16 @@ export const ImageContainer = styled.div`
   border-radius: 5px;
 `;
 
+export const StyledImg = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+`;
+
 export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
   margin-left: 20px;
 `;
 
 export const StyledH2 = styled.h2`
   margin-left: 20px;
-`
+`;

@@ -1,8 +1,13 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import { FaHeart, FaEye } from "react-icons/fa";
 import { Icon } from "components";
+import {
+  retrievePhoto,
+  setFavorites,
+  setFavoriteImage,
+} from "store/photo/photoActions";
 import {
   MainImage,
   Container,
@@ -14,52 +19,30 @@ import {
 } from "./photo.styles";
 
 class Photo extends React.Component {
-  state = {
-    data: null,
-    isLoading: false,
-    favoritePhotos: {},
-  };
-
   loadingBar = React.createRef();
-
-  retrievePhoto = async (photoid) => {
-    try {
-      this.loadingBar.current.continuousStart();
-      this.setState({ isLoading: true });
-      const { data } = await axios(
-        `${process.env.REACT_APP_API_BASE_URL}/photos/${photoid}?client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      this.setState({ data, isLoading: false });
-      this.loadingBar.current.complete();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   componentDidMount() {
     const { photoid } = this.props.match.params;
-    this.retrievePhoto(photoid);
-    let favoritePhotos =
-      JSON.parse(localStorage.getItem("favoritePhotos")) || {};
-    this.setState({ favoritePhotos });
+    this.props.retrievePhoto(photoid);
+    this.props.setFavorites();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.photo;
+    if (prevProps.photo.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.photo.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
   }
 
   handleFavoriteClick = (id) => {
-    if (this.state.favoritePhotos[id]) {
-      const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
-      delete favoritesList[id];
-      this.setState({ favoritePhotos: favoritesList });
-      localStorage.setItem("favoritePhotos", JSON.stringify(favoritesList));
-    } else {
-      const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
-      const newFavoritesList = { ...favoritesList, [id]: id };
-      this.setState({ favoritePhotos: newFavoritesList });
-      localStorage.setItem("favoritePhotos", JSON.stringify(newFavoritesList));
-    }
+    this.props.setFavoriteImage(id);
   };
 
   render() {
-    const { data } = this.state;
+    const { data } = this.props.photo;
     const tagsAvailable = data && data.tags.length > 0;
 
     return (
@@ -76,7 +59,7 @@ class Photo extends React.Component {
             </StyledLink>
             <MainImage src={data.urls.regular} alt={data.alt_description} />
             <StyledDiv>
-              {this.state.favoritePhotos[data.id] ? (
+              {this.props.photo.favoritePhotos[data.id] ? (
                 <Icon
                   id={data.id}
                   handleFavoriteClick={this.handleFavoriteClick}
@@ -112,4 +95,14 @@ class Photo extends React.Component {
   }
 }
 
-export default Photo;
+const mapStateToProps = (state) => ({
+  photo: state.photo,
+});
+
+const mapDispatchToProps = {
+  retrievePhoto,
+  setFavorites,
+  setFavoriteImage,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Photo);

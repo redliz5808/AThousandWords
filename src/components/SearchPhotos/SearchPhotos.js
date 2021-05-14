@@ -1,8 +1,9 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
+import { getPhotoData } from "store/searchPhotos/searchPhotosActions";
 import {
   StyledResponsiveMasonry,
   StyledLink,
@@ -10,42 +11,30 @@ import {
 } from "./searchPhotos.styles";
 
 class SearchPhotos extends React.Component {
-  state = {
-    photoData: null,
-    isLoading: false,
-  };
-
   loadingBar = React.createRef();
-
-  getPhotoData = async (searchTerm) => {
-    try {
-      this.loadingBar.current.continuousStart();
-      this.setState({ isLoading: true });
-      const { data } = await axios(
-        `${process.env.REACT_APP_API_BASE_URL}/search/photos?query=${searchTerm}&per_page=30&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      this.setState({ photoData: data, isLoading: false });
-      this.loadingBar.current.complete();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   componentDidMount() {
     const { searchTerm } = this.props;
-    this.getPhotoData(searchTerm);
+    this.props.getPhotoData(searchTerm);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { searchTerm } = this.props;
+    const { isLoading } = this.props.searchPhotos;
     if (prevProps.searchTerm !== searchTerm) {
-      this.getPhotoData(searchTerm);
+      this.props.getPhotoData(searchTerm);
+    }
+    if (prevProps.searchPhotos.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.searchPhotos.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
     }
   }
 
   render() {
     const { searchTerm } = this.props;
-    const { photoData } = this.state;
+    const { photoData } = this.props.searchPhotos;
     const readyWithoutPhotos = photoData && photoData.total === 0;
     const readyWithPhotos = photoData && photoData.total > 0;
     return (
@@ -75,4 +64,12 @@ class SearchPhotos extends React.Component {
   }
 }
 
-export default SearchPhotos;
+const mapStateToProps = (state) => ({
+  searchPhotos: state.searchPhotos,
+});
+
+const mapDispatchToProps = {
+  getPhotoData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPhotos);

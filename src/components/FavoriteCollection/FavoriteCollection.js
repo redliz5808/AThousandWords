@@ -1,8 +1,9 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
+import { retrieveFavoriteCollections } from "store/favoriteCollection/favoriteCollectionActions";
 import {
   StyledResponsiveMasonry,
   ImageContainer,
@@ -15,43 +16,26 @@ import {
 } from "./favoriteCollection.styles";
 
 class FavoriteCollection extends React.Component {
-  state = {
-    collections: [],
-    isLoading: false,
-  };
-
   loadingBar = React.createRef();
-
-  retrieveFavoriteCollections = async (favoriteCollections) => {
-    this.loadingBar.current.continuousStart();
-    this.setState({ isLoading: true });
-    try {
-      const collections = await Promise.all(
-        Object.values(favoriteCollections).map(async (collection) => {
-          const { data } = await axios(
-            `${process.env.REACT_APP_API_BASE_URL}/collections/${collection}?client_id=${process.env.REACT_APP_API_KEY}`
-          );
-          return data;
-        })
-      );
-      this.setState({
-        collections,
-        isLoading: false,
-      });
-      this.loadingBar.current.complete();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   componentDidMount() {
     let favoriteCollections =
       JSON.parse(localStorage.getItem("favoriteCollections")) || {};
-    this.retrieveFavoriteCollections(favoriteCollections);
+    this.props.retrieveFavoriteCollections(favoriteCollections);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoading } = this.props.favoriteCollection;
+    if (prevProps.favoriteCollection.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.favoriteCollection.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
+    }
   }
 
   render() {
-    const { collections, isLoading } = this.state;
+    const { collections, isLoading } = this.props.favoriteCollection;
     const collectionsAreReady = collections && !isLoading;
     return (
       <>
@@ -101,4 +85,12 @@ class FavoriteCollection extends React.Component {
   }
 }
 
-export default FavoriteCollection;
+const mapStateToProps = (state) => ({
+  favoriteCollection: state.favoriteCollection,
+});
+
+const mapDispatchToProps = {
+  retrieveFavoriteCollections,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteCollection);

@@ -1,47 +1,36 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
+import { getUserData } from "store/searchUsers/searchUsersActions";
 import { StyledResponsiveMasonry, StyledLink, Bio } from "./searchUsers.styles";
 
 class SearchUsers extends React.Component {
-  state = {
-    userData: null,
-    isLoading: false,
-  };
-
   loadingBar = React.createRef();
-
-  getUserData = async (searchTerm) => {
-    try {
-      this.loadingBar.current.continuousStart();
-      this.setState({ isLoading: true });
-      const { data } = await axios(
-        `${process.env.REACT_APP_API_BASE_URL}/search/users?query=${searchTerm}&per_page=30&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      this.setState({ userData: data, isLoading: false });
-      this.loadingBar.current.complete();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   componentDidMount() {
     const { searchTerm } = this.props;
-    this.getUserData(searchTerm);
+    this.props.getUserData(searchTerm);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { searchTerm } = this.props;
+    const { isLoading } = this.props.searchUsers;
     if (prevProps.searchTerm !== searchTerm) {
-      this.getUserData(searchTerm);
+      this.props.getUserData(searchTerm);
+    }
+    if (prevProps.searchUsers.isLoading !== isLoading && isLoading) {
+      this.loadingBar.current.continuousStart();
+    }
+    if (prevProps.searchUsers.isLoading !== isLoading && !isLoading) {
+      this.loadingBar.current.complete();
     }
   }
 
   render() {
     const { searchTerm } = this.props;
-    const { userData } = this.state;
+    const { userData } = this.props.searchUsers;
     const readyWithoutUsers = userData && userData.total === 0;
     const readyWithUsers = userData && userData.total > 0;
     return (
@@ -71,4 +60,12 @@ class SearchUsers extends React.Component {
   }
 }
 
-export default SearchUsers;
+const mapStateToProps = (state) => ({
+  searchUsers: state.searchUsers,
+});
+
+const mapDispatchToProps = {
+  getUserData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchUsers);
