@@ -24,7 +24,7 @@ export const TagLink = styled(Link)`
   border-radius: 3px;
   padding: 5px;
   margin: 5px;
-`
+`;
 
 export const UserImage = styled.img`
   max-width: 50px;
@@ -33,6 +33,7 @@ export const UserImage = styled.img`
 
 export const MainImage = styled.img`
   max-width: 40vw;
+  border-radius: 5px;
 `;
 
 export const StyledDiv = styled.div`

@@ -10,7 +10,7 @@ export const StyledLink = styled(Link)`
 export const StyledImage = styled.img`
   padding: 5px;
   margin: 10px;
-  border: 1px solid black;
+  border-radius: 10px;
 `;
 
 export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`

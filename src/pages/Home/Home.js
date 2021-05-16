@@ -4,8 +4,7 @@ import LoadingBar from "react-top-loading-bar";
 import queryString from "query-string";
 import LazyLoad from "react-lazyload";
 import Masonry from "react-responsive-masonry";
-import { FaHeart } from "react-icons/fa";
-import { Pagination, Icon, FavoritesSlider } from "components";
+import { Pagination, FavoritesSlider, ImageModal } from "components";
 import { ColumnBreaks } from "utils";
 import {
   getAllPhotos,
@@ -13,10 +12,11 @@ import {
   getFavorites,
   setPage,
   setFavoriteImage,
+  handleImageClick,
+  displayPhoto,
 } from "store/home/homeActions";
 import {
   StyledH2,
-  StyledLink,
   SubContainer,
   ImageContainer,
   StyledResponsiveMasonry,
@@ -24,6 +24,10 @@ import {
 } from "./home.styles";
 
 class Home extends React.Component {
+  state = {
+    showModal: false,
+  };
+
   loadingBar = React.createRef();
 
   componentDidMount() {
@@ -42,7 +46,9 @@ class Home extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { page, isLoading } = this.props.home;
+    const { page, isLoading, displayedImageId } = this.props.home;
+    const { showModal } = this.state;
+
     if (prevProps.home.page !== page) {
       const query = queryString.stringify({ page });
       this.props.history.push(`/?${query}`);
@@ -57,11 +63,17 @@ class Home extends React.Component {
       const query = queryString.stringify({ page });
       this.props.history.push(`/?${query}`);
     }
+
     if (prevProps.home.isLoading !== isLoading && isLoading) {
       this.loadingBar.current.continuousStart();
     }
+
     if (prevProps.home.isLoading !== isLoading && !isLoading) {
       this.loadingBar.current.complete();
+    }
+
+    if (prevState.showModal !== showModal && showModal) {
+      this.props.displayPhoto(displayedImageId);
     }
   }
 
@@ -69,17 +81,22 @@ class Home extends React.Component {
     this.props.setPage(button);
   };
 
-  handleFavoriteClick = (id) => {
-    this.props.setFavoriteImage(id);
+  handleImageClick = (e) => {
+    const item = this.props.home.data.filter((item) => item.id === e.target.id);
+    if (item[0].id === e.target.id) {
+      this.props.handleImageClick(e.target.id);
+      this.setState({ showModal: true });
+    }
   };
 
-  handleHeartclick = () => {
-    this.setState({ isClick: !this.props.home.isClick });
+  handleModalClose = () => {
+    this.setState({ showModal: false });
   };
 
   render() {
     const { data, isLoading } = this.props.home;
     const readyToLoad = data && !isLoading;
+    const { showModal } = this.state;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
@@ -92,37 +109,17 @@ class Home extends React.Component {
               gutter="0"
             >
               <Masonry>
-                {Object.values(data).map((value) => {
+                {Object.values(data).map((value, index) => {
                   return (
                     <LazyLoad height={200} key={value.id}>
                       <SubContainer>
                         <ImageContainer>
-                          <StyledLink to={`/photo/${value.id}`}>
-                            <StyledImg
-                              src={value.urls.small}
-                              alt={value.alt_description}
-                            />
-                          </StyledLink>
-                          <StyledLink to={`/user/${value.user.username}`}>
-                            <div>{value.user.name}</div>
-                          </StyledLink>
-                          {this.props.home.favoritePhotos[value.id] ? (
-                            <Icon
-                              id={value.id}
-                              handleFavoriteClick={this.handleFavoriteClick}
-                              icon={<FaHeart />}
-                              stats={value.likes}
-                              color="#6958f2"
-                            />
-                          ) : (
-                            <Icon
-                              id={value.id}
-                              handleFavoriteClick={this.handleFavoriteClick}
-                              icon={<FaHeart />}
-                              stats={value.likes}
-                              color="#000"
-                            />
-                          )}
+                          <StyledImg
+                            onClick={this.handleImageClick}
+                            id={value.id}
+                            src={value.urls.small}
+                            alt={value.alt_description}
+                          />
                         </ImageContainer>
                       </SubContainer>
                     </LazyLoad>
@@ -130,6 +127,12 @@ class Home extends React.Component {
                 })}
               </Masonry>
             </StyledResponsiveMasonry>
+            {showModal && (
+              <ImageModal
+                showModal={showModal}
+                handleModalClose={this.handleModalClose}
+              />
+            )}
             <Pagination handleClick={this.handleClick} />
           </>
         )}
@@ -148,6 +151,8 @@ const mapDispatchToProps = {
   getFavorites,
   setPage,
   setFavoriteImage,
+  handleImageClick,
+  displayPhoto,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -13,7 +13,7 @@ export const StyledLink = styled(Link)`
   width: 300px;
   color: black;
   text-decoration: none;
-  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 `;
 

@@ -43,20 +43,17 @@ export const setFavoriteUsers = () => {
 export const setUserAsFavorite = (id) => (dispatch, getState) => {
   const state = getState();
   if (state.user.favoriteUsers[id]) {
-    const favoritesList = JSON.parse(localStorage.getItem("favoriteUsers"));
+    const favoritesList = state.user.favoriteUsers;
     delete favoritesList[id];
     dispatch({
       type: SET_FAVORITE_USERS,
       payload: favoritesList,
     });
-    localStorage.setItem("favoriteUsers", JSON.stringify(favoritesList));
   } else {
-    const favoritesList = JSON.parse(localStorage.getItem("favoriteUsers"));
-    const newFavoritesList = { ...favoritesList, [id]: id };
+    const newFavoritesList = { ...state.user.favoriteUsers, [id]: id };
     dispatch({
       type: SET_FAVORITE_USERS,
       payload: newFavoritesList,
     });
-    localStorage.setItem("favoriteUsers", JSON.stringify(newFavoritesList));
   }
 };

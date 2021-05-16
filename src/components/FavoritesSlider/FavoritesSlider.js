@@ -9,6 +9,7 @@ import {
   Container,
   StyledImage,
   StyledH2,
+  StyledDiv,
 } from "./favoritesSlider.styles";
 
 class FavoritesSlider extends Component {
@@ -29,10 +30,9 @@ class FavoritesSlider extends Component {
     const { photos, isLoading } = this.props.favoritesSlider;
     const readyToLoad = photos && !isLoading;
     return (
-      readyToLoad && (
-        <div>
-          {photos.length > 0 ? (
-            <>
+      readyToLoad &&
+          photos.length > 0 ? (
+            <StyledDiv>
               <StyledH2>Your Favorite Photos</StyledH2>
               <StyledSlider {...settings}>
                 {Object.values(photos).map((photo) => {
@@ -50,10 +50,8 @@ class FavoritesSlider extends Component {
                   );
                 })}
               </StyledSlider>
-            </>
-          ) : null}
-        </div>
-      )
+              </StyledDiv>
+          ) : null
     );
   }
 }

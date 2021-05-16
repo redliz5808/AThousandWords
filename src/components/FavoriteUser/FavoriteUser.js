@@ -10,6 +10,7 @@ import {
   ImageContainer,
   StyledLink,
   StyledDiv,
+  StyledImage,
 } from "./favoriteUser.styles";
 
 class FavoritePhoto extends React.Component {
@@ -47,7 +48,10 @@ class FavoritePhoto extends React.Component {
                   <Container key={user.id}>
                     <ImageContainer>
                       <StyledLink to={`/user/${user.username}`}>
-                        <img src={user.profile_image.large} alt={user.name} />
+                        <StyledImage
+                          src={user.profile_image.large}
+                          alt={user.name}
+                        />
                         <StyledDiv>{user.name}</StyledDiv>
                       </StyledLink>
                     </ImageContainer>

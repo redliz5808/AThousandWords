@@ -9,6 +9,7 @@ import {
   ImageContainer,
   StyledLink,
   StyledResponsiveMasonry,
+  StyledImage,
 } from "./favoritePhoto.styles";
 
 class FavoritePhoto extends React.Component {
@@ -47,7 +48,10 @@ class FavoritePhoto extends React.Component {
                   <Container key={photo.id}>
                     <ImageContainer>
                       <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
-                        <img src={photo.urls.small} alt={photo.description} />
+                        <StyledImage
+                          src={photo.urls.small}
+                          alt={photo.description}
+                        />
                       </StyledLink>
                     </ImageContainer>
                   </Container>

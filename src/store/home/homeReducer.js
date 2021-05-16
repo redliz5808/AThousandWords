@@ -6,6 +6,11 @@ import {
   GET_FAVORITES_DATA,
   SET_PAGE_NUMBER,
   SET_FAVORITE_IMAGE,
+  SHOW_MODAL,
+  SET_DISPLAYED_IMAGE,
+  GET_PHOTO_PENDING,
+  GET_PHOTO_SUCCESS,
+  GET_PHOTO_ERROR,
 } from "./homeTypes";
 
 const initialState = {
@@ -14,7 +19,10 @@ const initialState = {
   page: 1,
   favoritePhotos: {},
   parsed: 1,
-}
+  showModal: false,
+  displayedImageId: null,
+  displayedImage: null,
+};
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
@@ -49,12 +57,38 @@ function homeReducer(state = initialState, action) {
       return {
         ...state,
         page: action.payload,
-      }
+      };
     case SET_FAVORITE_IMAGE:
       return {
         ...state,
         favoritePhotos: action.payload,
-      }
+      };
+    case SHOW_MODAL:
+      return {
+        ...state,
+        showModal: action.payload,
+      };
+    case SET_DISPLAYED_IMAGE:
+      return {
+        ...state,
+        displayedImageId: action.payload,
+      };
+    case GET_PHOTO_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_PHOTO_SUCCESS:
+      return {
+        ...state,
+        displayedImage: action.payload,
+        isLoading: false,
+      };
+    case GET_PHOTO_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
     default:
       return state;
   }

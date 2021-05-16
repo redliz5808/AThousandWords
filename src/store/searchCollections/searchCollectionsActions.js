@@ -35,27 +35,20 @@ export const setFavoriteCollections = () => {
 export const addCollectionAsFavorite = (id) => (dispatch, getState) => {
   const state = getState();
   if (state.searchCollections.favoriteCollections[id]) {
-    const favoritesList = JSON.parse(
-      localStorage.getItem("favoriteCollections")
-    );
+    const favoritesList = state.searchCollections.favoriteCollections;
     delete favoritesList[id];
     dispatch({
       type: SET_FAVORITE_COLLECTIONS,
       payload: favoritesList,
     });
-    localStorage.setItem("favoriteCollections", JSON.stringify(favoritesList));
   } else {
-    const favoritesList = JSON.parse(
-      localStorage.getItem("favoriteCollections")
-    );
-    const newFavoritesList = { ...favoritesList, [id]: id };
+    const newFavoritesList = {
+      ...state.searchCollections.favoriteCollections,
+      [id]: id,
+    };
     dispatch({
       type: SET_FAVORITE_COLLECTIONS,
       payload: newFavoritesList,
     });
-    localStorage.setItem(
-      "favoriteCollections",
-      JSON.stringify(newFavoritesList)
-    );
   }
 };

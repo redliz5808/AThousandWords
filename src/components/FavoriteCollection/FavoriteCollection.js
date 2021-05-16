@@ -13,6 +13,9 @@ import {
   Preview,
   Total,
   CollectionContainer,
+  StyledImage,
+  StatsContainer,
+  Username,
 } from "./favoriteCollection.styles";
 
 class FavoriteCollection extends React.Component {
@@ -53,7 +56,7 @@ class FavoriteCollection extends React.Component {
                       <StyledLink to={`/collection/${collection.id}`}>
                         <Title>{collection.title}</Title>
                       </StyledLink>
-                      <img
+                      <StyledImage
                         src={collection.cover_photo.urls.small}
                         alt={collection.cover_photo.description}
                       />
@@ -69,10 +72,16 @@ class FavoriteCollection extends React.Component {
                           );
                         })}
                       </PreviewPhotos>
-                      <Total>Total Photos: {collection.total_photos}</Total>
-                      <StyledLink to={`/user/${collection.user.username}`}>
-                        {collection.user.name}
-                      </StyledLink>
+                      <StatsContainer>
+                        <Total>Total Photos: {collection.total_photos}</Total>
+                        <StyledLink to={`/user/${collection.user.username}`}>
+                          <StyledImage
+                            src={collection.user.profile_image.small}
+                            alt={collection.user.username}
+                          />
+                          <Username>{collection.user.name}</Username>
+                        </StyledLink>
+                      </StatsContainer>
                     </ImageContainer>
                   </CollectionContainer>
                 );

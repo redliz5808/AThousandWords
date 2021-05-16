@@ -16,7 +16,6 @@ export const ImageContainer = styled.div`
   text-align: center;
   margin: 5px;
   padding: 7px;
-  border: 1px solid black;
   border-radius: 5px;
 `;
 
@@ -24,6 +23,7 @@ export const StyledImg = styled.img`
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 5px;
 `;
 
 export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`

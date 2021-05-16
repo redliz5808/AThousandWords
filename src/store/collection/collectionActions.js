@@ -39,24 +39,17 @@ export const setFavoritesData = () => {
 export const getFavoritesData = (id) => (dispatch, getState) => {
   const state = getState();
   if (state.collections.favoriteCollections[id]) {
-    const favoritesList = JSON.parse(
-      localStorage.getItem("favoriteCollections")
-    );
+    const favoritesList = state.collections.favoriteCollections;
     delete favoritesList[id];
-    localStorage.setItem("favoriteCollections", JSON.stringify(favoritesList));
     dispatch({
       type: GET_FAVORITES_DATA,
       payload: favoritesList,
     });
   } else {
-    const favoritesList = JSON.parse(
-      localStorage.getItem("favoriteCollections")
-    );
-    const newFavoritesList = { ...favoritesList, [id]: id };
-    localStorage.setItem(
-      "favoriteCollections",
-      JSON.stringify(newFavoritesList)
-    );
+    const newFavoritesList = {
+      ...state.collections.favoriteCollections,
+      [id]: id,
+    };
     dispatch({
       type: GET_FAVORITES_DATA,
       payload: newFavoritesList,

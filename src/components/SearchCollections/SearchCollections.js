@@ -20,6 +20,9 @@ import {
   Preview,
   StyledLink,
   Total,
+  StyledImage,
+  StatsContainer,
+  Username,
 } from "./searchCollections.styles.js";
 
 class SearchCollections extends React.Component {
@@ -96,7 +99,7 @@ class SearchCollections extends React.Component {
                         )}
                       </Title>
                     </TitleContainer>
-                    <img
+                    <StyledImage
                       src={collection.cover_photo.urls.small}
                       alt={collection.title}
                     />
@@ -111,10 +114,16 @@ class SearchCollections extends React.Component {
                         );
                       })}
                     </PreviewPhotos>
-                    <Total>Total Photos: {collection.total_photos}</Total>
-                    <StyledLink to={`/user/${collection.user.username}`}>
-                      {collection.user.name}
-                    </StyledLink>
+                    <StatsContainer>
+                      <Total>Total Photos: {collection.total_photos}</Total>
+                      <StyledLink to={`/user/${collection.user.username}`}>
+                        <StyledImage
+                          src={collection.user.profile_image.small}
+                          alt={collection.user.username}
+                        />
+                        <Username>{collection.user.name}</Username>
+                      </StyledLink>
+                    </StatsContainer>
                   </Container>
                 );
               })}

@@ -36,20 +36,17 @@ export const setFavorites = () => {
 export const setFavoriteImage = (id) => (dispatch, getState) => {
   const state = getState();
   if (state.photo.favoritePhotos[id]) {
-    const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
+    const favoritesList = state.photo.favoritePhotos;
     delete favoritesList[id];
     dispatch({
       type: SET_FAVORITE_IMAGE,
       payload: favoritesList,
     });
-    localStorage.setItem("favoritePhotos", JSON.stringify(favoritesList));
   } else {
-    const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
-    const newFavoritesList = { ...favoritesList, [id]: id };
+    const newFavoritesList = { ...state.photo.favoritePhotos, [id]: id };
     dispatch({
       type: SET_FAVORITE_IMAGE,
       payload: newFavoritesList,
     });
-    localStorage.setItem("favoritePhotos", JSON.stringify(newFavoritesList));
   }
 };
