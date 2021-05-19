@@ -2,10 +2,10 @@ import React from "react";
 // import Paper from "@material-ui/core/Paper";
 // import Tab from "@material-ui/core/Tab";
 // import Tabs from "@material-ui/core/Tabs";
-import { 
-  FavoritePhoto, 
-  // FavoriteCollection, 
-  // FavoriteUser, 
+import {
+  FavoritePhoto,
+  // FavoriteCollection,
+  // FavoriteUser,
 } from "components";
 
 class Favorites extends React.Component {

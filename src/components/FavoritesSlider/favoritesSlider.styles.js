@@ -31,4 +31,4 @@ export const StyledH2 = styled.h2`
 
 export const StyledDiv = styled.div`
   overflow: hidden;
-`
+`;

@@ -10,11 +10,11 @@ export const StyledLink = styled(Link)`
 export const MainContainer = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 
 export const ChildContainer = styled.div`
   width: 932px;
-`
+`;
 
 export const SubContainer = styled.div`
   display: flex;

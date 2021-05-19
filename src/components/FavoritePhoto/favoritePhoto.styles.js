@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 export const MainContainer = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 
 export const ChildContainer = styled.div`
   width: 932px;
-`
+`;
 
 export const Container = styled.div`
   display: flex;

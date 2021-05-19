@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const MainContainer = styled.div`
   text-align: center;
-`
+`;
 
 export const StyledLink = styled(Link)`
   color: black;

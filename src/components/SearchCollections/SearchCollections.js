@@ -60,17 +60,17 @@ class SearchCollections extends React.Component {
             <Masonry>
               {collectionData.results.map((collection) => {
                 return (
-                  <Container>
-                    <CollectionLink to={`/collection/${collection.id}`} key={collection.id}>
+                  <Container key={collection.id}>
+                    <CollectionLink to={`/collection/${collection.id}`}>
                       <StyledImage
                         src={collection.cover_photo.urls.small}
                         alt={collection.title}
                       />
-                    <StatsContainer>
-                      <StatsOverlay>
-                        <Stats>{collection.total_photos} photos</Stats>
-                      </StatsOverlay>
-                    </StatsContainer>
+                      <StatsContainer>
+                        <StatsOverlay>
+                          <Stats>{collection.total_photos} photos</Stats>
+                        </StatsOverlay>
+                      </StatsContainer>
                     </CollectionLink>
                   </Container>
                 );

@@ -1,4 +1,3 @@
-export { default as Pagination } from "./Pagination";
 export { default as Icon } from "./Icon";
 export { default as SearchBar } from "./SearchBar";
 export { default as Photos } from "./Photos";

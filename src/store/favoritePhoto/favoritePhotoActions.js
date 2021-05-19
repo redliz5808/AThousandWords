@@ -7,7 +7,7 @@ import {
 
 export const retrieveFavoritePhotos = () => async (dispatch, getState) => {
   const state = getState();
-  const {favoritePhotos} = state.photo;
+  const { favoritePhotos } = state.photo;
   try {
     dispatch({
       type: GET_FAVORITE_PHOTOS_PENDING,

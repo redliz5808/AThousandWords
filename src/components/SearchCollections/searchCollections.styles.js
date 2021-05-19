@@ -44,6 +44,7 @@ export const Stats = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background: transparent;
   color: white;
   font-size: 18px;
   font-weight: bold;

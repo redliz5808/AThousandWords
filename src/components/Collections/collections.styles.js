@@ -20,7 +20,7 @@ export const StyledImage = styled.img`
   height: 86px;
   object-fit: cover;
   border-radius: 5px;
-`
+`;
 
 export const Title = styled.div`
   text-align: center;

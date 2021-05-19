@@ -21,20 +21,20 @@ import {
 
 export class App extends React.Component {
   state = {
-    stateTheme: "light",
+    stateTheme: true,
   };
 
   handleClick = () => {
-    this.state.stateTheme === "light"
-      ? this.setState({ stateTheme: "dark" })
-      : this.setState({ stateTheme: "light" });
+    this.state.stateTheme
+      ? this.setState({ stateTheme: false })
+      : this.setState({ stateTheme: true });
   };
 
   render() {
     const { stateTheme } = this.state;
 
     return (
-      <ThemeProvider theme={stateTheme === "light" ? lightTheme : darkTheme}>
+      <ThemeProvider theme={stateTheme ? lightTheme : darkTheme}>
         <GlobalStyle />
         <Router>
           <div>
@@ -42,7 +42,7 @@ export class App extends React.Component {
               <StyledNav>
                 <Link to="/">
                   <Logo
-                    src={stateTheme === "light" ? logo : logoInverse}
+                    src={stateTheme ? logo : logoInverse}
                     alt="logo"
                   />
                 </Link>

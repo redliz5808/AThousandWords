@@ -6,7 +6,7 @@ export const Container = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
-`
+`;
 
 export const StyledLink = styled(Link)`
   margin: 20px;

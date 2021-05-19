@@ -43,4 +43,5 @@ function collectionsReducer(state = initialState, action) {
 
 export default collectionsReducer;
 
-export const getFavoriteCollections = (state) => state.collections.favoriteCollections;
+export const getFavoriteCollections = (state) =>
+  state.collections.favoriteCollections;

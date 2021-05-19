@@ -29,30 +29,27 @@ class FavoritesSlider extends Component {
     };
     const { photos, isLoading } = this.props.favoritesSlider;
     const readyToLoad = photos && !isLoading;
-    return (
-      readyToLoad &&
-          photos.length > 0 ? (
-            <StyledDiv>
-              <StyledH2>Your Favorite Photos</StyledH2>
-              <StyledSlider {...settings}>
-                {Object.values(photos).map((photo) => {
-                  return (
-                    <div key={photo.id}>
-                      <Container>
-                        <Link to={`/photo/${photo.id}`}>
-                          <StyledImage
-                            src={photo.urls.small}
-                            alt={photo.description}
-                          />
-                        </Link>
-                      </Container>
-                    </div>
-                  );
-                })}
-              </StyledSlider>
-              </StyledDiv>
-          ) : null
-    );
+    return readyToLoad && photos.length > 0 ? (
+      <StyledDiv>
+        <StyledH2>Your Favorite Photos</StyledH2>
+        <StyledSlider {...settings}>
+          {Object.values(photos).map((photo) => {
+            return (
+              <div key={photo.id}>
+                <Container>
+                  <Link to={`/photo/${photo.id}`}>
+                    <StyledImage
+                      src={photo.urls.small}
+                      alt={photo.description}
+                    />
+                  </Link>
+                </Container>
+              </div>
+            );
+          })}
+        </StyledSlider>
+      </StyledDiv>
+    ) : null;
   }
 }
 

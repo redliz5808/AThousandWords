@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getFavoriteList} from "./searchCollectionsReducer";
+import { getFavoriteList } from "./searchCollectionsReducer";
 import {
   GET_COLLECTION_DATA_PENDING,
   GET_COLLECTION_DATA_SUCCESS,
@@ -28,7 +28,7 @@ export const getCollectionData = (searchTerm) => async (dispatch, getState) => {
 
 export const addCollectionAsFavorite = (id) => (dispatch, getState) => {
   const state = getState();
-  const favoriteCollections = getFavoriteList(state)
+  const favoriteCollections = getFavoriteList(state);
   if (favoriteCollections[id]) {
     delete favoriteCollections[id];
     dispatch({

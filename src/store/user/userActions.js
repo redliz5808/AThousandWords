@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getFavoriteUsers} from "./userReducer";
+import { getFavoriteUsers } from "./userReducer";
 import {
   FETCH_USER_DATA_PENDING,
   FETCH_USER_DATA_ERROR,

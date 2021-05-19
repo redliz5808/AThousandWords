@@ -74,7 +74,7 @@ function homeReducer(state = initialState, action) {
       return {
         ...state,
         index: action.payload,
-      }
+      };
     case SET_DISPLAYED_IMAGE:
       return {
         ...state,

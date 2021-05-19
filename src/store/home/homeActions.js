@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getFavoritePhotos} from "./homeReducer";
+import { getFavoritePhotos } from "./homeReducer";
 import {
   GET_ALL_PHOTOS_SUCCESS,
   GET_ALL_PHOTOS_ERROR,
@@ -22,7 +22,7 @@ export const getAllPhotos = (page) => async (dispatch, getState) => {
     dispatch({
       type: SHOW_MODAL,
       payload: false,
-    })
+    });
     const { data } = await axios(
       `${process.env.REACT_APP_API_BASE_URL}/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
     );
@@ -96,7 +96,7 @@ export const handleImageClick = (index) => (dispatch, getState) => {
   dispatch({
     type: SET_IMAGE_INDEX,
     payload: index,
-  })
+  });
 };
 
 export const displayPhoto = (id) => async (dispatch, getState) => {

@@ -55,11 +55,15 @@ class Search extends React.Component {
           </StyledDiv>
           <Tabs>
             <Users>
-              <UsersButton onClick={this.handleClick} value={value} >Users</UsersButton>
+              <UsersButton onClick={this.handleClick} value={value}>
+                Users
+              </UsersButton>
             </Users>
             <TabsSubContainer>
-              <PhotosButton onClick={this.handleClick} value={value} >Photos</PhotosButton>
-              <CollectionsButton onClick={this.handleClick} value={value} >
+              <PhotosButton onClick={this.handleClick} value={value}>
+                Photos
+              </PhotosButton>
+              <CollectionsButton onClick={this.handleClick} value={value}>
                 Collections
               </CollectionsButton>
             </TabsSubContainer>

@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import { FaHeart, FaEye } from "react-icons/fa";
 import { Icon } from "components";
-import {
-  retrievePhoto,
-  setFavoriteImage,
-} from "store/photo/photoActions";
+import { retrievePhoto, setFavoriteImage } from "store/photo/photoActions";
 import {
   MainImage,
   Container,
@@ -42,7 +39,7 @@ class Photo extends React.Component {
   render() {
     const { data } = this.props.photo;
     const tagsAvailable = data && data.tags.length > 0;
-    const {setFavoriteImage} = this.props;
+    const { setFavoriteImage } = this.props;
 
     return (
       <>

@@ -2,9 +2,9 @@ import React from "react";
 import LoadingBar from "react-top-loading-bar";
 import { connect } from "react-redux";
 // import { FaHeart } from "react-icons/fa";
-import { 
-  Photos, 
-  Collections, 
+import {
+  Photos,
+  Collections,
   // Icon,
 } from "components";
 import {

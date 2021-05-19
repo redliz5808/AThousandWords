@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getFavoriteCollections} from "./collectionReducer";
+import { getFavoriteCollections } from "./collectionReducer";
 import {
   COLLECTIONS_FETCH_COLLECTION_DATA_SUCCESS,
   COLLECTIONS_FETCH_COLLECTION_DATA_ERROR,
