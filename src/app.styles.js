@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 export const StyledDiv = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 export const Logo = styled.img`
-margin-left: 10px;
+  margin-left: 10px;
   margin-top: 10px;
   max-height: 100px;
   @media (max-width: 768px) {
@@ -16,7 +17,7 @@ margin-left: 10px;
 
 export const StyledNav = styled.nav`
   display: flex;
-  width: 100vw;
+  width: 932px;
 
   @media (max-width: 780px) {
     flex-direction: column;
@@ -51,7 +52,8 @@ export const NavButtonLi = styled.li`
   text-align: center;
   flex-grow: 1;
   color: #6958f2;
-`
+  cursor: pointer;
+`;
 
 export const StyledLink = styled(Link)`
   text-decoration: none;

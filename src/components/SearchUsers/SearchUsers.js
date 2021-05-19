@@ -1,10 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
+import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
 import { getUserData } from "store/searchUsers/searchUsersActions";
-import { StyledResponsiveMasonry, StyledLink, Bio } from "./searchUsers.styles";
+import {
+  MainContainer,
+  SubContainer,
+  StyledLink,
+  Username,
+  StyledImage,
+} from "./searchUsers.styles";
 
 class SearchUsers extends React.Component {
   loadingBar = React.createRef();
@@ -38,22 +45,28 @@ class SearchUsers extends React.Component {
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {readyWithoutUsers && <div>There are no results for {searchTerm}.</div>}
         {readyWithUsers && (
-          <StyledResponsiveMasonry
-            columnsCountBreakPoints={ColumnBreaks}
-            gutter="0"
-          >
-            <Masonry>
-              {userData.results.map((user) => {
-                return (
-                  <StyledLink key={user.id} to={`/user/${user.username}`}>
-                    <h3>{user.name}</h3>
-                    <img src={user.profile_image.large} alt={user.name} />
-                    {user.bio ? <Bio>{user.bio}</Bio> : null}
-                  </StyledLink>
-                );
-              })}
-            </Masonry>
-          </StyledResponsiveMasonry>
+          <MainContainer>
+            <ResponsiveMasonry
+              columnsCountBreakPoints={ColumnBreaks}
+              gutter="0"
+            >
+              <Masonry>
+                {userData.results.map((user) => {
+                  return (
+                    <SubContainer>
+                      <StyledLink key={user.id} to={`/user/${user.username}`}>
+                        <StyledImage
+                          src={user.profile_image.large}
+                          alt={user.name}
+                        />
+                        <Username>{user.name}</Username>
+                      </StyledLink>
+                    </SubContainer>
+                  );
+                })}
+              </Masonry>
+            </ResponsiveMasonry>
+          </MainContainer>
         )}
       </>
     );

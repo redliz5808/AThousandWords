@@ -41,3 +41,5 @@ function searchCollectionsReducer(state = initialState, action) {
 }
 
 export default searchCollectionsReducer;
+
+export const getFavoriteList = (state) => state.searchCollection.favoriteCollections; 

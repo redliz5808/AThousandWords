@@ -5,10 +5,9 @@ import {
   GET_FAVORITE_PHOTOS_ERROR,
 } from "./favoritePhotoTypes";
 
-export const retrieveFavoritePhotos = (favoritePhotos) => async (
-  dispatch,
-  getState
-) => {
+export const retrieveFavoritePhotos = () => async (dispatch, getState) => {
+  const state = getState();
+  const {favoritePhotos} = state.photo;
   try {
     dispatch({
       type: GET_FAVORITE_PHOTOS_PENDING,

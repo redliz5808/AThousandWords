@@ -1,66 +1,50 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ResponsiveMasonry } from "react-responsive-masonry";
 
 export const Container = styled.div`
-  display: inline-block;
-  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  margin: 20px;
-`;
-
-export const Title = styled.span`
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-export const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
+  text-align: center;
+  position: relative;
+  margin: 10px 0px;
 `;
 
 export const CollectionLink = styled(Link)`
   text-decoration: none;
   color: #6958f2;
-`;
-
-export const PreviewPhotos = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-export const Preview = styled.img`
-  max-width: 100px;
-  height: 100%;
-  border-radius: 3px;
-`;
-
-export const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #6958f2;
-  display: flex;
-  align-items: center;
-`;
-
-export const Total = styled.p`
-  color: black;
-`;
-
-export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
-  margin-left: 20px;
+  cursor: pointer;
 `;
 
 export const StyledImage = styled.img`
   border-radius: 5px;
+  width: 223px;
+  height: 223px;
+  object-fit: cover;
 `;
 
 export const StatsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
-export const Username = styled.span`
-  margin-left: 5px;
+export const StatsOverlay = styled.div`
+  width: 224px;
+  height: 224px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
+export const Stats = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
 `;

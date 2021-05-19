@@ -1,9 +1,17 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
 import { SearchPhotos, SearchCollections, SearchUsers } from "components";
-import { StyledDiv, StyledSpan } from "./search.styles";
+import {
+  MainContainer,
+  SubContainer,
+  StyledDiv,
+  StyledSpan,
+  Tabs,
+  Users,
+  TabsSubContainer,
+  UsersButton,
+  PhotosButton,
+  CollectionsButton,
+} from "./search.styles";
 
 class Search extends React.Component {
   state = {
@@ -23,36 +31,44 @@ class Search extends React.Component {
     }
   }
 
-  handleChange = (event, newValue) => {
-    this.setState({ value: newValue });
+  handleClick = (e) => {
+    const { innerText } = e.target;
+    if (innerText === "Photos") {
+      this.setState({ value: 0 });
+    } else if (innerText === "Collections") {
+      this.setState({ value: 1 });
+    } else if (innerText === "Users") {
+      this.setState({ value: 2 });
+    }
   };
 
   render() {
     const { searchTerm, value } = this.state;
-    const isPhotos = value === 0;
-    const isCollections = value === 1;
-    const isUsers = value === 2;
+    const showPhotos = value === 0;
+    const showCollections = value === 1;
+    const showUsers = value === 2;
     return (
-      <>
-        <StyledDiv>
-          Search Results for <StyledSpan>{searchTerm}</StyledSpan>
-        </StyledDiv>
-        <Paper square>
-          <Tabs
-            value={value}
-            textColor="primary"
-            indicatorColor="primary"
-            onChange={this.handleChange}
-          >
-            <Tab label="Photos" />
-            <Tab label="Collections" />
-            <Tab label="Users" />
+      <MainContainer>
+        <SubContainer>
+          <StyledDiv>
+            Search Results for <StyledSpan>{searchTerm}</StyledSpan>
+          </StyledDiv>
+          <Tabs>
+            <Users>
+              <UsersButton onClick={this.handleClick} value={value} >Users</UsersButton>
+            </Users>
+            <TabsSubContainer>
+              <PhotosButton onClick={this.handleClick} value={value} >Photos</PhotosButton>
+              <CollectionsButton onClick={this.handleClick} value={value} >
+                Collections
+              </CollectionsButton>
+            </TabsSubContainer>
           </Tabs>
-          {isPhotos && <SearchPhotos searchTerm={searchTerm} />}
-          {isCollections && <SearchCollections searchTerm={searchTerm} />}
-          {isUsers && <SearchUsers searchTerm={searchTerm} />}
-        </Paper>
-      </>
+          {showPhotos && <SearchPhotos searchTerm={searchTerm} />}
+          {showCollections && <SearchCollections searchTerm={searchTerm} />}
+          {showUsers && <SearchUsers searchTerm={searchTerm} />}
+        </SubContainer>
+      </MainContainer>
     );
   }
 }

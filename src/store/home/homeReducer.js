@@ -11,6 +11,7 @@ import {
   GET_PHOTO_PENDING,
   GET_PHOTO_SUCCESS,
   GET_PHOTO_ERROR,
+  SET_IMAGE_INDEX,
 } from "./homeTypes";
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
   showModal: false,
   displayedImageId: null,
   displayedImage: null,
+  index: null,
 };
 
 function homeReducer(state = initialState, action) {
@@ -68,6 +70,11 @@ function homeReducer(state = initialState, action) {
         ...state,
         showModal: action.payload,
       };
+    case SET_IMAGE_INDEX:
+      return {
+        ...state,
+        index: action.payload,
+      }
     case SET_DISPLAYED_IMAGE:
       return {
         ...state,
@@ -95,3 +102,5 @@ function homeReducer(state = initialState, action) {
 }
 
 export default homeReducer;
+
+export const getFavoritePhotos = (state) => state.home.favoritePhotos;

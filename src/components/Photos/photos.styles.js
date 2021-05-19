@@ -1,18 +1,25 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const Container = styled.div`
+export const MainContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+`;
+
+export const SubContainer = styled.div`
+  text-align: center;
+  width: 932px;
 `;
 
 export const StyledImage = styled.img`
-  margin: 5px;
-`
+  width: 265px;
+  height: 265px;
+  object-fit: cover;
+  margin: 25px 0px;
+  border-radius: 5px;
+`;
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: #6958f2;
-`
+`;

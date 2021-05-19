@@ -1,8 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
+import { ResponsiveMasonry } from "react-responsive-masonry";
+import Masonry from "react-responsive-masonry";
+import { ColumnBreaks } from "utils";
 import { retrieveUserPhotos } from "store/userPhotos/userPhotosActions";
-import { Container, StyledLink, StyledImage } from "./photos.styles";
+import {
+  MainContainer,
+  SubContainer,
+  StyledLink,
+  StyledImage,
+} from "./photos.styles";
 
 class Photos extends React.Component {
   loadingBar = React.createRef();
@@ -31,15 +39,24 @@ class Photos extends React.Component {
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {readyWithoutPhotos && <div>This user has no photos</div>}
         {readyWithPhotos && (
-          <Container>
-            {photos.map((photo) => {
-              return (
-                <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
-                  <StyledImage src={photo.urls.small} alt={photo.id} />
-                </StyledLink>
-              );
-            })}
-          </Container>
+          <MainContainer>
+            <SubContainer>
+              <ResponsiveMasonry
+                columnsCountBreakPoints={ColumnBreaks}
+                gutter="0"
+              >
+                <Masonry>
+                  {photos.map((photo) => {
+                    return (
+                      <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
+                        <StyledImage src={photo.urls.small} alt={photo.id} />
+                      </StyledLink>
+                    );
+                  })}
+                </Masonry>
+              </ResponsiveMasonry>
+            </SubContainer>
+          </MainContainer>
         )}
       </>
     );

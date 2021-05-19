@@ -1,17 +1,17 @@
 import axios from "axios";
+import {getFavoritePhotos} from "./homeReducer";
 import {
   GET_ALL_PHOTOS_SUCCESS,
   GET_ALL_PHOTOS_ERROR,
   GET_ALL_PHOTOS_PENDING,
   GET_PARSED_DATA,
-  GET_FAVORITES_DATA,
   SET_PAGE_NUMBER,
   SET_FAVORITE_IMAGE,
   SHOW_MODAL,
-  SET_DISPLAYED_IMAGE,
   GET_PHOTO_PENDING,
   GET_PHOTO_SUCCESS,
   GET_PHOTO_ERROR,
+  SET_IMAGE_INDEX,
 } from "./homeTypes";
 
 export const getAllPhotos = (page) => async (dispatch, getState) => {
@@ -19,6 +19,10 @@ export const getAllPhotos = (page) => async (dispatch, getState) => {
     dispatch({
       type: GET_ALL_PHOTOS_PENDING,
     });
+    dispatch({
+      type: SHOW_MODAL,
+      payload: false,
+    })
     const { data } = await axios(
       `${process.env.REACT_APP_API_BASE_URL}/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
     );
@@ -37,13 +41,6 @@ export const getParsed = (parsed) => {
   return {
     type: GET_PARSED_DATA,
     payload: parsed,
-  };
-};
-
-export const getFavorites = () => {
-  return {
-    type: GET_FAVORITES_DATA,
-    payload: JSON.parse(localStorage.getItem("favoritePhotos")) || {},
   };
 };
 
@@ -74,15 +71,15 @@ export const setPage = (button) => (dispatch, getState) => {
 
 export const setFavoriteImage = (id) => (dispatch, getState) => {
   const state = getState();
-  if (state.home.favoritePhotos[id]) {
-    const favoritesList = state.home.favoritePhotos;
-    delete favoritesList[id];
+  const favoritePhotos = getFavoritePhotos(state);
+  if (favoritePhotos[id]) {
+    delete favoritePhotos[id];
     dispatch({
       type: SET_FAVORITE_IMAGE,
-      payload: favoritesList,
+      payload: favoritePhotos,
     });
   } else {
-    const newFavoritesList = { ...state.home.favoritePhotos, [id]: id };
+    const newFavoritesList = { ...favoritePhotos, [id]: id };
     dispatch({
       type: SET_FAVORITE_IMAGE,
       payload: newFavoritesList,
@@ -90,16 +87,16 @@ export const setFavoriteImage = (id) => (dispatch, getState) => {
   }
 };
 
-export const handleImageClick = (id) => (dispatch, getState) => {
-  // const state = getState();
-  // dispatch({
-  //   type: SHOW_MODAL,
-  //   payload: !state.home.showModal,
-  // });
+export const handleImageClick = (index) => (dispatch, getState) => {
+  const state = getState();
   dispatch({
-    type: SET_DISPLAYED_IMAGE,
-    payload: id,
+    type: SHOW_MODAL,
+    payload: !state.home.showModal,
   });
+  dispatch({
+    type: SET_IMAGE_INDEX,
+    payload: index,
+  })
 };
 
 export const displayPhoto = (id) => async (dispatch, getState) => {

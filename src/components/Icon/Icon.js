@@ -7,14 +7,11 @@ const convertedNumbers = (x) => {
 };
 
 const Icon = (props) => {
-  const handleFavoriteClick = () => {
-    props.handleFavoriteClick(props.id);
-  };
 
   return (
     <StyledSpan>
-      <StyledButton color={props.color} onClick={handleFavoriteClick}>
-        <StyledIcon>{props.icon}</StyledIcon>
+      <StyledButton color={props.color}>
+        <StyledIcon onClick={props.handleClick}>{props.icon}</StyledIcon>
       </StyledButton>
       {convertedNumbers(props.stats)}
     </StyledSpan>

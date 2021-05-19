@@ -7,7 +7,6 @@ import { CollectionPhotos } from "components";
 import { Container, StyledLink, Tags, TagLink } from "./collection.styles";
 import {
   getCollectionData,
-  setFavoritesData,
   getFavoritesData,
 } from "store/collection/collectionActions";
 
@@ -17,7 +16,6 @@ class Collection extends React.Component {
   componentDidMount() {
     const { collectionid } = this.props.match.params;
     this.props.getCollectionData(collectionid);
-    this.props.setFavoritesData();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -92,7 +90,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getCollectionData,
   getFavoritesData,
-  setFavoritesData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Collection);

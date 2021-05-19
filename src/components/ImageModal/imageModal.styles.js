@@ -15,22 +15,29 @@ export const ModalMainContainer = styled.div`
 `;
 
 export const ModalSubContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: white;
+  width: 932px;
   border-radius: 5px;
 `;
 
 export const ModalImageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-align: center;
+  width: calc(100% - 62px);
+  margin: 0px 31px 27px 31px;
   background-color: white;
   border-radius: 5px;
-  padding: 10px;
 `;
 
 export const ModalStatsContainer = styled.div`
   background-color: white;
   width: 100%;
+  margin-top: 20px;
 `;
 
 export const StyledImage = styled.img`
@@ -40,7 +47,6 @@ export const StyledImage = styled.img`
 `;
 
 export const StyledDiv = styled.div`
-  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 `;
@@ -55,7 +61,9 @@ export const StyledLink = styled(Link)`
 export const ModalUserContainer = styled.div`
   display: flex;
   justify-content: space-between;
-`
+  width: calc(100% - 62px);
+  margin: 27px 31px 20px 31px;
+`;
 
 export const UserInfo = styled.div`
   display: flex;
@@ -63,7 +71,7 @@ export const UserInfo = styled.div`
 
 export const UserImage = styled.img`
   border-radius: 3px;
-  margin: 5px;
+  margin-right: 18px;
 `;
 
 export const Username = styled.div`
@@ -77,5 +85,4 @@ export const CloseButton = styled.button`
   font-size: 20px;
   border-radius: 3px;
   border: none;
-  margin: 5px;
 `;

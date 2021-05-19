@@ -1,28 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
+import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
-import { Icon } from "components";
-import { FaHeart } from "react-icons/fa";
 import { ColumnBreaks } from "utils";
 import {
   getCollectionData,
-  setFavoriteCollections,
   addCollectionAsFavorite,
 } from "store/searchCollections/searchCollectionsActions";
 import {
-  StyledResponsiveMasonry,
   Container,
-  Title,
-  TitleContainer,
   CollectionLink,
-  PreviewPhotos,
-  Preview,
-  StyledLink,
-  Total,
   StyledImage,
   StatsContainer,
-  Username,
+  StatsOverlay,
+  Stats,
 } from "./searchCollections.styles.js";
 
 class SearchCollections extends React.Component {
@@ -31,7 +23,6 @@ class SearchCollections extends React.Component {
   componentDidMount() {
     const { searchTerm } = this.props;
     this.props.getCollectionData(searchTerm);
-    this.props.setFavoriteCollections();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -65,70 +56,27 @@ class SearchCollections extends React.Component {
           <div>There are no results for {searchTerm}.</div>
         )}
         {readyWithCollections && (
-          <StyledResponsiveMasonry
-            columnsCountBreakPoints={ColumnBreaks}
-            gutter="0"
-          >
+          <ResponsiveMasonry columnsCountBreakPoints={ColumnBreaks} gutter="0">
             <Masonry>
               {collectionData.results.map((collection) => {
                 return (
-                  <Container key={collection.id}>
-                    <TitleContainer>
-                      <CollectionLink to={`/collection/${collection.id}`}>
-                        <Title>{collection.title}</Title>
-                      </CollectionLink>
-                      <Title>
-                        {this.props.searchCollections.favoriteCollections[
-                          collection.id
-                        ] ? (
-                          <Icon
-                            id={collection.id}
-                            handleFavoriteClick={this.handleFavoriteClick}
-                            icon={<FaHeart />}
-                            color="#6958f2"
-                            stats=""
-                          />
-                        ) : (
-                          <Icon
-                            id={collection.id}
-                            handleFavoriteClick={this.handleFavoriteClick}
-                            icon={<FaHeart />}
-                            color="#000"
-                            stats=""
-                          />
-                        )}
-                      </Title>
-                    </TitleContainer>
-                    <StyledImage
-                      src={collection.cover_photo.urls.small}
-                      alt={collection.title}
-                    />
-                    <PreviewPhotos>
-                      {collection.preview_photos.map((preview) => {
-                        return (
-                          <Preview
-                            key={preview.id}
-                            src={preview.urls.thumb}
-                            alt={preview.id}
-                          />
-                        );
-                      })}
-                    </PreviewPhotos>
+                  <Container>
+                    <CollectionLink to={`/collection/${collection.id}`} key={collection.id}>
+                      <StyledImage
+                        src={collection.cover_photo.urls.small}
+                        alt={collection.title}
+                      />
                     <StatsContainer>
-                      <Total>Total Photos: {collection.total_photos}</Total>
-                      <StyledLink to={`/user/${collection.user.username}`}>
-                        <StyledImage
-                          src={collection.user.profile_image.small}
-                          alt={collection.user.username}
-                        />
-                        <Username>{collection.user.name}</Username>
-                      </StyledLink>
+                      <StatsOverlay>
+                        <Stats>{collection.total_photos} photos</Stats>
+                      </StatsOverlay>
                     </StatsContainer>
+                    </CollectionLink>
                   </Container>
                 );
               })}
             </Masonry>
-          </StyledResponsiveMasonry>
+          </ResponsiveMasonry>
         )}
       </>
     );
@@ -141,7 +89,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getCollectionData,
-  setFavoriteCollections,
   addCollectionAsFavorite,
 };
 

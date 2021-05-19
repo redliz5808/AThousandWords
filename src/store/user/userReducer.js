@@ -49,3 +49,5 @@ function userReducer(state = initialState, action) {
 }
 
 export default userReducer;
+
+export const getFavoriteUsers = (state) => state.user.favoriteUsers;

@@ -7,7 +7,6 @@ export const StyledSpan = styled.span`
 `;
 
 export const StyledIcon = styled.span`
-  margin-right: 4px;
   font-size: 20px;
 `;
 

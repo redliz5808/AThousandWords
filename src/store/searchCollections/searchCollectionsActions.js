@@ -1,4 +1,5 @@
 import axios from "axios";
+import {getFavoriteList} from "./searchCollectionsReducer";
 import {
   GET_COLLECTION_DATA_PENDING,
   GET_COLLECTION_DATA_SUCCESS,
@@ -25,25 +26,18 @@ export const getCollectionData = (searchTerm) => async (dispatch, getState) => {
   }
 };
 
-export const setFavoriteCollections = () => {
-  return {
-    type: SET_FAVORITE_COLLECTIONS,
-    payload: JSON.parse(localStorage.getItem("favoriteCollections")) || {},
-  };
-};
-
 export const addCollectionAsFavorite = (id) => (dispatch, getState) => {
   const state = getState();
-  if (state.searchCollections.favoriteCollections[id]) {
-    const favoritesList = state.searchCollections.favoriteCollections;
-    delete favoritesList[id];
+  const favoriteCollections = getFavoriteList(state)
+  if (favoriteCollections[id]) {
+    delete favoriteCollections[id];
     dispatch({
       type: SET_FAVORITE_COLLECTIONS,
-      payload: favoritesList,
+      payload: favoriteCollections,
     });
   } else {
     const newFavoritesList = {
-      ...state.searchCollections.favoriteCollections,
+      ...favoriteCollections,
       [id]: id,
     };
     dispatch({

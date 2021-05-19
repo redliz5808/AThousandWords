@@ -1,14 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
+import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
 import { getPhotoData } from "store/searchPhotos/searchPhotosActions";
-import {
-  StyledResponsiveMasonry,
-  StyledLink,
-  StyledImage,
-} from "./searchPhotos.styles";
+import { MainContainer, StyledLink, StyledImage } from "./searchPhotos.styles";
 
 class SearchPhotos extends React.Component {
   loadingBar = React.createRef();
@@ -44,20 +41,22 @@ class SearchPhotos extends React.Component {
           <div>There are no results for {searchTerm}.</div>
         )}
         {readyWithPhotos && (
-          <StyledResponsiveMasonry
-            columnsCountBreakPoints={ColumnBreaks}
-            gutter="0"
-          >
-            <Masonry>
-              {photoData.results.map((photo) => {
-                return (
-                  <StyledLink key={photo.id} to={`/photo/${photo.id}`}>
-                    <StyledImage src={photo.urls.small} alt={photo.id} />
-                  </StyledLink>
-                );
-              })}
-            </Masonry>
-          </StyledResponsiveMasonry>
+          <MainContainer>
+            <ResponsiveMasonry
+              columnsCountBreakPoints={ColumnBreaks}
+              gutter="0"
+            >
+              <Masonry>
+                {photoData.results.map((photo) => {
+                  return (
+                    <StyledLink key={photo.id} to={`/photo/${photo.id}`}>
+                      <StyledImage src={photo.urls.small} alt={photo.id} />
+                    </StyledLink>
+                  );
+                })}
+              </Masonry>
+            </ResponsiveMasonry>
+          </MainContainer>
         )}
       </>
     );
