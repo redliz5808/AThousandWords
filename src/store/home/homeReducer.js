@@ -1,13 +1,11 @@
 import {
   GET_ALL_PHOTOS_SUCCESS,
+  GET_MORE_PHOTOS_SUCCESS,
   GET_ALL_PHOTOS_ERROR,
   GET_ALL_PHOTOS_PENDING,
-  GET_PARSED_DATA,
-  GET_FAVORITES_DATA,
   SET_PAGE_NUMBER,
   SET_FAVORITE_IMAGE,
   SHOW_MODAL,
-  SET_DISPLAYED_IMAGE,
   GET_PHOTO_PENDING,
   GET_PHOTO_SUCCESS,
   GET_PHOTO_ERROR,
@@ -19,7 +17,6 @@ const initialState = {
   isLoading: false,
   page: 1,
   favoritePhotos: {},
-  parsed: 1,
   showModal: false,
   displayedImageId: null,
   displayedImage: null,
@@ -45,16 +42,12 @@ function homeReducer(state = initialState, action) {
         isLoading: false,
         error: true,
       };
-    case GET_PARSED_DATA:
+    case GET_MORE_PHOTOS_SUCCESS:
       return {
         ...state,
-        parsed: action.payload,
-      };
-    case GET_FAVORITES_DATA:
-      return {
-        ...state,
-        parsed: action.payload,
-      };
+        isLoading: false,
+        data: [...state.data, ...action.payload]
+      }
     case SET_PAGE_NUMBER:
       return {
         ...state,
@@ -74,11 +67,6 @@ function homeReducer(state = initialState, action) {
       return {
         ...state,
         index: action.payload,
-      };
-    case SET_DISPLAYED_IMAGE:
-      return {
-        ...state,
-        displayedImageId: action.payload,
       };
     case GET_PHOTO_PENDING:
       return {

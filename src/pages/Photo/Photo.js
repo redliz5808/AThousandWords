@@ -40,7 +40,7 @@ class Photo extends React.Component {
     const { data } = this.props.photo;
     const tagsAvailable = data && data.tags.length > 0;
     const { setFavoriteImage } = this.props;
-
+    console.log(this.props)
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
@@ -61,7 +61,8 @@ class Photo extends React.Component {
                   handleClick={() => setFavoriteImage(data.id)}
                   icon={<FaHeart />}
                   stats={data.likes}
-                  color="#6958f2"
+                  color="#9d0707"
+                  type="heart"
                 />
               ) : (
                 <Icon
@@ -69,7 +70,8 @@ class Photo extends React.Component {
                   handleClick={() => setFavoriteImage(data.id)}
                   icon={<FaHeart />}
                   stats={data.likes}
-                  color="#000"
+                  color="#8c8c8c"
+                  type="heart"
                 />
               )}
               <Icon icon={<FaEye />} stats={data.views} />

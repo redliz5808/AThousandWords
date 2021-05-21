@@ -1,12 +1,7 @@
 import React from "react";
 import LoadingBar from "react-top-loading-bar";
 import { connect } from "react-redux";
-// import { FaHeart } from "react-icons/fa";
-import {
-  Photos,
-  Collections,
-  // Icon,
-} from "components";
+import { Photos, Collections } from "components";
 import {
   setUserAsFavorite,
   retrieveUserData,
@@ -69,25 +64,6 @@ class User extends React.Component {
               <UserContainer>
                 <StyledImage src={data.profile_image.large} alt={data.name} />
                 <UserName>{data.name}</UserName>
-                {/* <span>
-                  {this.props.user.favoriteUsers[data.username] ? (
-                    <Icon
-                      id={data.username}
-                      handleFavoriteClick={this.handleFavoriteClick}
-                      icon={<FaHeart />}
-                      color="#6958f2"
-                      stats=""
-                    />
-                  ) : (
-                    <Icon
-                      id={data.username}
-                      handleFavoriteClick={this.handleFavoriteClick}
-                      icon={<FaHeart />}
-                      color="#000"
-                      stats=""
-                    />
-                  )}
-                </span> */}
                 {data.bio && <Bio>{data.bio}</Bio>}
                 {data.instagram_username && (
                   <InstagramUser

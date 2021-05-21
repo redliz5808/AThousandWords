@@ -7,10 +7,13 @@ const convertedNumbers = (x) => {
 };
 
 const Icon = (props) => {
+  console.log(props.icon.type)
   return (
     <StyledSpan>
-      <StyledButton color={props.color}>
-        <StyledIcon onClick={props.handleClick}>{props.icon}</StyledIcon>
+      <StyledButton type={props.type}>
+        <StyledIcon color={props.color} onClick={props.handleClick}>
+          {props.icon}
+        </StyledIcon>
       </StyledButton>
       {convertedNumbers(props.stats)}
     </StyledSpan>

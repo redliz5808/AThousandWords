@@ -18,7 +18,7 @@ export const ModalSubContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: ${props => props.theme.body};
   width: 932px;
   border-radius: 5px;
 `;
@@ -30,12 +30,12 @@ export const ModalImageContainer = styled.div`
   text-align: center;
   width: calc(100% - 62px);
   margin: 0px 31px 27px 31px;
-  background-color: white;
+  background-color: ${props => props.theme.body};
   border-radius: 5px;
 `;
 
 export const ModalStatsContainer = styled.div`
-  background-color: white;
+  background-color: ${props => props.theme.body};
   width: 100%;
   margin-top: 20px;
 `;
@@ -55,7 +55,7 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
-  color: #6958f2;
+  color: ${props => props.theme.text};
 `;
 
 export const ModalUserContainer = styled.div`
@@ -79,8 +79,8 @@ export const Username = styled.div`
 `;
 
 export const CloseButton = styled.button`
-  background-color: white;
-  color: #6958f2;
+  background-color: ${props => props.theme.body};
+  color: ${props => props.theme.text};
   cursor: pointer;
   font-size: 20px;
   border-radius: 3px;

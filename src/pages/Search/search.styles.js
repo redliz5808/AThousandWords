@@ -45,11 +45,11 @@ export const PhotosButton = styled.button`
   text-align: right;
   font-size: 18px;
 
-  ${({ value }) =>
+  ${({ value, theme: {results_selected} }) =>
     value === 0 &&
     `
     font-weight: bold;
-    color: ${(props) => props.theme.results_selected};
+    color: ${results_selected};
   `}
 `;
 
@@ -62,11 +62,11 @@ export const UsersButton = styled.button`
   text-align: right;
   font-size: 18px;
 
-  ${({ value }) =>
+  ${({ value, theme: {results_selected} }) =>
     value === 2 &&
     `
     font-weight: bold;
-    color: ${(props) => props.theme.results_selected};
+    color: ${results_selected};
   `}
 `;
 
@@ -79,10 +79,10 @@ export const CollectionsButton = styled.button`
   text-align: right;
   font-size: 18px;
 
-  ${({ value }) =>
+  ${({ value, theme: {results_selected} }) =>
     value === 1 &&
     `
     font-weight: bold;
-    color: ${(props) => props.theme.results_selected};
+    color: ${results_selected};
   `}
 `;

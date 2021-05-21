@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingBar from "react-top-loading-bar";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
@@ -7,6 +8,7 @@ import { ColumnBreaks } from "utils";
 import {
   getCollectionData,
   addCollectionAsFavorite,
+  fetchData,
 } from "store/searchCollections/searchCollectionsActions";
 import {
   Container,
@@ -22,7 +24,7 @@ class SearchCollections extends React.Component {
 
   componentDidMount() {
     const { searchTerm } = this.props;
-    this.props.getCollectionData(searchTerm);
+    this.props.getCollectionData(searchTerm, 1);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -39,16 +41,12 @@ class SearchCollections extends React.Component {
     }
   }
 
-  handleFavoriteClick = (id) => {
-    this.props.addCollectionAsFavorite(id);
-  };
-
   render() {
     const { searchTerm } = this.props;
-    const { collectionData } = this.props.searchCollections;
+    const { collectionData, page } = this.props.searchCollections;
     const readyWithoutCollections =
-      collectionData && collectionData.total === 0;
-    const readyWithCollections = collectionData && collectionData.total > 0;
+      collectionData && collectionData.length === 0;
+    const readyWithCollections = collectionData && collectionData.length > 0;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
@@ -56,27 +54,42 @@ class SearchCollections extends React.Component {
           <div>There are no results for {searchTerm}.</div>
         )}
         {readyWithCollections && (
-          <ResponsiveMasonry columnsCountBreakPoints={ColumnBreaks} gutter="0">
-            <Masonry>
-              {collectionData.results.map((collection) => {
-                return (
-                  <Container key={collection.id}>
-                    <CollectionLink to={`/collection/${collection.id}`}>
-                      <StyledImage
-                        src={collection.cover_photo.urls.small}
-                        alt={collection.title}
-                      />
-                      <StatsContainer>
-                        <StatsOverlay>
-                          <Stats>{collection.total_photos} photos</Stats>
-                        </StatsOverlay>
-                      </StatsContainer>
-                    </CollectionLink>
-                  </Container>
-                );
-              })}
-            </Masonry>
-          </ResponsiveMasonry>
+          <InfiniteScroll
+            dataLength={collectionData.length}
+            next={() => this.props.fetchData(searchTerm, page + 1)}
+            hasMore={true}
+            loader={<h4>Loading more results...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <ResponsiveMasonry
+              columnsCountBreakPoints={ColumnBreaks}
+              gutter="0"
+            >
+              <Masonry>
+                {collectionData.map((collection) => {
+                  return (
+                    <Container key={collection.id}>
+                      <CollectionLink to={`/collection/${collection.id}`}>
+                        <StyledImage
+                          src={collection.cover_photo.urls.small}
+                          alt={collection.title}
+                        />
+                        <StatsContainer>
+                          <StatsOverlay>
+                            <Stats>{collection.total_photos} photos</Stats>
+                          </StatsOverlay>
+                        </StatsContainer>
+                      </CollectionLink>
+                    </Container>
+                  );
+                })}
+              </Masonry>
+            </ResponsiveMasonry>
+          </InfiniteScroll>
         )}
       </>
     );
@@ -90,6 +103,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getCollectionData,
   addCollectionAsFavorite,
+  fetchData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCollections);

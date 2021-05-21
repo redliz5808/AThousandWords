@@ -60,7 +60,8 @@ const ImageModal = ({
                       icon={<FaHeart />}
                       handleClick={() => setFavoriteImage(selectedPhoto.id)}
                       stats={selectedPhoto.likes}
-                      color="#6958f2"
+                      color="#9d0707"
+                      type="heart"
                     />
                   ) : (
                     <Icon
@@ -68,7 +69,8 @@ const ImageModal = ({
                       icon={<FaHeart />}
                       handleClick={() => setFavoriteImage(selectedPhoto.id)}
                       stats={selectedPhoto.likes}
-                      color="#000"
+                      color="#8c8c8c"
+                      type="heart"
                     />
                   )}
                 </StyledDiv>

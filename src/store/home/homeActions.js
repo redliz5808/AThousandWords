@@ -4,7 +4,7 @@ import {
   GET_ALL_PHOTOS_SUCCESS,
   GET_ALL_PHOTOS_ERROR,
   GET_ALL_PHOTOS_PENDING,
-  GET_PARSED_DATA,
+  GET_MORE_PHOTOS_SUCCESS,
   SET_PAGE_NUMBER,
   SET_FAVORITE_IMAGE,
   SHOW_MODAL,
@@ -30,6 +30,10 @@ export const getAllPhotos = (page) => async (dispatch, getState) => {
       type: GET_ALL_PHOTOS_SUCCESS,
       payload: data,
     });
+    dispatch({
+      type: SET_PAGE_NUMBER,
+      payload: page,
+    });
   } catch (error) {
     dispatch({
       type: GET_ALL_PHOTOS_ERROR,
@@ -37,34 +41,29 @@ export const getAllPhotos = (page) => async (dispatch, getState) => {
   }
 };
 
-export const getParsed = (parsed) => {
-  return {
-    type: GET_PARSED_DATA,
-    payload: parsed,
-  };
-};
-
-export const setPage = (button) => (dispatch, getState) => {
-  const state = getState();
-  if (button === "Previous" && state.page === 1) {
+export const fetchData = (page) => async (dispatch, getState) => {
+  try {
     dispatch({
-      type: SET_PAGE_NUMBER,
-      payload: 1,
+      type: GET_ALL_PHOTOS_PENDING,
     });
-  } else if (button === "Previous" && state.page > 1) {
     dispatch({
-      type: SET_PAGE_NUMBER,
-      payload: state.page - 1,
+      type: SHOW_MODAL,
+      payload: false,
     });
-  } else if (button === "Next") {
+    const { data } = await axios(
+      `${process.env.REACT_APP_API_BASE_URL}/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
+    );
     dispatch({
-      type: SET_PAGE_NUMBER,
-      payload: state.page + 1,
+      type: GET_MORE_PHOTOS_SUCCESS,
+      payload: data,
     });
-  } else {
     dispatch({
       type: SET_PAGE_NUMBER,
-      payload: Number(button),
+      payload: page,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ALL_PHOTOS_ERROR,
     });
   }
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
-import queryString from "query-string";
+import InfiniteScroll from "react-infinite-scroll-component";
 import LazyLoad from "react-lazyload";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
@@ -9,8 +9,7 @@ import { ImageModal } from "components";
 import { ColumnBreaks } from "utils";
 import {
   getAllPhotos,
-  getParsed,
-  setPage,
+  fetchData,
   setFavoriteImage,
   handleImageClick,
   displayPhoto,
@@ -27,36 +26,11 @@ class Home extends React.Component {
   loadingBar = React.createRef();
 
   componentDidMount() {
-    if (this.props.location.search) {
-      const parsed = queryString.parse(this.props.location.search, {
-        parseNumbers: true,
-      });
-      this.props.getParsed(parsed);
-      this.props.getAllPhotos(parsed.page);
-    } else {
-      const { page } = this.props.home;
-      const query = queryString.stringify({ page });
-      this.props.history.push(`/?${query}`);
-    }
+    this.props.getAllPhotos(1);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { page, isLoading } = this.props.home;
-
-    if (prevProps.home.page !== page) {
-      const query = queryString.stringify({ page });
-      this.props.history.push(`/?${query}`);
-      this.props.getAllPhotos(page);
-    }
-
-    if (prevProps.location.search !== this.props.location.search) {
-      this.props.getAllPhotos(page);
-    }
-
-    if (!this.props.location.search) {
-      const query = queryString.stringify({ page });
-      this.props.history.push(`/?${query}`);
-    }
+    const { isLoading } = this.props.home;
 
     if (prevProps.home.isLoading !== isLoading && isLoading) {
       this.loadingBar.current.continuousStart();
@@ -67,51 +41,59 @@ class Home extends React.Component {
     }
   }
 
-  handleClick = (button) => {
-    this.props.setPage(button);
-  };
-
   handleImageClick = (id, index) => {
     const item = this.props.home.data.find((item) => item.id === id);
     if (item) this.props.handleImageClick(index);
   };
 
   render() {
-    const { data, isLoading, showModal } = this.props.home;
+    const { data, isLoading, showModal, page } = this.props.home;
     const readyToLoad = data && !isLoading;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {readyToLoad && (
-          <MainContainer>
-            <ChildContainer>
-              <ResponsiveMasonry
-                columnsCountBreakPoints={ColumnBreaks}
-                gutter="0"
-              >
-                <Masonry>
-                  {Object.values(data).map((value, index) => {
-                    return (
-                      <LazyLoad height={200} key={value.id}>
-                        <SubContainer>
-                          <ImageContainer>
-                            <StyledImg
-                              onClick={() =>
-                                this.handleImageClick(value.id, index)
-                              }
-                              src={value.urls.small}
-                              alt={value.alt_description}
-                            />
-                          </ImageContainer>
-                        </SubContainer>
-                      </LazyLoad>
-                    );
-                  })}
-                </Masonry>
-              </ResponsiveMasonry>
-              {showModal && <ImageModal />}
-            </ChildContainer>
-          </MainContainer>
+          <InfiniteScroll
+            dataLength={data.length}
+            next={() => this.props.fetchData(page + 1)}
+            hasMore={true}
+            loader={<h4>Loading more results...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <MainContainer>
+              <ChildContainer>
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={ColumnBreaks}
+                  gutter="0"
+                >
+                  <Masonry>
+                    {Object.values(data).map((value, index) => {
+                      return (
+                        <LazyLoad height={200} key={value.id}>
+                          <SubContainer>
+                            <ImageContainer>
+                              <StyledImg
+                                onClick={() =>
+                                  this.handleImageClick(value.id, index)
+                                }
+                                src={value.urls.small}
+                                alt={value.alt_description}
+                              />
+                            </ImageContainer>
+                          </SubContainer>
+                        </LazyLoad>
+                      );
+                    })}
+                  </Masonry>
+                </ResponsiveMasonry>
+                {showModal && <ImageModal />}
+              </ChildContainer>
+            </MainContainer>
+          </InfiniteScroll>
         )}
       </>
     );
@@ -124,8 +106,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getAllPhotos,
-  getParsed,
-  setPage,
+  fetchData,
   setFavoriteImage,
   handleImageClick,
   displayPhoto,

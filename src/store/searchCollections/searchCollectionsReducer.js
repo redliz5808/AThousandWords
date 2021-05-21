@@ -3,6 +3,8 @@ import {
   GET_COLLECTION_DATA_SUCCESS,
   GET_COLLECTION_DATA_ERROR,
   SET_FAVORITE_COLLECTIONS,
+  GET_MORE_COLLECTION_DATA_SUCCESS,
+  SET_PAGE_NUMBER,
 } from "./searchCollectionsTypes";
 
 const initialState = {
@@ -10,6 +12,7 @@ const initialState = {
   isLoading: false,
   favoriteCollections: {},
   error: false,
+  page: 1,
 };
 
 function searchCollectionsReducer(state = initialState, action) {
@@ -30,10 +33,21 @@ function searchCollectionsReducer(state = initialState, action) {
         ...state,
         error: true,
       };
+    case GET_MORE_COLLECTION_DATA_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        collectionData: [...state.collectionData, ...action.payload],
+      };
     case SET_FAVORITE_COLLECTIONS:
       return {
         ...state,
         favoriteCollections: action.payload,
+      };
+    case SET_PAGE_NUMBER:
+      return {
+        ...state,
+        page: action.payload,
       };
     default:
       return state;

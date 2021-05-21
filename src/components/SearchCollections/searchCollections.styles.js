@@ -30,6 +30,7 @@ export const StatsContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: transparent;
 `;
 
 export const StatsOverlay = styled.div`
