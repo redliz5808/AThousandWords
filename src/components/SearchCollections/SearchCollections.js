@@ -7,10 +7,10 @@ import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
 import {
   getCollectionData,
-  addCollectionAsFavorite,
   fetchData,
 } from "store/searchCollections/searchCollectionsActions";
 import {
+  StyledParagraph,
   Container,
   CollectionLink,
   StyledImage,
@@ -20,49 +20,61 @@ import {
 } from "./searchCollections.styles.js";
 
 class SearchCollections extends React.Component {
+  state = {
+    page: 1,
+  };
+
   loadingBar = React.createRef();
 
   componentDidMount() {
     const { searchTerm } = this.props;
-    this.props.getCollectionData(searchTerm, 1);
+    const { page } = this.state;
+    this.props.getCollectionData(searchTerm, page);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { page } = this.state;
     const { searchTerm } = this.props;
     const { isLoading } = this.props.searchCollections;
+
     if (prevProps.searchTerm !== searchTerm) {
-      this.props.getCollectionData(searchTerm);
+      this.props.getCollectionData(searchTerm, page);
     }
+
     if (prevProps.searchCollections.isLoading !== isLoading && isLoading) {
       this.loadingBar.current.continuousStart();
     }
+
     if (prevProps.searchCollections.isLoading !== isLoading && !isLoading) {
       this.loadingBar.current.complete();
     }
+
+    if (prevState.page !== page) {
+      this.props.fetchData(searchTerm, page);
+    }
   }
+
+  updatePageNumber = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
 
   render() {
     const { searchTerm } = this.props;
-    const { collectionData, page } = this.props.searchCollections;
-    const readyWithoutCollections =
-      collectionData && collectionData.length === 0;
-    const readyWithCollections = collectionData && collectionData.length > 0;
+    const { collectionData } = this.props.searchCollections;
+    const haveCollections = collectionData.length;
+
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {readyWithoutCollections && (
-          <div>There are no results for {searchTerm}.</div>
-        )}
-        {readyWithCollections && (
+        {!haveCollections && <div>There are no results for {searchTerm}.</div>}
+        {haveCollections && (
           <InfiniteScroll
             dataLength={collectionData.length}
-            next={() => this.props.fetchData(searchTerm, page + 1)}
+            next={this.updatePageNumber}
             hasMore={true}
             loader={<h4>Loading more results...</h4>}
             endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
+              <StyledParagraph>End of Search Results.</StyledParagraph>
             }
           >
             <ResponsiveMasonry
@@ -102,7 +114,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getCollectionData,
-  addCollectionAsFavorite,
   fetchData,
 };
 

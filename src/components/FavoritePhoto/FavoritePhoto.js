@@ -49,7 +49,7 @@ class FavoritePhoto extends React.Component {
                     return (
                       <Container key={photo.id}>
                         <ImageContainer>
-                          <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
+                          <StyledLink to={`/photo/${photo.id}`}>
                             <StyledImage
                               src={photo.urls.small}
                               alt={photo.description}

@@ -3,7 +3,6 @@ import {
   GET_MORE_PHOTOS_SUCCESS,
   GET_ALL_PHOTOS_ERROR,
   GET_ALL_PHOTOS_PENDING,
-  SET_PAGE_NUMBER,
   SET_FAVORITE_IMAGE,
   SHOW_MODAL,
   GET_PHOTO_PENDING,
@@ -13,9 +12,8 @@ import {
 } from "./homeTypes";
 
 const initialState = {
-  data: null,
+  data: [],
   isLoading: false,
-  page: 1,
   favoritePhotos: {},
   showModal: false,
   displayedImageId: null,
@@ -46,12 +44,7 @@ function homeReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        data: [...state.data, ...action.payload]
-      }
-    case SET_PAGE_NUMBER:
-      return {
-        ...state,
-        page: action.payload,
+        data: [...state.data, ...action.payload],
       };
     case SET_FAVORITE_IMAGE:
       return {

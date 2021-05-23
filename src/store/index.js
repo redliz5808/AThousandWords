@@ -21,7 +21,7 @@ import userStats from "./userStats/userStatsReducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["searchCollections", "collection", "home", "photo", "user"],
+  whitelist: ["collection", "home", "photo", "user"],
 };
 
 const reducers = combineReducers({
@@ -57,4 +57,3 @@ export const store = createStore(
 );
 
 export const persistor = persistStore(store);
-persistor.purge();

@@ -2,15 +2,13 @@ import {
   GET_PHOTO_DATA_PENDING,
   GET_PHOTO_DATA_SUCCESS,
   GET_PHOTO_DATA_ERROR,
-  SET_PAGE_NUMBER,
   GET_MORE_PHOTO_DATA_SUCCESS,
 } from "./searchPhotosTypes";
 
 const initialState = {
-  photoData: null,
+  photoData: [],
   isLoading: false,
   error: true,
-  page: 1,
 };
 
 function searchPhotosReducer(state = initialState, action) {
@@ -35,13 +33,8 @@ function searchPhotosReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        photoData: [...state.photoData, ...action.payload]
-      }
-    case SET_PAGE_NUMBER:
-      return {
-        ...state,
-        page: action.payload,
-      }
+        photoData: [...state.photoData, ...action.payload],
+      };
     default:
       return state;
   }

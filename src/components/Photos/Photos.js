@@ -5,8 +5,12 @@ import LoadingBar from "react-top-loading-bar";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
 import { ColumnBreaks } from "utils";
-import { retrieveUserPhotos, fetchData } from "store/userPhotos/userPhotosActions";
 import {
+  retrieveUserPhotos,
+  fetchData,
+} from "store/userPhotos/userPhotosActions";
+import {
+  StyledParagraph,
   MainContainer,
   SubContainer,
   StyledLink,
@@ -14,42 +18,56 @@ import {
 } from "./photos.styles";
 
 class Photos extends React.Component {
+  state = {
+    page: 1,
+  };
+
   loadingBar = React.createRef();
 
   componentDidMount() {
-    this.props.retrieveUserPhotos(this.props.username, 1);
+    const { page } = this.state;
+    this.props.retrieveUserPhotos(this.props.username, page);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { username } = this.props;
     const { isLoading } = this.props.userPhotos;
+    const { page } = this.state;
+
     if (prevProps.userPhotos.isLoading !== isLoading && isLoading) {
       this.loadingBar.current.continuousStart();
     }
     if (prevProps.userPhotos.isLoading !== isLoading && !isLoading) {
       this.loadingBar.current.complete();
     }
+
+    if (prevState.page !== page) {
+      this.props.fetchData(username, page);
+    }
   }
 
+  updatePageNumber = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
+
   render() {
-    const { username } = this.props;
-    const { photos, page } = this.props.userPhotos;
-    const readyWithoutPhotos = photos && photos.length === 0;
-    const readyWithPhotos = photos && photos.length > 0;
+    const { photos } = this.props.userPhotos;
+    const hasPhotos = photos.length;
 
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {readyWithoutPhotos && <div>This user has no photos</div>}
-        {readyWithPhotos && (
+        {!hasPhotos && <div>This user has no photos</div>}
+        {hasPhotos && (
           <InfiniteScroll
             dataLength={photos.length}
-            next={() => this.props.fetchData(username, page + 1)}
+            next={this.updatePageNumber}
             hasMore={true}
-            loader={<h4>Loading more results...</h4>}
+            loader={<h4>Loading more photos...</h4>}
             endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
+              <StyledParagraph>
+                There are no more photos to laod.
+              </StyledParagraph>
             }
           >
             <MainContainer>

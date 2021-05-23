@@ -3,11 +3,13 @@ import {
   GET_PHOTO_DATA_PENDING,
   GET_PHOTO_DATA_SUCCESS,
   GET_PHOTO_DATA_ERROR,
-  SET_PAGE_NUMBER,
   GET_MORE_PHOTO_DATA_SUCCESS,
 } from "./searchPhotosTypes";
 
-export const getPhotoData = (searchTerm, page) => async (dispatch, getState) => {
+export const getPhotoData = (searchTerm, page) => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch({
       type: GET_PHOTO_DATA_PENDING,
@@ -40,10 +42,6 @@ export const fetchData = (searchTerm, page) => async (dispatch, getState) => {
       type: GET_MORE_PHOTO_DATA_SUCCESS,
       payload: results,
     });
-    dispatch({
-      type: SET_PAGE_NUMBER,
-      payload: page,
-    })
   } catch (error) {
     dispatch({
       type: GET_PHOTO_DATA_ERROR,

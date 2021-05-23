@@ -5,8 +5,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import LazyLoad from "react-lazyload";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
-import { ImageModal } from "components";
 import { ColumnBreaks } from "utils";
+import { ImageModal } from "components";
 import {
   getAllPhotos,
   fetchData,
@@ -15,6 +15,7 @@ import {
   displayPhoto,
 } from "store/home/homeActions";
 import {
+  StyledParagraph,
   MainContainer,
   ChildContainer,
   SubContainer,
@@ -23,14 +24,20 @@ import {
 } from "./home.styles";
 
 class Home extends React.Component {
+  state = {
+    page: 1,
+  };
+
   loadingBar = React.createRef();
 
   componentDidMount() {
-    this.props.getAllPhotos(1);
+    const { page } = this.state;
+    this.props.getAllPhotos(page);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { isLoading } = this.props.home;
+    const { page } = this.state;
 
     if (prevProps.home.isLoading !== isLoading && isLoading) {
       this.loadingBar.current.continuousStart();
@@ -39,7 +46,15 @@ class Home extends React.Component {
     if (prevProps.home.isLoading !== isLoading && !isLoading) {
       this.loadingBar.current.complete();
     }
+
+    if (prevState.page !== page) {
+      this.props.fetchData(page);
+    }
   }
+
+  updatePageNumber = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
 
   handleImageClick = (id, index) => {
     const item = this.props.home.data.find((item) => item.id === id);
@@ -47,21 +62,20 @@ class Home extends React.Component {
   };
 
   render() {
-    const { data, isLoading, showModal, page } = this.props.home;
-    const readyToLoad = data && !isLoading;
+    const { data, showModal } = this.props.home;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {readyToLoad && (
+        {data.length && (
           <InfiniteScroll
             dataLength={data.length}
-            next={() => this.props.fetchData(page + 1)}
+            next={this.updatePageNumber}
             hasMore={true}
-            loader={<h4>Loading more results...</h4>}
+            loader={<h4>Loading more photos...</h4>}
             endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
+              <StyledParagraph>
+                There are no more photos to load.
+              </StyledParagraph>
             }
           >
             <MainContainer>
@@ -71,7 +85,7 @@ class Home extends React.Component {
                   gutter="0"
                 >
                   <Masonry>
-                    {Object.values(data).map((value, index) => {
+                    {data.map((value, index) => {
                       return (
                         <LazyLoad height={200} key={value.id}>
                           <SubContainer>

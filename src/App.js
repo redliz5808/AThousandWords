@@ -25,9 +25,7 @@ export class App extends React.Component {
   };
 
   handleClick = () => {
-    this.state.stateTheme
-      ? this.setState({ stateTheme: false })
-      : this.setState({ stateTheme: true });
+    this.setState({ stateTheme: !this.state.stateTheme });
   };
 
   render() {
@@ -41,10 +39,7 @@ export class App extends React.Component {
             <StyledDiv>
               <StyledNav>
                 <Link to="/">
-                  <Logo
-                    src={stateTheme ? logo : logoInverse}
-                    alt="logo"
-                  />
+                  <Logo src={stateTheme ? logo : logoInverse} alt="logo" />
                 </Link>
                 <StyledUl>
                   <StyledLi>

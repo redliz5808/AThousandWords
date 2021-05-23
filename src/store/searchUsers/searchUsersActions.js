@@ -3,7 +3,6 @@ import {
   GET_USER_DATA_PENDING,
   GET_USER_DATA_SUCCESS,
   GET_USER_DATA_ERROR,
-  SET_PAGE_NUMBER,
   GET_MORE_USER_DATA_SUCCESS,
 } from "./searchUsersTypes";
 
@@ -39,10 +38,6 @@ export const fetchData = (searchTerm, page) => async (dispatch, getState) => {
     dispatch({
       type: GET_MORE_USER_DATA_SUCCESS,
       payload: results,
-    });
-    dispatch({
-      type: SET_PAGE_NUMBER,
-      payload: page,
     });
   } catch (error) {
     dispatch({

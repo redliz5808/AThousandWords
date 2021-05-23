@@ -2,17 +2,14 @@ import {
   GET_COLLECTION_DATA_PENDING,
   GET_COLLECTION_DATA_SUCCESS,
   GET_COLLECTION_DATA_ERROR,
-  SET_FAVORITE_COLLECTIONS,
   GET_MORE_COLLECTION_DATA_SUCCESS,
-  SET_PAGE_NUMBER,
 } from "./searchCollectionsTypes";
 
 const initialState = {
-  collectionData: null,
+  collectionData: [],
   isLoading: false,
   favoriteCollections: {},
   error: false,
-  page: 1,
 };
 
 function searchCollectionsReducer(state = initialState, action) {
@@ -39,22 +36,9 @@ function searchCollectionsReducer(state = initialState, action) {
         isLoading: false,
         collectionData: [...state.collectionData, ...action.payload],
       };
-    case SET_FAVORITE_COLLECTIONS:
-      return {
-        ...state,
-        favoriteCollections: action.payload,
-      };
-    case SET_PAGE_NUMBER:
-      return {
-        ...state,
-        page: action.payload,
-      };
     default:
       return state;
   }
 }
 
 export default searchCollectionsReducer;
-
-export const getFavoriteList = (state) =>
-  state.searchCollection.favoriteCollections;

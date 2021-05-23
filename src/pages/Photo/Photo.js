@@ -40,7 +40,6 @@ class Photo extends React.Component {
     const { data } = this.props.photo;
     const tagsAvailable = data && data.tags.length > 0;
     const { setFavoriteImage } = this.props;
-    console.log(this.props)
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />

@@ -40,16 +40,16 @@ export const PhotosButton = styled.button`
   background-color: transparent;
   border: none;
   outline: none;
-  color: ${(props) => props.theme.results_unselected};
+  color: ${(props) => props.theme.resultsUnselected};
   cursor: pointer;
   text-align: right;
   font-size: 18px;
 
-  ${({ value, theme: {results_selected} }) =>
+  ${({ value, theme: { resultsSelected } }) =>
     value === 0 &&
     `
     font-weight: bold;
-    color: ${results_selected};
+    color: ${resultsSelected};
   `}
 `;
 
@@ -57,16 +57,16 @@ export const UsersButton = styled.button`
   background-color: transparent;
   border: none;
   outline: none;
-  color: ${(props) => props.theme.results_unselected};
+  color: ${(props) => props.theme.resultsUnselected};
   cursor: pointer;
   text-align: right;
   font-size: 18px;
 
-  ${({ value, theme: {results_selected} }) =>
+  ${({ value, theme: { resultsSelected } }) =>
     value === 2 &&
     `
     font-weight: bold;
-    color: ${results_selected};
+    color: ${resultsSelected};
   `}
 `;
 
@@ -74,15 +74,15 @@ export const CollectionsButton = styled.button`
   background-color: transparent;
   border: none;
   outline: none;
-  color: ${(props) => props.theme.results_unselected};
+  color: ${(props) => props.theme.resultsUnselected};
   cursor: pointer;
   text-align: right;
   font-size: 18px;
 
-  ${({ value, theme: {results_selected} }) =>
+  ${({ value, theme: { resultsSelected } }) =>
     value === 1 &&
     `
     font-weight: bold;
-    color: ${results_selected};
+    color: ${resultsSelected};
   `}
 `;

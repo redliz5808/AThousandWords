@@ -4,10 +4,12 @@ import {
   GET_USER_PHOTOS_SUCCESS,
   GET_USER_PHOTOS_ERROR,
   GET_MORE_USER_PHOTOS_SUCCESS,
-  SET_PAGE_NUMBER,
 } from "./userPhotosTypes";
 
-export const retrieveUserPhotos = (username, page) => async (dispatch, getState) => {
+export const retrieveUserPhotos = (username, page) => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch({
       type: GET_USER_PHOTOS_PENDING,
@@ -37,10 +39,6 @@ export const fetchData = (username, page) => async (dispatch, getState) => {
     dispatch({
       type: GET_MORE_USER_PHOTOS_SUCCESS,
       payload: data,
-    });
-    dispatch({
-      type: SET_PAGE_NUMBER,
-      payload: page,
     });
   } catch (error) {
     dispatch({

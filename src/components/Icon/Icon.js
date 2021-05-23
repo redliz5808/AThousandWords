@@ -7,7 +7,6 @@ const convertedNumbers = (x) => {
 };
 
 const Icon = (props) => {
-  console.log(props.icon.type)
   return (
     <StyledSpan>
       <StyledButton type={props.type}>

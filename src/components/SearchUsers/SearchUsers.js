@@ -12,49 +12,64 @@ import {
   StyledLink,
   Username,
   StyledImage,
+  StyledParagraph,
 } from "./searchUsers.styles";
 
 class SearchUsers extends React.Component {
+  state = {
+    page: 1,
+  };
+
   loadingBar = React.createRef();
 
   componentDidMount() {
     const { searchTerm } = this.props;
-    this.props.getUserData(searchTerm, 1);
+    const { page } = this.state;
+    this.props.getUserData(searchTerm, page);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { page } = this.state;
     const { searchTerm } = this.props;
     const { isLoading } = this.props.searchUsers;
+
     if (prevProps.searchTerm !== searchTerm) {
-      this.props.getUserData(searchTerm);
+      this.props.getUserData(searchTerm, page);
     }
+
     if (prevProps.searchUsers.isLoading !== isLoading && isLoading) {
       this.loadingBar.current.continuousStart();
     }
+
     if (prevProps.searchUsers.isLoading !== isLoading && !isLoading) {
       this.loadingBar.current.complete();
     }
+
+    if (prevState.page !== page) {
+      this.props.fetchData(searchTerm, page);
+    }
   }
+
+  updatePageNumber = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
 
   render() {
     const { searchTerm } = this.props;
-    const { userData, page } = this.props.searchUsers;
-    const readyWithoutUsers = userData && userData.length === 0;
-    const readyWithUsers = userData && userData.length > 0;
+    const { userData } = this.props.searchUsers;
+    const haveUsers = userData.length;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {readyWithoutUsers && <div>There are no results for {searchTerm}.</div>}
-        {readyWithUsers && (
+        {!haveUsers && <div>There are no results for {searchTerm}.</div>}
+        {haveUsers && (
           <InfiniteScroll
             dataLength={userData.length}
-            next={() => this.props.fetchData(searchTerm, page + 1)}
+            next={this.updatePageNumber}
             hasMore={true}
             loader={<h4>Loading more results...</h4>}
             endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
+              <StyledParagraph>End of Search Results.</StyledParagraph>
             }
           >
             <MainContainer>

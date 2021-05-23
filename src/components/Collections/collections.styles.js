@@ -13,6 +13,7 @@ export const StyledLink = styled(Link)`
   display: inline-block;
   color: #6958f2;
   text-decoration: none;
+  text-align: center;
 `;
 
 export const StyledImage = styled.img`

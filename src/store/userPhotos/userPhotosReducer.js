@@ -3,14 +3,12 @@ import {
   GET_USER_PHOTOS_SUCCESS,
   GET_USER_PHOTOS_ERROR,
   GET_MORE_USER_PHOTOS_SUCCESS,
-  SET_PAGE_NUMBER,
 } from "./userPhotosTypes";
 
 const initialState = {
-  photos: null,
+  photos: [],
   isLoading: false,
   error: true,
-  page: 1,
 };
 
 function userPhotosReducer(state = initialState, action) {
@@ -35,13 +33,8 @@ function userPhotosReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        photos: [...state.photos, ...action.payload]
-      }
-    case SET_PAGE_NUMBER:
-      return {
-        ...state,
-        page: action.payload,
-      }
+        photos: [...state.photos, ...action.payload],
+      };
     default:
       return state;
   }

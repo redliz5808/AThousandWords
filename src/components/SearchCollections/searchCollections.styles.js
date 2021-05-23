@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const StyledParagraph = styled.p`
+  text-align: center;
+  font-weight: bold;
+`;
+
 export const Container = styled.div`
   border-radius: 5px;
   text-align: center;

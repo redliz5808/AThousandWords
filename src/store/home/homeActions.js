@@ -5,7 +5,6 @@ import {
   GET_ALL_PHOTOS_ERROR,
   GET_ALL_PHOTOS_PENDING,
   GET_MORE_PHOTOS_SUCCESS,
-  SET_PAGE_NUMBER,
   SET_FAVORITE_IMAGE,
   SHOW_MODAL,
   GET_PHOTO_PENDING,
@@ -30,10 +29,6 @@ export const getAllPhotos = (page) => async (dispatch, getState) => {
       type: GET_ALL_PHOTOS_SUCCESS,
       payload: data,
     });
-    dispatch({
-      type: SET_PAGE_NUMBER,
-      payload: page,
-    });
   } catch (error) {
     dispatch({
       type: GET_ALL_PHOTOS_ERROR,
@@ -46,20 +41,12 @@ export const fetchData = (page) => async (dispatch, getState) => {
     dispatch({
       type: GET_ALL_PHOTOS_PENDING,
     });
-    dispatch({
-      type: SHOW_MODAL,
-      payload: false,
-    });
     const { data } = await axios(
       `${process.env.REACT_APP_API_BASE_URL}/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
     );
     dispatch({
       type: GET_MORE_PHOTOS_SUCCESS,
       payload: data,
-    });
-    dispatch({
-      type: SET_PAGE_NUMBER,
-      payload: page,
     });
   } catch (error) {
     dispatch({
