@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
-import { ColumnBreaks } from "utils";
+import { columnBreaks } from "utils";
 import {
   retrieveCollectionPhotos,
   fetchData,
@@ -57,7 +57,7 @@ class CollectionPhotos extends React.Component {
               }
             >
               <ResponsiveMasonry
-                columnsCountBreakPoints={ColumnBreaks}
+                columnsCountBreakPoints={columnBreaks}
                 gutter="0"
               >
                 <Masonry>

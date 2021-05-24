@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
-import { ColumnBreaks } from "utils";
+import { columnBreaks } from "utils";
 import { retrieveFavoriteCollections } from "store/favoriteCollection/favoriteCollectionActions";
 import {
   StyledResponsiveMasonry,
@@ -45,7 +45,7 @@ class FavoriteCollection extends React.Component {
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {collectionsAreReady && (
           <StyledResponsiveMasonry
-            columnsCountBreakPoints={ColumnBreaks}
+            columnsCountBreakPoints={columnBreaks}
             gutter="0"
           >
             <Masonry>

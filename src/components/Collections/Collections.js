@@ -29,7 +29,7 @@ class Collections extends React.Component {
 
   render() {
     const { collections } = this.props.userCollections;
-    const readyWithCollections = collections && collections.length > 0;
+    const readyWithCollections = collections.length;
 
     return (
       <>

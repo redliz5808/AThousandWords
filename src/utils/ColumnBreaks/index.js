@@ -1,1 +1,1 @@
-export { default } from "./ColumnBreaks";
+export { default } from "./columnBreaks";

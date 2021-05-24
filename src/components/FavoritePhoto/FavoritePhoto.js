@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
-import { ColumnBreaks } from "utils";
+import { columnBreaks } from "utils";
 import { retrieveFavoritePhotos } from "store/favoritePhoto/favoritePhotoActions";
 import {
   MainContainer,
@@ -41,7 +41,7 @@ class FavoritePhoto extends React.Component {
           <MainContainer>
             <ChildContainer>
               <ResponsiveMasonry
-                columnsCountBreakPoints={ColumnBreaks}
+                columnsCountBreakPoints={columnBreaks}
                 gutter="0"
               >
                 <Masonry>

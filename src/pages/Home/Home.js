@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import LazyLoad from "react-lazyload";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
-import { ColumnBreaks } from "utils";
+import { columnBreaks } from "utils";
 import { ImageModal } from "components";
 import {
   getAllPhotos,
@@ -81,7 +81,7 @@ class Home extends React.Component {
             <MainContainer>
               <ChildContainer>
                 <ResponsiveMasonry
-                  columnsCountBreakPoints={ColumnBreaks}
+                  columnsCountBreakPoints={columnBreaks}
                   gutter="0"
                 >
                   <Masonry>

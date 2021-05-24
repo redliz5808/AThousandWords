@@ -23,14 +23,14 @@ class UserStats extends React.Component {
     }
   }
 
+  convertedNumbers = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   render() {
     const { stats } = this.props.userStats;
     const readyWithoutUserStats = stats === undefined;
     const readyWithUserStats = stats && stats !== undefined;
-
-    const convertedNumbers = (x) => {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    };
 
     return (
       <>
@@ -39,10 +39,10 @@ class UserStats extends React.Component {
         {readyWithUserStats && (
           <>
             <StyledDiv>
-              <ImCloudDownload /> {convertedNumbers(stats.downloads.total)}
+              <ImCloudDownload /> {this.convertedNumbers(stats.downloads.total)}
             </StyledDiv>
             <StyledDiv>
-              <FaEye /> {convertedNumbers(stats.views.total)}
+              <FaEye /> {this.convertedNumbers(stats.views.total)}
             </StyledDiv>
           </>
         )}

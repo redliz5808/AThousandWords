@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingBar from "react-top-loading-bar";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
-import { ColumnBreaks } from "utils";
+import { columnBreaks } from "utils";
 import {
   getCollectionData,
   fetchData,
@@ -78,7 +78,7 @@ class SearchCollections extends React.Component {
             }
           >
             <ResponsiveMasonry
-              columnsCountBreakPoints={ColumnBreaks}
+              columnsCountBreakPoints={columnBreaks}
               gutter="0"
             >
               <Masonry>
