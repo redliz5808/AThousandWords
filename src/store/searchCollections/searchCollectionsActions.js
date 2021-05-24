@@ -3,20 +3,24 @@ import {
   GET_COLLECTION_DATA_PENDING,
   GET_COLLECTION_DATA_SUCCESS,
   GET_COLLECTION_DATA_ERROR,
-  SET_FAVORITE_COLLECTIONS,
+  GET_MORE_COLLECTION_DATA_SUCCESS,
 } from "./searchCollectionsTypes";
 
-export const getCollectionData = (searchTerm) => async (dispatch, getState) => {
+export const getCollectionData = (searchTerm, page) => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch({
       type: GET_COLLECTION_DATA_PENDING,
     });
     const { data } = await axios(
-      `${process.env.REACT_APP_API_BASE_URL}/search/collections?query=${searchTerm}&per_page=30&client_id=${process.env.REACT_APP_API_KEY}`
+      `${process.env.REACT_APP_API_BASE_URL}/search/collections?query=${searchTerm}&page=${page}&per_page=30&client_id=${process.env.REACT_APP_API_KEY}`
     );
+    const results = data.results;
     dispatch({
       type: GET_COLLECTION_DATA_SUCCESS,
-      payload: data,
+      payload: results,
     });
   } catch (error) {
     dispatch({
@@ -25,37 +29,23 @@ export const getCollectionData = (searchTerm) => async (dispatch, getState) => {
   }
 };
 
-export const setFavoriteCollections = () => {
-  return {
-    type: SET_FAVORITE_COLLECTIONS,
-    payload: JSON.parse(localStorage.getItem("favoriteCollections")) || {},
-  };
-};
-
-export const addCollectionAsFavorite = (id) => (dispatch, getState) => {
-  const state = getState();
-  if (state.searchCollections.favoriteCollections[id]) {
-    const favoritesList = JSON.parse(
-      localStorage.getItem("favoriteCollections")
-    );
-    delete favoritesList[id];
+export const fetchData = (searchTerm, page) => async (dispatch, getState) => {
+  try {
     dispatch({
-      type: SET_FAVORITE_COLLECTIONS,
-      payload: favoritesList,
+      type: GET_COLLECTION_DATA_PENDING,
     });
-    localStorage.setItem("favoriteCollections", JSON.stringify(favoritesList));
-  } else {
-    const favoritesList = JSON.parse(
-      localStorage.getItem("favoriteCollections")
+    const { data } = await axios(
+      `${process.env.REACT_APP_API_BASE_URL}/search/collections?query=${searchTerm}&page=${page}&per_page=30&client_id=${process.env.REACT_APP_API_KEY}`
     );
-    const newFavoritesList = { ...favoritesList, [id]: id };
+    const results = data.results;
     dispatch({
-      type: SET_FAVORITE_COLLECTIONS,
-      payload: newFavoritesList,
+      type: GET_MORE_COLLECTION_DATA_SUCCESS,
+      payload: results,
     });
-    localStorage.setItem(
-      "favoriteCollections",
-      JSON.stringify(newFavoritesList)
-    );
+  } catch (error) {
+    dispatch({
+      type: GET_COLLECTION_DATA_ERROR,
+      payload: error,
+    });
   }
 };

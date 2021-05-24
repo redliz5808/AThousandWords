@@ -14,25 +14,26 @@ export const StyledLink = styled(Link)`
   align-items: center;
   margin: 10px;
   text-decoration: none;
-  color: #6958f2;
 `;
 
 export const TagLink = styled(Link)`
   text-decoration: none;
-  color: #6958f2;
-  border: 1px solid #6958f2;
+  color: ${props => props.theme.text};
+  border: 1px solid ${props => props.theme.text};
   border-radius: 3px;
   padding: 5px;
   margin: 5px;
-`
+`;
 
 export const UserImage = styled.img`
   max-width: 50px;
   margin-right: 10px;
+  border-radius: 5px;
 `;
 
 export const MainImage = styled.img`
   max-width: 40vw;
+  border-radius: 5px;
 `;
 
 export const StyledDiv = styled.div`

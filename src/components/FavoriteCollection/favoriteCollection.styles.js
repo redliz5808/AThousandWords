@@ -5,13 +5,15 @@ import { ResponsiveMasonry } from "react-responsive-masonry";
 export const ImageContainer = styled.div`
   margin: 10px;
   padding: 5px;
-  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 `;
 
 export const StyledLink = styled(Link)`
   color: #6958f2;
   text-decoration: none;
+  display: flex;
+  align-items: center;
 `;
 
 export const Title = styled.h3`
@@ -33,6 +35,7 @@ export const PreviewPhotos = styled.div`
 export const Preview = styled.img`
   max-width: 100px;
   height: 100%;
+  border-radius: 3px;
 `;
 
 export const Total = styled.p`
@@ -41,4 +44,18 @@ export const Total = styled.p`
 
 export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
   margin-left: 20px;
+`;
+
+export const StyledImage = styled.img`
+  border-radius: 5px;
+`;
+
+export const StatsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Username = styled.span`
+  margin-left: 5px;
 `;

@@ -2,11 +2,11 @@ import {
   GET_COLLECTION_DATA_PENDING,
   GET_COLLECTION_DATA_SUCCESS,
   GET_COLLECTION_DATA_ERROR,
-  SET_FAVORITE_COLLECTIONS,
+  GET_MORE_COLLECTION_DATA_SUCCESS,
 } from "./searchCollectionsTypes";
 
 const initialState = {
-  collectionData: null,
+  collectionData: [],
   isLoading: false,
   favoriteCollections: {},
   error: false,
@@ -30,10 +30,11 @@ function searchCollectionsReducer(state = initialState, action) {
         ...state,
         error: true,
       };
-    case SET_FAVORITE_COLLECTIONS:
+    case GET_MORE_COLLECTION_DATA_SUCCESS:
       return {
         ...state,
-        favoriteCollections: action.payload,
+        isLoading: false,
+        collectionData: [...state.collectionData, ...action.payload],
       };
     default:
       return state;

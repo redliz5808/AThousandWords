@@ -1,9 +1,9 @@
 import axios from "axios";
+import { getFavoritePhotos } from "./photoReducer";
 import {
   FETCH_PHOTO_PENDING,
   FETCH_PHOTO_SUCCESS,
   FETCH_PHOTO_ERROR,
-  SET_FAVORITES_DATA,
   SET_FAVORITE_IMAGE,
 } from "./photoTypes";
 
@@ -26,30 +26,20 @@ export const retrievePhoto = (photoid) => async (dispatch, getState) => {
   }
 };
 
-export const setFavorites = () => {
-  return {
-    type: SET_FAVORITES_DATA,
-    payload: JSON.parse(localStorage.getItem("favoritePhotos")) || {},
-  };
-};
-
 export const setFavoriteImage = (id) => (dispatch, getState) => {
   const state = getState();
-  if (state.photo.favoritePhotos[id]) {
-    const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
-    delete favoritesList[id];
+  const favoritePhotos = getFavoritePhotos(state);
+  if (favoritePhotos[id]) {
+    delete favoritePhotos[id];
     dispatch({
       type: SET_FAVORITE_IMAGE,
-      payload: favoritesList,
+      payload: favoritePhotos,
     });
-    localStorage.setItem("favoritePhotos", JSON.stringify(favoritesList));
   } else {
-    const favoritesList = JSON.parse(localStorage.getItem("favoritePhotos"));
-    const newFavoritesList = { ...favoritesList, [id]: id };
+    const newFavoritesList = { ...favoritePhotos, [id]: id };
     dispatch({
       type: SET_FAVORITE_IMAGE,
       payload: newFavoritesList,
     });
-    localStorage.setItem("favoritePhotos", JSON.stringify(newFavoritesList));
   }
 };

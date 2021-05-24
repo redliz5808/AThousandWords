@@ -1,49 +1,57 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ResponsiveMasonry } from "react-responsive-masonry";
+
+export const StyledParagraph = styled.p`
+  text-align: center;
+  font-weight: bold;
+`;
 
 export const Container = styled.div`
-  display: inline-block;
-  border: 1px solid black;
   border-radius: 5px;
-  margin: 20px;
-`;
-
-export const Title = styled.span`
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-export const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
+  text-align: center;
+  position: relative;
+  margin: 10px 0px;
 `;
 
 export const CollectionLink = styled(Link)`
   text-decoration: none;
   color: #6958f2;
+  cursor: pointer;
 `;
 
-export const PreviewPhotos = styled.div`
+export const StyledImage = styled.img`
+  border-radius: 5px;
+  width: 223px;
+  height: 223px;
+  object-fit: cover;
+`;
+
+export const StatsContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-`;
-
-export const Preview = styled.img`
-  max-width: 100px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
+  background-color: transparent;
 `;
 
-export const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #6958f2;
+export const StatsOverlay = styled.div`
+  width: 224px;
+  height: 224px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
-export const Total = styled.p`
-  color: black;
-`;
-
-export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
-  margin-left: 20px;
+export const Stats = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
 `;

@@ -1,22 +1,30 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ResponsiveMasonry } from "react-responsive-masonry";
 
-export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
-  margin-left: 20px;
+export const StyledParagraph = styled.p`
+  text-align: center;
+  font-weight: bold;
+`;
+
+export const MainContainer = styled.div`
+  text-align: center;
+`;
+
+export const SubContainer = styled.div`
+  margin: 15px 0px;
 `;
 
 export const StyledLink = styled(Link)`
-  display: inline-block;
   text-align: center;
-  margin: 10px;
-  width: 300px;
-  color: black;
+  color: #6958f2;
   text-decoration: none;
-  border: 1px solid black;
   border-radius: 5px;
 `;
 
-export const Bio = styled.p`
-  max-width: 300px;
+export const Username = styled.div`
+  font-weight: bold;
+`;
+
+export const StyledImage = styled.img`
+  border-radius: 5px;
 `;

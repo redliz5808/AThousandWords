@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ResponsiveMasonry } from "react-responsive-masonry";
+
+export const StyledParagraph = styled.p`
+  text-align: center;
+  font-weight: bold;
+`;
+
+export const MainContainer = styled.div`
+  text-align: center;
+`;
 
 export const StyledLink = styled(Link)`
   color: black;
@@ -8,11 +16,9 @@ export const StyledLink = styled(Link)`
 `;
 
 export const StyledImage = styled.img`
-  padding: 5px;
-  margin: 10px;
-  border: 1px solid black;
-`;
-
-export const StyledResponsiveMasonry = styled(ResponsiveMasonry)`
-  margin-left: 20px;
+  border-radius: 10px;
+  width: 223px;
+  height: 223px;
+  object-fit: cover;
+  margin: 17px 0px;
 `;

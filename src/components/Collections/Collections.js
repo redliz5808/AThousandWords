@@ -6,11 +6,8 @@ import { retrieveCollections } from "../../store/userCollections/userCollections
 import {
   Container,
   StyledLink,
+  StyledImage,
   Title,
-  Description,
-  Total,
-  PreviewPhotos,
-  Preview,
 } from "./collections.styles";
 
 class Collections extends React.Component {
@@ -32,47 +29,29 @@ class Collections extends React.Component {
 
   render() {
     const { collections } = this.props.userCollections;
-    const readyWithoutCollections = collections && collections.length === 0;
-    const readyWithCollections = collections && collections.length > 0;
+    const readyWithCollections = collections.length;
 
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {readyWithoutCollections && (
-          <div>This user does not have any collections.</div>
-        )}
-        {readyWithCollections && (
+        {readyWithCollections ? (
           <Container>
             {collections.map((collection) => {
               let imageSrc = collection.cover_photo
                 ? collection.cover_photo.urls.small
                 : unavilableCover;
-              let previewPhotos = collection.preview_photos || [];
               return (
                 <StyledLink
                   key={collection.id}
                   to={`/collection/${collection.id}`}
                 >
+                  <StyledImage src={imageSrc} alt={collection.title} />
                   <Title>{collection.title}</Title>
-                  <img src={imageSrc} alt={collection.title} />
-                  <PreviewPhotos>
-                    {previewPhotos.map((preview) => {
-                      return (
-                        <Preview
-                          key={preview.id}
-                          src={preview.urls.thumb}
-                          alt={preview.id}
-                        />
-                      );
-                    })}
-                  </PreviewPhotos>
-                  <Description>{collection.description}</Description>
-                  <Total>Total Photos: {collection.total_photos}</Total>
                 </StyledLink>
               );
             })}
           </Container>
-        )}
+        ) : null}
       </>
     );
   }

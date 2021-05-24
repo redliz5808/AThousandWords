@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getFavoriteCollections } from "./collectionReducer";
 import {
   COLLECTIONS_FETCH_COLLECTION_DATA_SUCCESS,
   COLLECTIONS_FETCH_COLLECTION_DATA_ERROR,
@@ -21,7 +22,6 @@ export const getCollectionData = (collectionid) => async (
       type: COLLECTIONS_FETCH_COLLECTION_DATA_SUCCESS,
       payload: data,
     });
-    dispatch(setFavoritesData);
   } catch (error) {
     dispatch({
       type: COLLECTIONS_FETCH_COLLECTION_DATA_ERROR,
@@ -29,34 +29,20 @@ export const getCollectionData = (collectionid) => async (
   }
 };
 
-export const setFavoritesData = () => {
-  return {
-    type: GET_FAVORITES_DATA,
-    payload: JSON.parse(localStorage.getItem("favoriteCollections")) || {},
-  };
-};
-
 export const getFavoritesData = (id) => (dispatch, getState) => {
   const state = getState();
-  if (state.collections.favoriteCollections[id]) {
-    const favoritesList = JSON.parse(
-      localStorage.getItem("favoriteCollections")
-    );
-    delete favoritesList[id];
-    localStorage.setItem("favoriteCollections", JSON.stringify(favoritesList));
+  const favoriteCollections = getFavoriteCollections(state);
+  if (favoriteCollections[id]) {
+    delete favoriteCollections[id];
     dispatch({
       type: GET_FAVORITES_DATA,
-      payload: favoritesList,
+      payload: favoriteCollections,
     });
   } else {
-    const favoritesList = JSON.parse(
-      localStorage.getItem("favoriteCollections")
-    );
-    const newFavoritesList = { ...favoritesList, [id]: id };
-    localStorage.setItem(
-      "favoriteCollections",
-      JSON.stringify(newFavoritesList)
-    );
+    const newFavoritesList = {
+      ...favoriteCollections,
+      [id]: id,
+    };
     dispatch({
       type: GET_FAVORITES_DATA,
       payload: newFavoritesList,

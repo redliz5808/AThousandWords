@@ -1,4 +1,3 @@
-export { default as Pagination } from "./Pagination";
 export { default as Icon } from "./Icon";
 export { default as SearchBar } from "./SearchBar";
 export { default as Photos } from "./Photos";
@@ -12,3 +11,4 @@ export { default as FavoritePhoto } from "./FavoritePhoto";
 export { default as FavoriteCollection } from "./FavoriteCollection";
 export { default as FavoriteUser } from "./FavoriteUser";
 export { default as FavoritesSlider } from "./FavoritesSlider";
+export { default as ImageModal } from "./ImageModal";

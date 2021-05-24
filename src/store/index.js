@@ -21,7 +21,7 @@ import userStats from "./userStats/userStatsReducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["searchCollections"],
+  whitelist: ["collection", "home", "photo", "user"],
 };
 
 const reducers = combineReducers({

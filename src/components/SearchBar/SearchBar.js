@@ -17,7 +17,7 @@ class SearchBar extends React.Component {
     this.props.history.push(`/search/${this.state.value}`);
     this.setState({ value: "" });
   };
-  
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>

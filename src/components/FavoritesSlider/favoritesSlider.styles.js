@@ -28,3 +28,7 @@ export const StyledImage = styled.img`
 export const StyledH2 = styled.h2`
   margin-left: 20px;
 `;
+
+export const StyledDiv = styled.div`
+  overflow: hidden;
+`;

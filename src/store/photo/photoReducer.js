@@ -2,7 +2,6 @@ import {
   FETCH_PHOTO_SUCCESS,
   FETCH_PHOTO_ERROR,
   FETCH_PHOTO_PENDING,
-  SET_FAVORITES_DATA,
   SET_FAVORITE_IMAGE,
 } from "./photoTypes";
 
@@ -32,11 +31,6 @@ function photoReducer(state = initialState, action) {
         isLoading: false,
         error: true,
       };
-    case SET_FAVORITES_DATA:
-      return {
-        ...state,
-        favoritePhotos: action.payload,
-      };
     case SET_FAVORITE_IMAGE:
       return {
         ...state,
@@ -48,3 +42,5 @@ function photoReducer(state = initialState, action) {
 }
 
 export default photoReducer;
+
+export const getFavoritePhotos = (state) => state.photo.favoritePhotos;

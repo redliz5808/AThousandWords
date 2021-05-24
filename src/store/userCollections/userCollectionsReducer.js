@@ -5,7 +5,7 @@ import {
 } from "./userCollectionsTypes";
 
 const initialState = {
-  collections: null,
+  collections: [],
   isLoading: false,
   error: false,
 };

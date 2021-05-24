@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import Masonry from "react-responsive-masonry";
-import { ColumnBreaks } from "utils";
+import { columnBreaks } from "utils";
 import { retrieveFavoriteUsers } from "store/favoriteUser/favoriteUserActions";
 import {
   StyledResponsiveMasonry,
@@ -10,6 +10,7 @@ import {
   ImageContainer,
   StyledLink,
   StyledDiv,
+  StyledImage,
 } from "./favoriteUser.styles";
 
 class FavoritePhoto extends React.Component {
@@ -38,7 +39,7 @@ class FavoritePhoto extends React.Component {
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
         {readyToLoad && (
           <StyledResponsiveMasonry
-            columnsCountBreakPoints={ColumnBreaks}
+            columnsCountBreakPoints={columnBreaks}
             gutter="0"
           >
             <Masonry>
@@ -47,7 +48,10 @@ class FavoritePhoto extends React.Component {
                   <Container key={user.id}>
                     <ImageContainer>
                       <StyledLink to={`/user/${user.username}`}>
-                        <img src={user.profile_image.large} alt={user.name} />
+                        <StyledImage
+                          src={user.profile_image.large}
+                          alt={user.name}
+                        />
                         <StyledDiv>{user.name}</StyledDiv>
                       </StyledLink>
                     </ImageContainer>

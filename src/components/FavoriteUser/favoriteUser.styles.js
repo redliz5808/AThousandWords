@@ -9,13 +9,17 @@ export const Container = styled.div`
 export const ImageContainer = styled.div`
   margin: 10px;
   padding: 5px;
-  border: 1px solid black;
   border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
 `;
 
 export const StyledLink = styled(Link)`
   color: #6958f2;
   text-decoration: none;
+`;
+
+export const StyledImage = styled.img`
+  border-radius: 5px;
 `;
 
 export const StyledDiv = styled.div`

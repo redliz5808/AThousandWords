@@ -1,59 +1,100 @@
 import React from "react";
 import { connect } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingBar from "react-top-loading-bar";
+import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
-import { ColumnBreaks } from "utils";
-import { getUserData } from "store/searchUsers/searchUsersActions";
-import { StyledResponsiveMasonry, StyledLink, Bio } from "./searchUsers.styles";
+import { columnBreaks } from "utils";
+import { getUserData, fetchData } from "store/searchUsers/searchUsersActions";
+import {
+  MainContainer,
+  SubContainer,
+  StyledLink,
+  Username,
+  StyledImage,
+  StyledParagraph,
+} from "./searchUsers.styles";
 
 class SearchUsers extends React.Component {
+  state = {
+    page: 1,
+  };
+
   loadingBar = React.createRef();
 
   componentDidMount() {
     const { searchTerm } = this.props;
-    this.props.getUserData(searchTerm);
+    const { page } = this.state;
+    this.props.getUserData(searchTerm, page);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { page } = this.state;
     const { searchTerm } = this.props;
     const { isLoading } = this.props.searchUsers;
+
     if (prevProps.searchTerm !== searchTerm) {
-      this.props.getUserData(searchTerm);
+      this.props.getUserData(searchTerm, page);
     }
+
     if (prevProps.searchUsers.isLoading !== isLoading && isLoading) {
       this.loadingBar.current.continuousStart();
     }
+
     if (prevProps.searchUsers.isLoading !== isLoading && !isLoading) {
       this.loadingBar.current.complete();
     }
+
+    if (prevState.page !== page) {
+      this.props.fetchData(searchTerm, page);
+    }
   }
+
+  updatePageNumber = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
 
   render() {
     const { searchTerm } = this.props;
     const { userData } = this.props.searchUsers;
-    const readyWithoutUsers = userData && userData.total === 0;
-    const readyWithUsers = userData && userData.total > 0;
+    const haveUsers = userData.length;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {readyWithoutUsers && <div>There are no results for {searchTerm}.</div>}
-        {readyWithUsers && (
-          <StyledResponsiveMasonry
-            columnsCountBreakPoints={ColumnBreaks}
-            gutter="0"
+        {!haveUsers && <div>There are no results for {searchTerm}.</div>}
+        {haveUsers && (
+          <InfiniteScroll
+            dataLength={userData.length}
+            next={this.updatePageNumber}
+            hasMore={true}
+            loader={<h4>Loading more results...</h4>}
+            endMessage={
+              <StyledParagraph>End of Search Results.</StyledParagraph>
+            }
           >
-            <Masonry>
-              {userData.results.map((user) => {
-                return (
-                  <StyledLink key={user.id} to={`/user/${user.username}`}>
-                    <h3>{user.name}</h3>
-                    <img src={user.profile_image.large} alt={user.name} />
-                    {user.bio ? <Bio>{user.bio}</Bio> : null}
-                  </StyledLink>
-                );
-              })}
-            </Masonry>
-          </StyledResponsiveMasonry>
+            <MainContainer>
+              <ResponsiveMasonry
+                columnsCountBreakPoints={columnBreaks}
+                gutter="0"
+              >
+                <Masonry>
+                  {userData.map((user) => {
+                    return (
+                      <SubContainer key={user.id}>
+                        <StyledLink to={`/user/${user.username}`}>
+                          <StyledImage
+                            src={user.profile_image.large}
+                            alt={user.name}
+                          />
+                          <Username>{user.name}</Username>
+                        </StyledLink>
+                      </SubContainer>
+                    );
+                  })}
+                </Masonry>
+              </ResponsiveMasonry>
+            </MainContainer>
+          </InfiniteScroll>
         )}
       </>
     );
@@ -66,6 +107,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getUserData,
+  fetchData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchUsers);

@@ -3,11 +3,7 @@ import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import { FaHeart, FaEye } from "react-icons/fa";
 import { Icon } from "components";
-import {
-  retrievePhoto,
-  setFavorites,
-  setFavoriteImage,
-} from "store/photo/photoActions";
+import { retrievePhoto, setFavoriteImage } from "store/photo/photoActions";
 import {
   MainImage,
   Container,
@@ -24,7 +20,6 @@ class Photo extends React.Component {
   componentDidMount() {
     const { photoid } = this.props.match.params;
     this.props.retrievePhoto(photoid);
-    this.props.setFavorites();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -44,7 +39,7 @@ class Photo extends React.Component {
   render() {
     const { data } = this.props.photo;
     const tagsAvailable = data && data.tags.length > 0;
-
+    const { setFavoriteImage } = this.props;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
@@ -62,18 +57,20 @@ class Photo extends React.Component {
               {this.props.photo.favoritePhotos[data.id] ? (
                 <Icon
                   id={data.id}
-                  handleFavoriteClick={this.handleFavoriteClick}
+                  handleClick={() => setFavoriteImage(data.id)}
                   icon={<FaHeart />}
                   stats={data.likes}
-                  color="#6958f2"
+                  color="#9d0707"
+                  type="heart"
                 />
               ) : (
                 <Icon
                   id={data.id}
-                  handleFavoriteClick={this.handleFavoriteClick}
+                  handleClick={() => setFavoriteImage(data.id)}
                   icon={<FaHeart />}
                   stats={data.likes}
-                  color="#000"
+                  color="#8c8c8c"
+                  type="heart"
                 />
               )}
               <Icon icon={<FaEye />} stats={data.views} />
@@ -101,7 +98,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   retrievePhoto,
-  setFavorites,
   setFavoriteImage,
 };
 

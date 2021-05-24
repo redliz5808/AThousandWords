@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getFavoriteUsers } from "./userReducer";
 import {
   FETCH_USER_DATA_PENDING,
   FETCH_USER_DATA_ERROR,
@@ -33,30 +34,20 @@ export const setUsername = (username) => {
   };
 };
 
-export const setFavoriteUsers = () => {
-  return {
-    type: SET_FAVORITE_USERS,
-    payload: JSON.parse(localStorage.getItem("favoriteUsers")) || {},
-  };
-};
-
 export const setUserAsFavorite = (id) => (dispatch, getState) => {
   const state = getState();
-  if (state.user.favoriteUsers[id]) {
-    const favoritesList = JSON.parse(localStorage.getItem("favoriteUsers"));
-    delete favoritesList[id];
+  const favoriteUsers = getFavoriteUsers(state);
+  if (favoriteUsers[id]) {
+    delete favoriteUsers[id];
     dispatch({
       type: SET_FAVORITE_USERS,
-      payload: favoritesList,
+      payload: favoriteUsers,
     });
-    localStorage.setItem("favoriteUsers", JSON.stringify(favoritesList));
   } else {
-    const favoritesList = JSON.parse(localStorage.getItem("favoriteUsers"));
-    const newFavoritesList = { ...favoritesList, [id]: id };
+    const newFavoritesList = { ...favoriteUsers, [id]: id };
     dispatch({
       type: SET_FAVORITE_USERS,
       payload: newFavoritesList,
     });
-    localStorage.setItem("favoriteUsers", JSON.stringify(newFavoritesList));
   }
 };
