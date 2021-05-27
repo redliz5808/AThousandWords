@@ -1,13 +1,13 @@
 export const lightTheme = {
   body: "white",
-  text: "#6958f2",
+  text: "black",
   resultsSelected: "black",
   resultsUnselected: "#8c8c8c",
-}
+};
 
 export const darkTheme = {
-  body: "#6958f2",
+  body: "#2b2b2b",
   text: "white",
-  resultsSelected: "black",
-  resultsUnselected: "white",
-}
+  resultsSelected: "white",
+  resultsUnselected: "#8c8c8c",
+};

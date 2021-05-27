@@ -9,6 +9,7 @@ import {
   GET_PHOTO_SUCCESS,
   GET_PHOTO_ERROR,
   SET_IMAGE_INDEX,
+  GET_MORE_PHOTOS_END_DATA,
 } from "./homeTypes";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   displayedImageId: null,
   displayedImage: null,
   index: null,
+  hasMore: true,
 };
 
 function homeReducer(state = initialState, action) {
@@ -76,6 +78,12 @@ function homeReducer(state = initialState, action) {
       return {
         ...state,
         error: true,
+      };
+    case GET_MORE_PHOTOS_END_DATA:
+      return {
+        ...state,
+        isLoading: false,
+        hasMore: false,
       };
     default:
       return state;

@@ -3,12 +3,14 @@ import {
   GET_USER_DATA_SUCCESS,
   GET_USER_DATA_ERROR,
   GET_MORE_USER_DATA_SUCCESS,
+  GET_MORE_USER_DATA_END_DATA,
 } from "./searchUsersTypes";
 
 const initialState = {
   userData: [],
   isLoading: false,
   error: false,
+  hasMore: true,
 };
 
 function searchUsersReducer(state = initialState, action) {
@@ -34,6 +36,12 @@ function searchUsersReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         userData: [...state.userData, ...action.payload],
+      };
+    case GET_MORE_USER_DATA_END_DATA:
+      return {
+        ...state,
+        isLoading: false,
+        hasMore: false,
       };
     default:
       return state;

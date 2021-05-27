@@ -4,6 +4,7 @@ import {
   GET_PHOTO_DATA_SUCCESS,
   GET_PHOTO_DATA_ERROR,
   GET_MORE_PHOTO_DATA_SUCCESS,
+  GET_MORE_PHOTO_DATA_END_DATA,
 } from "./searchPhotosTypes";
 
 export const getPhotoData = (searchTerm, page) => async (
@@ -38,10 +39,14 @@ export const fetchData = (searchTerm, page) => async (dispatch, getState) => {
       `${process.env.REACT_APP_API_BASE_URL}/search/photos?query=${searchTerm}&page=${page}&per_page=30&client_id=${process.env.REACT_APP_API_KEY}`
     );
     const results = data.results;
-    dispatch({
-      type: GET_MORE_PHOTO_DATA_SUCCESS,
-      payload: results,
-    });
+    results.length > 0
+      ? dispatch({
+          type: GET_MORE_PHOTO_DATA_SUCCESS,
+          payload: results,
+        })
+      : dispatch({
+          type: GET_MORE_PHOTO_DATA_END_DATA,
+        });
   } catch (error) {
     dispatch({
       type: GET_PHOTO_DATA_ERROR,

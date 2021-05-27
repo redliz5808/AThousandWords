@@ -2,12 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Home, User, Photo, Search, Collection, Favorites } from "pages";
 import { SearchBar } from "components";
-import { logo, logoInverse } from "assets";
+import { logo } from "assets";
 import { lightTheme, darkTheme } from "./theme";
 import { GlobalStyle } from "./global";
 import { ThemeProvider } from "styled-components";
-import { FaCamera } from "react-icons/fa";
-import { AiFillHeart } from "react-icons/ai";
 import { GiStripedSun } from "react-icons/gi";
 import {
   StyledDiv,
@@ -17,7 +15,11 @@ import {
   StyledLi,
   StyledLink,
   NavButtonLi,
+  Overlay,
+  StyledCamera,
+  StyledHeart,
 } from "./app.styles";
+import "./App.css";
 
 export class App extends React.Component {
   state = {
@@ -39,32 +41,43 @@ export class App extends React.Component {
             <StyledDiv>
               <StyledNav>
                 <Link to="/">
-                  <Logo src={stateTheme ? logo : logoInverse} alt="logo" />
+                  <Logo src={logo} alt="logo" />
                 </Link>
                 <StyledUl>
                   <StyledLi>
                     <SearchBar />
                   </StyledLi>
                   <NavButtonLi>
-                    <StyledLink to="/">
-                      <div>
-                        <FaCamera />
-                      </div>
+                    <StyledLink
+                      exact
+                      to="/"
+                      activeClassName={
+                        stateTheme ? "activeLight" : "activeDark"
+                      }
+                    >
+                      <Overlay>
+                        <StyledCamera />
+                      </Overlay>
                       <div>Photos</div>
                     </StyledLink>
                   </NavButtonLi>
                   <NavButtonLi>
-                    <StyledLink to="/favorites">
-                      <div>
-                        <AiFillHeart />
-                      </div>
+                    <StyledLink
+                      to="/favorites"
+                      activeClassName={
+                        stateTheme ? "activeLight" : "activeDark"
+                      }
+                    >
+                      <Overlay>
+                        <StyledHeart />
+                      </Overlay>
                       <div>Saved</div>
                     </StyledLink>
                   </NavButtonLi>
                   <NavButtonLi onClick={this.handleClick}>
-                    <div>
+                    <Overlay>
                       <GiStripedSun />
-                    </div>
+                    </Overlay>
                     <div>Theme</div>
                   </NavButtonLi>
                 </StyledUl>

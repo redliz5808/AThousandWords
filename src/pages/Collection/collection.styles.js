@@ -15,6 +15,7 @@ export const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 20px 0px;
 `;
 
 export const CollectionName = styled.div`
@@ -25,13 +26,14 @@ export const CollectionName = styled.div`
 export const Description = styled.div`
   text-align: center;
   font-style: italic;
-  margin: 15px 0px;
+  margin: 20px 0px;
 `;
 
 export const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 20px 0px;
   text-decoration: none;
   color: ${(props) => props.theme.text};
 `;

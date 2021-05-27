@@ -1,5 +1,6 @@
 export { default as logo } from "./AThousandWords.png";
 export { default as logoInverse } from "./AThousandWordsInverse.png";
+export { default as logoTransparent } from "./AThousandWordsTransparent.png";
 export { default as favorites } from "./favorites.png";
 export { default as favoritesBlur } from "./favoritesBlur.png";
 export { default as favoritesSmall } from "./favoritesSmall.png";

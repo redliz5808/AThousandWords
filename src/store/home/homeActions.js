@@ -11,6 +11,7 @@ import {
   GET_PHOTO_SUCCESS,
   GET_PHOTO_ERROR,
   SET_IMAGE_INDEX,
+  GET_MORE_PHOTOS_END_DATA,
 } from "./homeTypes";
 
 export const getAllPhotos = (page) => async (dispatch, getState) => {
@@ -44,10 +45,14 @@ export const fetchData = (page) => async (dispatch, getState) => {
     const { data } = await axios(
       `${process.env.REACT_APP_API_BASE_URL}/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
     );
-    dispatch({
-      type: GET_MORE_PHOTOS_SUCCESS,
-      payload: data,
-    });
+    data
+      ? dispatch({
+          type: GET_MORE_PHOTOS_SUCCESS,
+          payload: data,
+        })
+      : dispatch({
+          type: GET_MORE_PHOTOS_END_DATA,
+        });
   } catch (error) {
     dispatch({
       type: GET_ALL_PHOTOS_ERROR,

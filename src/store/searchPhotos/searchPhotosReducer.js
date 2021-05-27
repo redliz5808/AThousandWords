@@ -3,12 +3,14 @@ import {
   GET_PHOTO_DATA_SUCCESS,
   GET_PHOTO_DATA_ERROR,
   GET_MORE_PHOTO_DATA_SUCCESS,
+  GET_MORE_PHOTO_DATA_END_DATA,
 } from "./searchPhotosTypes";
 
 const initialState = {
   photoData: [],
   isLoading: false,
   error: true,
+  hasMore: true,
 };
 
 function searchPhotosReducer(state = initialState, action) {
@@ -34,6 +36,12 @@ function searchPhotosReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         photoData: [...state.photoData, ...action.payload],
+      };
+    case GET_MORE_PHOTO_DATA_END_DATA:
+      return {
+        ...state,
+        isLoading: false,
+        hasMore: false,
       };
     default:
       return state;

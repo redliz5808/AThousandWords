@@ -60,7 +60,7 @@ class SearchCollections extends React.Component {
 
   render() {
     const { searchTerm } = this.props;
-    const { collectionData } = this.props.searchCollections;
+    const { collectionData, hasMore } = this.props.searchCollections;
     const haveCollections = collectionData.length;
 
     return (
@@ -71,7 +71,7 @@ class SearchCollections extends React.Component {
           <InfiniteScroll
             dataLength={collectionData.length}
             next={this.updatePageNumber}
-            hasMore={true}
+            hasMore={hasMore}
             loader={<h4>Loading more results...</h4>}
             endMessage={
               <StyledParagraph>End of Search Results.</StyledParagraph>

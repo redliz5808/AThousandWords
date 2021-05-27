@@ -11,7 +11,7 @@ export const retrieveCollections = (username) => async (dispatch, getState) => {
       type: GET_USER_COLLECTIONS_PENDING,
     });
     const { data } = await axios(
-      `${process.env.REACT_APP_API_BASE_URL}/users/${username}/collections?per_page=8&client_id=${process.env.REACT_APP_API_KEY}`
+      `${process.env.REACT_APP_API_BASE_URL}/users/${username}/collections?per_page=6&client_id=${process.env.REACT_APP_API_KEY}`
     );
     dispatch({
       type: GET_USER_COLLECTIONS_SUCCESS,

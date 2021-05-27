@@ -7,12 +7,13 @@ export const StyledInput = styled.input`
   border: 1px solid ${(props) => props.theme.text};
   border-radius: 5px;
   font-size: 16px;
-  padding: 7px;
-  width: 95%;
+  padding: 10px;
+  margin: 0px 35px;
+  width: calc(709px - 187px);
 
   @media (max-width: 780px) {
     margin-top: 10px;
     margin-bottom: 20px;
-    width: 95%;
+    width: 80%;
   }
 `;

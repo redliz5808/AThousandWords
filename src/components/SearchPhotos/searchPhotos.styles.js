@@ -17,8 +17,8 @@ export const StyledLink = styled(Link)`
 
 export const StyledImage = styled.img`
   border-radius: 10px;
-  width: 223px;
-  height: 223px;
+  width: 265px;
+  height: 265px;
   object-fit: cover;
-  margin: 17px 0px;
+  margin: 20px 0px;
 `;

@@ -20,7 +20,7 @@ export const StyledImage = styled.img`
   width: 265px;
   height: 265px;
   object-fit: cover;
-  margin: 25px 0px;
+  margin: 20px 0px;
   border-radius: 5px;
 `;
 

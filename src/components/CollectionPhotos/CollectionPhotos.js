@@ -39,7 +39,7 @@ class CollectionPhotos extends React.Component {
   };
 
   render() {
-    const { data } = this.props.collectionPhoto;
+    const { data, hasMore } = this.props.collectionPhoto;
 
     return (
       <>
@@ -48,7 +48,7 @@ class CollectionPhotos extends React.Component {
             <InfiniteScroll
               dataLength={data.length}
               next={this.updatePageNumber}
-              hasMore={true}
+              hasMore={hasMore}
               loader={<h4>Loading more photos...</h4>}
               endMessage={
                 <StyledParagraph>

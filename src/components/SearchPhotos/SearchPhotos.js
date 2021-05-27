@@ -57,7 +57,7 @@ class SearchPhotos extends React.Component {
 
   render() {
     const { searchTerm } = this.props;
-    const { photoData } = this.props.searchPhotos;
+    const { photoData, hasMore } = this.props.searchPhotos;
     const hasPhotos = photoData.length;
 
     return (
@@ -68,7 +68,7 @@ class SearchPhotos extends React.Component {
           <InfiniteScroll
             dataLength={photoData.length}
             next={this.updatePageNumber}
-            hasMore={true}
+            hasMore={hasMore}
             loader={<h4>Loading more results...</h4>}
             endMessage={
               <StyledParagraph>End of Search Results.</StyledParagraph>

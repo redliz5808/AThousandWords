@@ -6,7 +6,12 @@ export const MainContainer = styled.div`
 `;
 
 export const SubContainer = styled.div`
-  width: 753px;
+  width: 920px;
+
+  @media (max-width: 780px) {
+    width: 80vw;
+    justify-content: center;
+  }
 `;
 
 export const StyledDiv = styled.div`
@@ -23,6 +28,10 @@ export const Tabs = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 100%;
+
+  @media (max-width: 780px) {
+    justify-content: center;
+  }
 `;
 
 export const Users = styled.div`

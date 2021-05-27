@@ -4,6 +4,7 @@ import {
   GET_USER_PHOTOS_SUCCESS,
   GET_USER_PHOTOS_ERROR,
   GET_MORE_USER_PHOTOS_SUCCESS,
+  GET_MORE_USER_PHOTOS_END_DATA,
 } from "./userPhotosTypes";
 
 export const retrieveUserPhotos = (username, page) => async (
@@ -36,10 +37,14 @@ export const fetchData = (username, page) => async (dispatch, getState) => {
     const { data } = await axios(
       `${process.env.REACT_APP_API_BASE_URL}/users/${username}/photos?page=${page}&per_page=12&client_id=${process.env.REACT_APP_API_KEY}`
     );
-    dispatch({
-      type: GET_MORE_USER_PHOTOS_SUCCESS,
-      payload: data,
-    });
+    data.length > 0
+      ? dispatch({
+          type: GET_MORE_USER_PHOTOS_SUCCESS,
+          payload: data,
+        })
+      : dispatch({
+          type: GET_MORE_USER_PHOTOS_END_DATA,
+        });
   } catch (error) {
     dispatch({
       type: GET_USER_PHOTOS_ERROR,
