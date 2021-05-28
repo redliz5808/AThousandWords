@@ -3,12 +3,14 @@ import {
   GET_COLLECTION_PHOTO_SUCCESS,
   GET_COLLECTION_PHOTO_ERROR,
   GET_MORE_COLLECTION_PHOTO_SUCCESS,
+  GET_COLLECTION_PHOTO_END_DATA,
 } from "./collectionPhotoTypes";
 
 const initialState = {
   data: [],
   isLoading: false,
   error: false,
+  hasMore: true,
 };
 
 function collectionPhotoReducer(state = initialState, action) {
@@ -34,6 +36,12 @@ function collectionPhotoReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         data: [...state.data, ...action.payload],
+      };
+    case GET_COLLECTION_PHOTO_END_DATA:
+      return {
+        ...state,
+        isLoading: false,
+        hasMore: false,
       };
     default:
       return state;

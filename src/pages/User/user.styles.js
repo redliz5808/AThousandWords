@@ -26,6 +26,10 @@ export const Bio = styled.div`
   margin: 10px 0px;
   text-align: center;
   width: 500px;
+
+  @media (max-width: 780px) {
+    width: 80vw;
+  }
 `;
 
 export const InstagramUser = styled.a`

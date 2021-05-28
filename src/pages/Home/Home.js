@@ -62,7 +62,8 @@ class Home extends React.Component {
   };
 
   render() {
-    const { data, showModal } = this.props.home;
+    const { data, showModal, hasMore } = this.props.home;
+    
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
@@ -70,7 +71,7 @@ class Home extends React.Component {
           <InfiniteScroll
             dataLength={data.length}
             next={this.updatePageNumber}
-            hasMore={true}
+            hasMore={hasMore}
             loader={<h4>Loading more photos...</h4>}
             endMessage={
               <StyledParagraph>

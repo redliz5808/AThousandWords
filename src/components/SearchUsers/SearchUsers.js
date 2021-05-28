@@ -56,7 +56,7 @@ class SearchUsers extends React.Component {
 
   render() {
     const { searchTerm } = this.props;
-    const { userData } = this.props.searchUsers;
+    const { userData, hasMore } = this.props.searchUsers;
     const haveUsers = userData.length;
     return (
       <>
@@ -66,7 +66,7 @@ class SearchUsers extends React.Component {
           <InfiniteScroll
             dataLength={userData.length}
             next={this.updatePageNumber}
-            hasMore={true}
+            hasMore={hasMore}
             loader={<h4>Loading more results...</h4>}
             endMessage={
               <StyledParagraph>End of Search Results.</StyledParagraph>

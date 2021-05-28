@@ -12,6 +12,7 @@ export const ChildContainer = styled.div`
 
 export const Container = styled.div`
   display: flex;
+  margin-left: 12px;
 `;
 
 export const ImageContainer = styled.div`

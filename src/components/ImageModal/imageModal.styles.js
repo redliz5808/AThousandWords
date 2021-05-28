@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
 
 export const ModalMainContainer = styled.div`
   width: 100vw;
@@ -18,55 +19,75 @@ export const ModalSubContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${props => props.theme.body};
+  background-color: ${(props) => props.theme.main};
   width: 932px;
+  height: 90%;
   border-radius: 5px;
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 60px;
+  right: 300px;
+  z-index: 2;
+  background-color: ${(props) => props.theme.main};
+  color: ${(props) => props.theme.text};
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  margin-right: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  text-align: right;
 `;
 
 export const ModalImageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: center;
-  width: calc(100% - 62px);
+  width: 500px;
+  height: 700px;
   margin: 0px 31px 27px 31px;
-  background-color: ${props => props.theme.body};
+  background-color: ${(props) => props.theme.main};
   border-radius: 5px;
 `;
 
-export const ModalStatsContainer = styled.div`
-  background-color: ${props => props.theme.body};
-  width: 100%;
-  margin-top: 20px;
+export const SliderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
-export const StyledImage = styled.img`
+export const StyledSlider = styled(Slider)`
+  height: 100%;
+  width: 932px;
+  margin: 0px;
   border-radius: 5px;
-  max-height: 75vh;
-  max-width: 80vw;
+  .slick-active {
+    width: 100%;
+    ${SliderContainer} {
+      width: 100%;
+    }
+  }
+  .slick-list {
+    border-radius: 5px;
+  }
 `;
 
-export const StyledDiv = styled.div`
+export const ModalUserContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  margin: 27px 0px 20px 10px;
 `;
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
-  color: ${props => props.theme.text};
-`;
-
-export const ModalUserContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: calc(100% - 62px);
-  margin: 27px 31px 20px 31px;
-`;
-
-export const UserInfo = styled.div`
-  display: flex;
+  color: ${(props) => props.theme.text};
 `;
 
 export const UserImage = styled.img`
@@ -78,11 +99,34 @@ export const Username = styled.div`
   display: inline-block;
 `;
 
-export const CloseButton = styled.button`
-  background-color: ${props => props.theme.body};
-  color: ${props => props.theme.text};
-  cursor: pointer;
-  font-size: 20px;
-  border-radius: 3px;
-  border: none;
+export const ImageDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StyledImageLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.text};
+`;
+
+export const StyledImage = styled.img`
+  border-radius: 5px;
+  max-width: 100%;
+  max-height: 500px;
+`;
+
+export const ModalStatsContainer = styled.div`
+  background-color: ${(props) => props.theme.main};
+  margin-top: 10px;
+  margin-left: 5px;
+`;
+
+export const StyledDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
