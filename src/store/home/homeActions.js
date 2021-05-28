@@ -45,14 +45,16 @@ export const fetchData = (page) => async (dispatch, getState) => {
     const { data } = await axios(
       `${process.env.REACT_APP_API_BASE_URL}/photos?page=${page}&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`
     );
-    data
-      ? dispatch({
-          type: GET_MORE_PHOTOS_SUCCESS,
-          payload: data,
-        })
-      : dispatch({
-          type: GET_MORE_PHOTOS_END_DATA,
-        });
+    if (data) {
+      dispatch({
+        type: GET_MORE_PHOTOS_SUCCESS,
+        payload: data,
+      });
+    } else {
+      dispatch({
+        type: GET_MORE_PHOTOS_END_DATA,
+      });
+    }
   } catch (error) {
     dispatch({
       type: GET_ALL_PHOTOS_ERROR,

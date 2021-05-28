@@ -37,14 +37,16 @@ export const fetchData = (collectionid, page) => async (dispatch, getState) => {
     const { data } = await axios(
       `${process.env.REACT_APP_API_BASE_URL}/collections/${collectionid}/photos?page=${page}&per_page=12&client_id=${process.env.REACT_APP_API_KEY}`
     );
-    data.length > 0
-      ? dispatch({
-          type: GET_MORE_COLLECTION_PHOTO_SUCCESS,
-          payload: data,
-        })
-      : dispatch({
-          type: GET_COLLECTION_PHOTO_END_DATA,
-        });
+    if (data.length > 0) {
+      dispatch({
+        type: GET_MORE_COLLECTION_PHOTO_SUCCESS,
+        payload: data,
+      });
+    } else {
+      dispatch({
+        type: GET_COLLECTION_PHOTO_END_DATA,
+      });
+    }
   } catch (error) {
     dispatch({
       type: GET_COLLECTION_PHOTO_ERROR,

@@ -36,14 +36,16 @@ export const fetchData = (searchTerm, page) => async (dispatch, getState) => {
       `${process.env.REACT_APP_API_BASE_URL}/search/users?query=${searchTerm}&page=${page}&per_page=30&client_id=${process.env.REACT_APP_API_KEY}`
     );
     const results = data.results;
-    results.length > 0
-      ? dispatch({
-          type: GET_MORE_USER_DATA_SUCCESS,
-          payload: results,
-        })
-      : dispatch({
-          type: GET_MORE_USER_DATA_END_DATA,
-        });
+    if (results.length > 0) {
+      dispatch({
+        type: GET_MORE_USER_DATA_SUCCESS,
+        payload: results,
+      });
+    } else {
+      dispatch({
+        type: GET_MORE_USER_DATA_END_DATA,
+      });
+    }
   } catch (error) {
     dispatch({
       type: GET_USER_DATA_ERROR,

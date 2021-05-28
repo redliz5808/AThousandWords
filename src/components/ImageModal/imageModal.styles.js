@@ -19,7 +19,7 @@ export const ModalSubContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${(props) => props.theme.body};
+  background-color: ${(props) => props.theme.main};
   width: 932px;
   height: 90%;
   border-radius: 5px;
@@ -30,7 +30,7 @@ export const CloseButton = styled.button`
   top: 60px;
   right: 300px;
   z-index: 2;
-  background-color: ${(props) => props.theme.body};
+  background-color: ${(props) => props.theme.main};
   color: ${(props) => props.theme.text};
   cursor: pointer;
   font-size: 20px;
@@ -50,7 +50,7 @@ export const ModalImageContainer = styled.div`
   width: 500px;
   height: 700px;
   margin: 0px 31px 27px 31px;
-  background-color: ${(props) => props.theme.body};
+  background-color: ${(props) => props.theme.main};
   border-radius: 5px;
 `;
 
@@ -121,7 +121,7 @@ export const StyledImage = styled.img`
 `;
 
 export const ModalStatsContainer = styled.div`
-  background-color: ${(props) => props.theme.body};
+  background-color: ${(props) => props.theme.main};
   margin-top: 10px;
   margin-left: 5px;
 `;

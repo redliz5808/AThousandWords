@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { FaHeart } from "react-icons/fa";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Icon } from "components";
 import { displayPhoto, handleModalClose } from "store/home/homeActions";
 import { setFavoriteImage } from "store/photo/photoActions";
@@ -49,52 +47,54 @@ class ImageModal extends React.Component {
                 <StyledSlider {...settings}>
                   {data.map((item) => {
                     return (
-                      <SliderContainer key={item.id}>
-                        <ModalUserContainer>
-                          <StyledLink to={`/user/${item.user.username}`}>
-                            <UserImage
-                              src={item.user.profile_image.small}
-                              alt={item.user.name}
-                            />
-                            <Username>{item.user.name}</Username>
-                          </StyledLink>
-                        </ModalUserContainer>
-                        <ImageDiv>
-                          <StyledImageLink to={`/photo/${item.id}`}>
-                            <StyledImage
-                              src={item.urls.regular}
-                              alt={item.alt_description}
-                            />
-                          </StyledImageLink>
-                        </ImageDiv>
-                        <ModalStatsContainer>
-                          <StyledDiv>
-                            {photo.favoritePhotos[item.id] ? (
-                              <Icon
-                                id={item.id}
-                                icon={<FaHeart />}
-                                handleClick={() =>
-                                  this.props.setFavoriteImage(item.id)
-                                }
-                                stats={item.likes}
-                                color="#9d0707"
-                                type="heart"
+                      <div>
+                        <SliderContainer key={item.id}>
+                          <ModalUserContainer>
+                            <StyledLink to={`/user/${item.user.username}`}>
+                              <UserImage
+                                src={item.user.profile_image.small}
+                                alt={item.user.name}
                               />
-                            ) : (
-                              <Icon
-                                id={item.id}
-                                icon={<FaHeart />}
-                                handleClick={() =>
-                                  this.props.setFavoriteImage(item.id)
-                                }
-                                stats={item.likes}
-                                color="#8c8c8c"
-                                type="heart"
+                              <Username>{item.user.name}</Username>
+                            </StyledLink>
+                          </ModalUserContainer>
+                          <ImageDiv>
+                            <StyledImageLink to={`/photo/${item.id}`}>
+                              <StyledImage
+                                src={item.urls.regular}
+                                alt={item.alt_description}
                               />
-                            )}
-                          </StyledDiv>
-                        </ModalStatsContainer>
-                      </SliderContainer>
+                            </StyledImageLink>
+                          </ImageDiv>
+                          <ModalStatsContainer>
+                            <StyledDiv>
+                              {photo.favoritePhotos[item.id] ? (
+                                <Icon
+                                  id={item.id}
+                                  icon={<FaHeart />}
+                                  handleClick={() =>
+                                    this.props.setFavoriteImage(item.id)
+                                  }
+                                  stats={item.likes}
+                                  color="#9d0707"
+                                  type="heart"
+                                />
+                              ) : (
+                                <Icon
+                                  id={item.id}
+                                  icon={<FaHeart />}
+                                  handleClick={() =>
+                                    this.props.setFavoriteImage(item.id)
+                                  }
+                                  stats={item.likes}
+                                  color="#8c8c8c"
+                                  type="heart"
+                                />
+                              )}
+                            </StyledDiv>
+                          </ModalStatsContainer>
+                        </SliderContainer>
+                      </div>
                     );
                   })}
                 </StyledSlider>
