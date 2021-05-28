@@ -48,7 +48,7 @@ class FavoritePhoto extends React.Component {
                   {photos.map((photo) => {
                     return (
                       <Container key={photo.id}>
-                        <ImageContainer>
+                        <ImageContainer backgroundColor={photo.color}>
                           <StyledLink to={`/photo/${photo.id}`}>
                             <StyledImage
                               src={photo.urls.small}

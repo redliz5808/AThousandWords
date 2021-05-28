@@ -20,5 +20,12 @@ export const StyledImage = styled.img`
   width: 265px;
   height: 265px;
   object-fit: cover;
-  margin: 20px 0px;
 `;
+
+export const StyledDiv = styled.div`
+  height: 265px;
+  width: 265px;
+  margin: 20px 0px;
+  border-radius: 10px;
+  background-color: ${(props) => props.backgroundColor || "gray"};
+`

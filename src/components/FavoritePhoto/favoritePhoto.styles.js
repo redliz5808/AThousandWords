@@ -20,6 +20,7 @@ export const ImageContainer = styled.div`
   border-radius: 5px;
   margin: 25px 0px;
   cursor: pointer;
+  background-color: ${(props) => props.backgroundColor || "gray"};
 `;
 
 export const StyledLink = styled(Link)`

@@ -13,6 +13,8 @@ import {
   Username,
   StyledImage,
   StyledParagraph,
+  UsernameContainer,
+  Overlay,
 } from "./searchUsers.styles";
 
 class SearchUsers extends React.Component {
@@ -79,6 +81,7 @@ class SearchUsers extends React.Component {
               >
                 <Masonry>
                   {userData.map((user) => {
+                    console.log(user);
                     return (
                       <SubContainer key={user.id}>
                         <StyledLink to={`/user/${user.username}`}>
@@ -86,7 +89,11 @@ class SearchUsers extends React.Component {
                             src={user.profile_image.large}
                             alt={user.name}
                           />
-                          <Username>{user.name}</Username>
+                          <UsernameContainer>
+                            <Overlay>
+                              <Username>{user.name}</Username>
+                            </Overlay>
+                          </UsernameContainer>
                         </StyledLink>
                       </SubContainer>
                     );

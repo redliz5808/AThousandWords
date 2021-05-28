@@ -16,17 +16,22 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
+export const ImageContainer = styled.div`
+  display: flex;
+  background-color: ${(props) => props.backgroundColor || "gray"};
+  border-radius: 5px;
+`;
+
 export const TagLink = styled(Link)`
   text-decoration: none;
-  color: ${props => props.theme.text};
-  border: 1px solid ${props => props.theme.text};
+  color: ${(props) => props.theme.text};
+  border: 1px solid ${(props) => props.theme.text};
   border-radius: 3px;
   padding: 5px;
   margin: 5px;
 `;
 
 export const UserImage = styled.img`
-  max-width: 50px;
   margin-right: 10px;
   border-radius: 5px;
 `;
