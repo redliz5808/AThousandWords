@@ -63,7 +63,7 @@ class Home extends React.Component {
 
   render() {
     const { data, showModal, hasMore } = this.props.home;
-    
+
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
@@ -90,7 +90,7 @@ class Home extends React.Component {
                       return (
                         <LazyLoad height={200} key={value.id}>
                           <SubContainer>
-                            <ImageContainer>
+                            <ImageContainer backgroundColor={value.color}>
                               <StyledImg
                                 onClick={() =>
                                   this.handleImageClick(value.id, index)

@@ -27,10 +27,10 @@ export const SubContainer = styled.div`
 
 export const ImageContainer = styled.div`
   text-align: center;
-  margin: 5px;
-  padding: 7px;
+  margin: 15px;
   border-radius: 5px;
   cursor: pointer;
+  background-color: ${(props) => props.backgroundColor || "gray"};
 `;
 
 export const StyledImg = styled.img`

@@ -12,6 +12,7 @@ import {
   StyledDiv,
   TagLink,
   Tags,
+  ImageContainer,
 } from "./photo.styles";
 
 class Photo extends React.Component {
@@ -52,7 +53,9 @@ class Photo extends React.Component {
               />
               <h4>{data.user.name}</h4>
             </StyledLink>
-            <MainImage src={data.urls.regular} alt={data.alt_description} />
+            <ImageContainer backgroundColor={data.color} >
+              <MainImage src={data.urls.regular} alt={data.alt_description} />
+            </ImageContainer>
             <StyledDiv>
               {this.props.photo.favoritePhotos[data.id] ? (
                 <Icon

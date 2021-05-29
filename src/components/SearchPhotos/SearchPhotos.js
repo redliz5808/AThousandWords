@@ -14,6 +14,7 @@ import {
   MainContainer,
   StyledLink,
   StyledImage,
+  StyledDiv,
 } from "./searchPhotos.styles";
 
 class SearchPhotos extends React.Component {
@@ -83,7 +84,9 @@ class SearchPhotos extends React.Component {
                   {photoData.map((photo) => {
                     return (
                       <StyledLink key={photo.id} to={`/photo/${photo.id}`}>
-                        <StyledImage src={photo.urls.small} alt={photo.id} />
+                        <StyledDiv backgroundColor={photo.color}>
+                          <StyledImage src={photo.urls.small} alt={photo.id} />
+                        </StyledDiv>
                       </StyledLink>
                     );
                   })}

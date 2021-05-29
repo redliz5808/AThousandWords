@@ -20,6 +20,7 @@ import {
   StyledImageLink,
   ImageDiv,
   SliderContainer,
+  ImageBackgroundDiv,
 } from "./imageModal.styles";
 
 class ImageModal extends React.Component {
@@ -47,8 +48,8 @@ class ImageModal extends React.Component {
                 <StyledSlider {...settings}>
                   {data.map((item) => {
                     return (
-                      <div>
-                        <SliderContainer key={item.id}>
+                      <div key={item.id}>
+                        <SliderContainer>
                           <ModalUserContainer>
                             <StyledLink to={`/user/${item.user.username}`}>
                               <UserImage
@@ -58,13 +59,15 @@ class ImageModal extends React.Component {
                               <Username>{item.user.name}</Username>
                             </StyledLink>
                           </ModalUserContainer>
-                          <ImageDiv>
-                            <StyledImageLink to={`/photo/${item.id}`}>
-                              <StyledImage
-                                src={item.urls.regular}
-                                alt={item.alt_description}
-                              />
-                            </StyledImageLink>
+                          <ImageDiv backgroundColor={item.color}>
+                            <ImageBackgroundDiv>
+                              <StyledImageLink to={`/photo/${item.id}`}>
+                                <StyledImage
+                                  src={item.urls.regular}
+                                  alt={item.alt_description}
+                                />
+                              </StyledImageLink>
+                            </ImageBackgroundDiv>
                           </ImageDiv>
                           <ModalStatsContainer>
                             <StyledDiv>

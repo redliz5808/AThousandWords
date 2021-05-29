@@ -14,6 +14,9 @@ export const Container = styled.div`
 `;
 
 export const CollectionLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
   color: #6958f2;
   cursor: pointer;
@@ -21,8 +24,8 @@ export const CollectionLink = styled(Link)`
 
 export const StyledImage = styled.img`
   border-radius: 5px;
-  width: 223px;
-  height: 223px;
+  width: 265px;
+  height: 265px;
   object-fit: cover;
 `;
 
@@ -39,8 +42,8 @@ export const StatsContainer = styled.div`
 `;
 
 export const StatsOverlay = styled.div`
-  width: 224px;
-  height: 224px;
+  width: 265px;
+  height: 265px;
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.5);
 `;

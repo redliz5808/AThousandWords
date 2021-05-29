@@ -1,12 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
-import { Icon } from "components";
-import { FaHeart } from "react-icons/fa";
 import { CollectionPhotos } from "components";
 import {
   getCollectionData,
-  getFavoritesData,
 } from "store/collection/collectionActions";
 import {
   MainContainer,
@@ -40,7 +37,7 @@ class Collection extends React.Component {
   }
 
   render() {
-    const { data, isLoading, favoriteCollections } = this.props.collection;
+    const { data, isLoading } = this.props.collection;
     const readyToLoad = data && !isLoading;
     const tagsAvailable = data && data.tags.length > 0;
     return (
@@ -50,27 +47,6 @@ class Collection extends React.Component {
           <MainContainer>
             <SubContainer>
               <Title>
-                <div>
-                  {favoriteCollections[data.id] ? (
-                    <Icon
-                      id={data.id}
-                      handleClick={() => this.props.getFavoritesData(data.id)}
-                      icon={<FaHeart />}
-                      color="#9d0707"
-                      stats=""
-                      type="heart"
-                    />
-                  ) : (
-                    <Icon
-                      id={data.id}
-                      handleClick={() => this.props.getFavoritesData(data.id)}
-                      icon={<FaHeart />}
-                      color="#8c8c8c"
-                      stats=""
-                      type="heart"
-                    />
-                  )}
-                </div>
                 <CollectionName>{data.title}</CollectionName>
               </Title>
               {data.description ? (
@@ -105,7 +81,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getCollectionData,
-  getFavoritesData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Collection);

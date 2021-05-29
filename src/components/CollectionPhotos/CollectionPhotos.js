@@ -12,6 +12,7 @@ import {
   StyledParagraph,
   StyledLink,
   StyledImage,
+  StyledDiv,
 } from "./collectionPhotos.styles";
 
 class CollectionPhotos extends React.Component {
@@ -64,10 +65,12 @@ class CollectionPhotos extends React.Component {
                   {data.map((photo) => {
                     return (
                       <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
-                        <StyledImage
-                          src={photo.urls.small}
-                          alt={photo.alt_description}
-                        />
+                        <StyledDiv backgroundColor={photo.color}>
+                          <StyledImage
+                            src={photo.urls.small}
+                            alt={photo.alt_description}
+                          />
+                        </StyledDiv>
                       </StyledLink>
                     );
                   })}
