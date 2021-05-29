@@ -81,7 +81,6 @@ class SearchUsers extends React.Component {
               >
                 <Masonry>
                   {userData.map((user) => {
-                    console.log(user);
                     return (
                       <SubContainer key={user.id}>
                         <StyledLink to={`/user/${user.username}`}>
