@@ -41,7 +41,6 @@ class CollectionPhotos extends React.Component {
 
   render() {
     const { data, hasMore } = this.props.collectionPhoto;
-
     return (
       <>
         {data.length && (
