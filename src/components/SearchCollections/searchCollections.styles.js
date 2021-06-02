@@ -6,6 +6,11 @@ export const StyledParagraph = styled.p`
   font-weight: bold;
 `;
 
+export const MainContainer = styled.div`
+  margin-left: 10px;
+  width: 932px;
+`;
+
 export const Container = styled.div`
   border-radius: 5px;
   text-align: center;
@@ -20,12 +25,13 @@ export const CollectionLink = styled(Link)`
   text-decoration: none;
   color: #6958f2;
   cursor: pointer;
+  margin: 0px 10px;
 `;
 
 export const StyledImage = styled.img`
   border-radius: 5px;
-  width: 265px;
-  height: 265px;
+  width: 290px;
+  height: 290px;
   object-fit: cover;
 `;
 
@@ -42,8 +48,8 @@ export const StatsContainer = styled.div`
 `;
 
 export const StatsOverlay = styled.div`
-  width: 265px;
-  height: 265px;
+  width: 290px;
+  height: 290px;
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.5);
 `;

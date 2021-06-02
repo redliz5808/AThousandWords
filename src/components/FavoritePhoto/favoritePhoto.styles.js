@@ -12,13 +12,12 @@ export const ChildContainer = styled.div`
 
 export const Container = styled.div`
   display: flex;
-  margin-left: 12px;
 `;
 
 export const ImageContainer = styled.div`
   text-align: center;
   border-radius: 5px;
-  margin: 25px 0px;
+  margin: 10px 10px;
   cursor: pointer;
   background-color: ${(props) => props.backgroundColor || "gray"};
 `;
@@ -29,8 +28,8 @@ export const StyledLink = styled(Link)`
 `;
 
 export const StyledImage = styled.img`
-  width: 265px;
-  height: 265px;
+  width: 290px;
+  height: 290px;
   object-fit: cover;
   display: block;
   border-radius: 5px;

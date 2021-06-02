@@ -10,6 +10,7 @@ const initialState = {
   isLoading: false,
   favoritePhotos: {},
   error: false,
+  errorMessage: "",
 };
 
 function photoReducer(state = initialState, action) {
@@ -19,6 +20,7 @@ function photoReducer(state = initialState, action) {
         ...state,
         data: action.payload,
         isLoading: false,
+        error: false,
       };
     case FETCH_PHOTO_PENDING:
       return {
@@ -30,6 +32,7 @@ function photoReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         error: true,
+        errorMessage: action.payload,
       };
     case SET_FAVORITE_IMAGE:
       return {

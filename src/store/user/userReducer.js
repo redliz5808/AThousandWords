@@ -12,6 +12,7 @@ const initialState = {
   isLoading: false,
   favoriteUsers: {},
   error: false,
+  errorMessage: "",
 };
 
 function userReducer(state = initialState, action) {
@@ -21,6 +22,7 @@ function userReducer(state = initialState, action) {
         ...state,
         data: action.payload,
         isLoading: false,
+        error: false,
       };
     case FETCH_USER_DATA_PENDING:
       return {
@@ -32,6 +34,7 @@ function userReducer(state = initialState, action) {
         ...state,
         error: true,
         isLoading: false,
+        errorMessage: action.payload,
       };
     case SET_USERNAME:
       return {

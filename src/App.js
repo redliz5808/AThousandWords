@@ -1,6 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Home, User, Photo, Search, Collection, Favorites } from "pages";
+import {
+  Home,
+  User,
+  Photo,
+  Search,
+  Collection,
+  Favorites,
+  NotFound,
+} from "pages";
 import { SearchBar } from "components";
 import { logo } from "assets";
 import { lightTheme, darkTheme } from "./theme";
@@ -86,14 +94,22 @@ export class App extends React.Component {
 
             <Switch>
               <Route component={Home} exact path="/"></Route>
-              <Route component={User} path="/user/:username"></Route>
-              <Route component={Photo} path="/photo/:photoid"></Route>
-              <Route component={Search} path="/search/:searchTerm"></Route>
-              <Route component={Favorites} path="/favorites"></Route>
+              <Route component={User} exact path="/user/:username"></Route>
+              <Route component={Photo} exact path="/photo/:photoid"></Route>
+              <Route
+                component={Search}
+                exact
+                path="/search/:searchTerm"
+              ></Route>
+              <Route component={Favorites} exact path="/favorites"></Route>
               <Route
                 component={Collection}
+                exact
                 path="/collection/:collectionid"
               ></Route>
+              <Route path="*">
+                <NotFound />
+              </Route>
             </Switch>
           </div>
         </Router>

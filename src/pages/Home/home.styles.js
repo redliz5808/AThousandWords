@@ -27,7 +27,7 @@ export const SubContainer = styled.div`
 
 export const ImageContainer = styled.div`
   text-align: center;
-  margin: 15px;
+  margin: 15px 10px;
   border-radius: 5px;
   cursor: pointer;
   background-color: ${(props) => props.backgroundColor || "gray"};

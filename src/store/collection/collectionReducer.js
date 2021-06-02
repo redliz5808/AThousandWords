@@ -10,6 +10,7 @@ const initialState = {
   favoriteCollections: [],
   isLoading: false,
   error: false,
+  errorMessage: "",
 };
 
 function collectionsReducer(state = initialState, action) {
@@ -19,6 +20,7 @@ function collectionsReducer(state = initialState, action) {
         ...state,
         data: action.payload,
         isLoading: false,
+        error: false,
       };
     case COLLECTIONS_FETCH_COLLECTION_DATA_PENDING:
       return {
@@ -30,6 +32,7 @@ function collectionsReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         error: true,
+        errorMessage: action.payload,
       };
     case GET_FAVORITES_DATA:
       return {

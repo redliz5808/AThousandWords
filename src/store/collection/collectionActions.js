@@ -25,6 +25,7 @@ export const getCollectionData = (collectionid) => async (
   } catch (error) {
     dispatch({
       type: COLLECTIONS_FETCH_COLLECTION_DATA_ERROR,
+      payload: error,
     });
   }
 };

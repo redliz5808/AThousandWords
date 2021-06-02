@@ -14,7 +14,7 @@ const Icon = (props) => {
           {props.icon}
         </StyledIcon>
       </StyledButton>
-      {convertedNumbers(props.stats)}
+      <p>{convertedNumbers(props.stats)}</p>
     </StyledSpan>
   );
 };

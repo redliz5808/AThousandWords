@@ -6,12 +6,15 @@ import { AiFillHeart } from "react-icons/ai";
 export const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 `;
 
 export const Logo = styled.img`
-  margin-left: 3px;
-  margin-top: 10px;
-  max-height: 100px;
+  margin-top: 5px;
+  height: 49px;
+  width: 49px;
+  border-radius: 5px;
 
   @media (max-width: 768px) {
     margin-left: 20px;
@@ -23,7 +26,7 @@ export const StyledNav = styled.nav`
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  width: 932px;
+  width: calc(932px - 20px);
 
   @media (max-width: 780px) {
     flex-direction: column;
@@ -67,7 +70,7 @@ export const StyledLi = styled.li`
 export const NavButtonLi = styled.li`
   list-style: none;
   text-align: center;
-  margin: 0px 10px;
+  margin: 0px 19px;
   width: 49px;
   color: ${(props) => props.theme.text};
   cursor: pointer;

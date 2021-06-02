@@ -1,6 +1,7 @@
 import React from "react";
 import LoadingBar from "react-top-loading-bar";
 import { connect } from "react-redux";
+import { NotFound } from "pages";
 import { Photos, Collections } from "components";
 import {
   setUserAsFavorite,
@@ -48,7 +49,7 @@ class User extends React.Component {
   };
 
   render() {
-    const { data, username, isLoading } = this.props.user;
+    const { data, username, isLoading, error, errorMessage } = this.props.user;
     const readyToLoad = data && !isLoading;
 
     const convertedNumbers = (x) => {
@@ -59,44 +60,48 @@ class User extends React.Component {
       <MainContainer>
         <Container>
           <LoadingBar color="#6958f2" ref={this.loadingBar} />
-          {readyToLoad && (
-            <>
-              <UserContainer>
-                <StyledImage src={data.profile_image.large} alt={data.name} />
-                <UserName>{data.name}</UserName>
-                {data.bio && <Bio>{data.bio}</Bio>}
-                {data.instagram_username && (
-                  <InstagramUser
-                    href={`https://www.instagram.com/${data.instagram_username}`}
-                    target="_blank"
-                  >
-                    @{data.instagram_username}
-                  </InstagramUser>
-                )}
-                <StatsContainer>
-                  <StyledDiv>
-                    <StyledNumbers>
-                      {convertedNumbers(data.downloads)}
-                    </StyledNumbers>
-                    <div>Downloads</div>
-                  </StyledDiv>
-                  <StyledDiv>
-                    <StyledNumbers>
-                      {convertedNumbers(data.followers_count)}
-                    </StyledNumbers>
-                    <div>Followers</div>
-                  </StyledDiv>
-                  <StyledDiv>
-                    <StyledNumbers>
-                      {convertedNumbers(data.following_count)}
-                    </StyledNumbers>
-                    <div>Following</div>
-                  </StyledDiv>
-                </StatsContainer>
-              </UserContainer>
-              <Collections username={username} />
-              <Photos username={username} />
-            </>
+          {!error ? (
+            readyToLoad && (
+              <>
+                <UserContainer>
+                  <StyledImage src={data.profile_image.large} alt={data.name} />
+                  <UserName>{data.name}</UserName>
+                  {data.bio && <Bio>{data.bio}</Bio>}
+                  {data.instagram_username && (
+                    <InstagramUser
+                      href={`https://www.instagram.com/${data.instagram_username}`}
+                      target="_blank"
+                    >
+                      @{data.instagram_username}
+                    </InstagramUser>
+                  )}
+                  <StatsContainer>
+                    <StyledDiv>
+                      <StyledNumbers>
+                        {convertedNumbers(data.downloads)}
+                      </StyledNumbers>
+                      <div>Downloads</div>
+                    </StyledDiv>
+                    <StyledDiv>
+                      <StyledNumbers>
+                        {convertedNumbers(data.followers_count)}
+                      </StyledNumbers>
+                      <div>Followers</div>
+                    </StyledDiv>
+                    <StyledDiv>
+                      <StyledNumbers>
+                        {convertedNumbers(data.following_count)}
+                      </StyledNumbers>
+                      <div>Following</div>
+                    </StyledDiv>
+                  </StatsContainer>
+                </UserContainer>
+                <Collections username={username} />
+                <Photos username={username} />
+              </>
+            )
+          ) : (
+            <NotFound errorMessage={errorMessage} />
           )}
         </Container>
       </MainContainer>

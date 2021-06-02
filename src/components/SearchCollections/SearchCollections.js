@@ -11,6 +11,7 @@ import {
 } from "store/searchCollections/searchCollectionsActions";
 import {
   StyledParagraph,
+  MainContainer,
   Container,
   CollectionLink,
   StyledImage,
@@ -77,30 +78,32 @@ class SearchCollections extends React.Component {
               <StyledParagraph>End of Search Results.</StyledParagraph>
             }
           >
-            <ResponsiveMasonry
-              columnsCountBreakPoints={columnBreaks}
-              gutter="0"
-            >
-              <Masonry>
-                {collectionData.map((collection) => {
-                  return (
-                    <Container key={collection.id}>
-                      <CollectionLink to={`/collection/${collection.id}`}>
-                        <StyledImage
-                          src={collection.cover_photo.urls.small}
-                          alt={collection.title}
-                        />
-                        <StatsContainer>
-                          <StatsOverlay>
-                            <Stats>{collection.total_photos} photos</Stats>
-                          </StatsOverlay>
-                        </StatsContainer>
-                      </CollectionLink>
-                    </Container>
-                  );
-                })}
-              </Masonry>
-            </ResponsiveMasonry>
+            <MainContainer>
+              <ResponsiveMasonry
+                columnsCountBreakPoints={columnBreaks}
+                gutter="0"
+              >
+                <Masonry>
+                  {collectionData.map((collection) => {
+                    return (
+                      <Container key={collection.id}>
+                        <CollectionLink to={`/collection/${collection.id}`}>
+                          <StyledImage
+                            src={collection.cover_photo.urls.small}
+                            alt={collection.title}
+                          />
+                          <StatsContainer>
+                            <StatsOverlay>
+                              <Stats>{collection.total_photos} photos</Stats>
+                            </StatsOverlay>
+                          </StatsContainer>
+                        </CollectionLink>
+                      </Container>
+                    );
+                  })}
+                </Masonry>
+              </ResponsiveMasonry>
+            </MainContainer>
           </InfiniteScroll>
         )}
       </>

@@ -43,6 +43,9 @@ export const MainImage = styled.img`
 
 export const StyledDiv = styled.div`
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Tags = styled.p`

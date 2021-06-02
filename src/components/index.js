@@ -8,7 +8,4 @@ export { default as SearchCollections } from "./SearchCollections";
 export { default as SearchUsers } from "./SearchUsers";
 export { default as CollectionPhotos } from "./CollectionPhotos";
 export { default as FavoritePhoto } from "./FavoritePhoto";
-export { default as FavoriteCollection } from "./FavoriteCollection";
-export { default as FavoriteUser } from "./FavoriteUser";
-export { default as FavoritesSlider } from "./FavoritesSlider";
 export { default as ImageModal } from "./ImageModal";

@@ -17,8 +17,8 @@ export const SubContainer = styled.div`
 `;
 
 export const StyledImage = styled.img`
-  width: 265px;
-  height: 265px;
+  width: 290px;
+  height: 290px;
   object-fit: cover;
   margin: 20px 0px;
   border-radius: 5px;

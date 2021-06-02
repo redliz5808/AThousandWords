@@ -29,7 +29,7 @@ export const ModalSubContainer = styled.div`
 export const CloseButton = styled.button`
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 3px;
   z-index: 2;
   background-color: ${(props) => props.theme.main};
   color: ${(props) => props.theme.text};
@@ -40,6 +40,11 @@ export const CloseButton = styled.button`
   margin-left: 10px;
   border-radius: 5px;
   text-align: right;
+`;
+
+export const CloseButtonImg = styled.img`
+  width: 25px;
+  height: 25px;
 `;
 
 export const ModalImageContainer = styled.div`
@@ -81,7 +86,7 @@ export const ModalUserContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 27px 0px 20px 10px;
+  margin: 10px 0px 20px 15px;
 `;
 
 export const StyledLink = styled(Link)`
@@ -122,17 +127,18 @@ export const StyledImageLink = styled(Link)`
 
 export const StyledImage = styled.img`
   border-radius: 5px;
-  max-width: 50vw;
-  max-height: 500px;
+  max-width: 70vw;
+  max-height: 600px;
 `;
 
 export const ModalStatsContainer = styled.div`
   background-color: ${(props) => props.theme.main};
-  margin-top: 10px;
-  margin-left: 5px;
+  margin: 5px 10px 0px 15px;
+  width: calc(100% - 25px);
 `;
 
 export const StyledDiv = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;

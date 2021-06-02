@@ -23,6 +23,7 @@ export const retrieveUserData = (username) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: FETCH_USER_DATA_ERROR,
+      payload: error,
     });
   }
 };
