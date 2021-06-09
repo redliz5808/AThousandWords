@@ -23,10 +23,10 @@ export const getCollectionData = (searchTerm, page) => async (
       type: GET_COLLECTION_DATA_SUCCESS,
       payload: results,
     });
-    if(results.length > 1 && results.length < 29) {
+    if (results.length > 1 && results.length < 29) {
       dispatch({
         type: GET_MORE_COLLECTION_DATA_END_DATA,
-      })
+      });
     }
   } catch (error) {
     dispatch({

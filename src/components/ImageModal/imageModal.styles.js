@@ -182,4 +182,4 @@ export const StyledDiv = styled.div`
 
 export const HeartIcon = styled.img`
   display: inline;
-`
+`;

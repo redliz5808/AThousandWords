@@ -1,1 +1,1 @@
-export {default} from "./PrevArrow";
+export { default } from "./PrevArrow";

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FaRegStar, FaStar, FaHeart } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { Icon, NextArrow, PrevArrow } from "components";
 import { closeButton, heartOutline } from "assets";
 import { displayPhoto, handleModalClose } from "store/home/homeActions";
@@ -77,13 +77,9 @@ class ImageModal extends React.Component {
                             </ImageBackgroundDiv>
                           </ImageDiv>
                           <ModalStatsContainer>
-                              <HeartIcon src={heartOutline} alt="heart" />
+                            <HeartIcon src={heartOutline} alt="heart" />
                             <StyledDiv>
-                              <Icon
-                                stats={item.likes}
-                                color="#FF4557"
-                                type="heart"
-                              />
+                              <Icon stats={item.likes} type="heart" />
                               {photo.favoritePhotos[item.id] ? (
                                 <Icon
                                   icon={<FaStar />}

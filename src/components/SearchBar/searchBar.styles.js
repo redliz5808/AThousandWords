@@ -3,14 +3,14 @@ import styled from "styled-components";
 export const StyledForm = styled.form`
   display: flex;
   margin-left: 35px;
-`
+`;
 
 export const StyledImage = styled.img`
   background-color: #fff;
   border-radius: 5px 0px 0px 5px;
   margin: 5px 0px;
   padding-left: 5px;
-`
+`;
 
 export const StyledInput = styled.input`
   outline: none;

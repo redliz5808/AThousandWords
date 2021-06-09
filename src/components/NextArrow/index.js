@@ -1,1 +1,1 @@
-export {default} from "./NextArrow";
+export { default } from "./NextArrow";

@@ -56,4 +56,4 @@ export const setUserAsFavorite = (id) => (dispatch, getState) => {
 
 export const userCleanup = () => ({
   type: USER_CLEAN_UP,
-})
+});

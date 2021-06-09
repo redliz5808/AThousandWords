@@ -12,7 +12,7 @@ export const MainContainer = styled.div`
   &.slick-prev::before {
     content: "";
   }
-  
+
   svg {
     border-radius: 50%;
   }

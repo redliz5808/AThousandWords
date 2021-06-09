@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import { FaHeart, FaRegStar, FaStar, FaEye } from "react-icons/fa";
 import { Icon } from "components";
-import {
-  retrievePhoto,
-  setFavoriteImage,
-} from "store/photo/photoActions";
+import { retrievePhoto, setFavoriteImage } from "store/photo/photoActions";
 import {
   MainImage,
   Container,
