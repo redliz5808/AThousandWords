@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { FaRegStar, FaStar, FaHeart } from "react-icons/fa";
-import { Icon } from "components";
-import { closeButton } from "assets";
+import { Icon, NextArrow, PrevArrow } from "components";
+import { closeButton, heartOutline } from "assets";
 import { displayPhoto, handleModalClose } from "store/home/homeActions";
 import { setFavoriteImage } from "store/photo/photoActions";
 import {
@@ -23,13 +23,14 @@ import {
   ImageDiv,
   SliderContainer,
   ImageBackgroundDiv,
+  HeartIcon,
 } from "./imageModal.styles";
 
 class ImageModal extends React.Component {
   render() {
     const { showModal, data } = this.props.home;
     const { photo } = this.props;
-    const readyToLoad = showModal && data.length;
+    const readyToLoad = showModal && data.length > 0;
 
     const settings = {
       dots: false,
@@ -38,6 +39,8 @@ class ImageModal extends React.Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       initialSlide: this.props.home.index,
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />,
     };
 
     return (
@@ -74,20 +77,15 @@ class ImageModal extends React.Component {
                             </ImageBackgroundDiv>
                           </ImageDiv>
                           <ModalStatsContainer>
+                              <HeartIcon src={heartOutline} alt="heart" />
                             <StyledDiv>
                               <Icon
-                                id={item.id}
-                                icon={<FaHeart />}
-                                handleClick={() =>
-                                  this.props.setFavoriteImage(item.id)
-                                }
                                 stats={item.likes}
                                 color="#FF4557"
                                 type="heart"
                               />
                               {photo.favoritePhotos[item.id] ? (
                                 <Icon
-                                  id={item.id}
                                   icon={<FaStar />}
                                   handleClick={() =>
                                     this.props.setFavoriteImage(item.id)
@@ -98,7 +96,6 @@ class ImageModal extends React.Component {
                                 />
                               ) : (
                                 <Icon
-                                  id={item.id}
                                   icon={<FaRegStar />}
                                   handleClick={() =>
                                     this.props.setFavoriteImage(item.id)

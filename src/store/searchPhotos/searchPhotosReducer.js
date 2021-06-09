@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   photoData: [],
-  isLoading: false,
+  isLoading: true,
   error: true,
   hasMore: true,
 };
@@ -30,6 +30,7 @@ function searchPhotosReducer(state = initialState, action) {
       return {
         ...state,
         error: true,
+        isLoading: false,
       };
     case GET_MORE_PHOTO_DATA_SUCCESS:
       return {

@@ -9,3 +9,5 @@ export { default as SearchUsers } from "./SearchUsers";
 export { default as CollectionPhotos } from "./CollectionPhotos";
 export { default as FavoritePhoto } from "./FavoritePhoto";
 export { default as ImageModal } from "./ImageModal";
+export { default as NextArrow } from "./NextArrow";
+export { default as PrevArrow } from "./PrevArrow";

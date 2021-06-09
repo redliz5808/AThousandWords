@@ -24,7 +24,6 @@ export const Logo = styled.img`
 export const StyledNav = styled.nav`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   text-align: center;
   width: calc(932px - 20px);
 
@@ -38,7 +37,6 @@ export const StyledNav = styled.nav`
 
 export const StyledUl = styled.ul`
   display: flex;
-  align-items: center;
   padding: 0px;
   margin: 0px;
   width: calc(932px - 709px - 26px);
@@ -61,6 +59,10 @@ export const Overlay = styled.div`
   font-size: 24px;
 `;
 
+export const StyledLabel = styled.div`
+  color: #999999;
+`;
+
 export const StyledLi = styled.li`
   list-style: none;
   padding: 0px;
@@ -76,34 +78,52 @@ export const NavButtonLi = styled.li`
   cursor: pointer;
 `;
 
+export const Photos = styled.img``;
+
+export const Saved = styled.img``;
+
 export const StyledLink = styled(NavLink)`
   display: block;
   text-decoration: none;
   color: ${(props) => props.theme.text};
   &.activeLight {
     ${Overlay} {
-      border-radius: 5px;
-      background-color: #2b2b2b;
-      color: #fff;
-      svg {
-        background-color: #2b2b2b;
+      &.saved {
+        border-radius: 5px;
+        background-color: #ffb4bc;
       }
-      svg path {
-        fill: #fff;
+    }
+    ${Overlay} {
+      &.photos {
+        border-radius: 5px;
+        background-color: #a2c8fa;
       }
+    }
+    ${Photos} {
+      background-color: #a2c8fa;
+    }
+    ${Saved} {
+      background-color: #ffb4bc;
     }
   }
   &.activeDark {
     ${Overlay} {
-      border-radius: 5px;
-      background-color: #fff;
-      color: #2b2b2b;
-      svg {
-        background-color: #fff;
+      &.saved {
+        border-radius: 5px;
+        background-color: #ffb4bc;
       }
-      svg path {
-        fill: #2b2b2b;
+    }
+    ${Overlay} {
+      &.photos {
+        border-radius: 5px;
+        background-color: #a2c8fa;
       }
+    }
+    ${Photos} {
+      background-color: #a2c8fa;
+    }
+    ${Saved} {
+      background-color: #ffb4bc;
     }
   }
 `;

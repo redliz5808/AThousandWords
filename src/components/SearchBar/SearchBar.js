@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { StyledInput } from "./searchBar.styles";
+import { searchIcon } from "assets";
+import { StyledForm, StyledImage, StyledInput } from "./searchBar.styles";
 
 class SearchBar extends React.Component {
   state = {
@@ -20,13 +21,14 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <StyledForm onSubmit={this.handleSubmit}>
+        <StyledImage src={searchIcon} alt="Search Icon" />
         <StyledInput
           onChange={this.handleChange}
           value={this.state.value}
-          placeholder="Search"
+          placeholder="Search..."
         />
-      </form>
+      </StyledForm>
     );
   }
 }

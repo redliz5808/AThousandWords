@@ -23,6 +23,11 @@ export const getPhotoData = (searchTerm, page) => async (
       type: GET_PHOTO_DATA_SUCCESS,
       payload: results,
     });
+    if (results.length > 1 && results.length < 29) {
+      dispatch({
+        type: GET_MORE_PHOTO_DATA_END_DATA,
+      });
+    }
   } catch (error) {
     dispatch({
       type: GET_PHOTO_DATA_ERROR,

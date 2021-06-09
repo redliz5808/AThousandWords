@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   userData: [],
-  isLoading: false,
+  isLoading: true,
   error: false,
   hasMore: true,
 };
@@ -30,6 +30,7 @@ function searchUsersReducer(state = initialState, action) {
       return {
         ...state,
         error: true,
+        isLoading: false,
       };
     case GET_MORE_USER_DATA_SUCCESS:
       return {

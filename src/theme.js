@@ -1,6 +1,6 @@
 export const lightTheme = {
   main: "white",
-  text: "black",
+  text: "#2b2b2b",
   resultsSelected: "black",
   resultsUnselected: "#8c8c8c",
 };

@@ -52,7 +52,7 @@ class Photos extends React.Component {
 
   render() {
     const { photos, hasMore } = this.props.userPhotos;
-    const hasPhotos = photos.length;
+    const hasPhotos = photos.length > 0;
 
     return (
       <>
@@ -66,7 +66,7 @@ class Photos extends React.Component {
             loader={<h4>Loading more photos...</h4>}
             endMessage={
               <StyledParagraph>
-                There are no more photos to laod.
+                There are no more photos to load.
               </StyledParagraph>
             }
           >

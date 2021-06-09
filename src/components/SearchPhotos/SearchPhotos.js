@@ -58,13 +58,14 @@ class SearchPhotos extends React.Component {
 
   render() {
     const { searchTerm } = this.props;
-    const { photoData, hasMore } = this.props.searchPhotos;
-    const hasPhotos = photoData.length;
+    const { photoData, hasMore, isLoading } = this.props.searchPhotos;
+    const hasPhotos = photoData.length > 0;
+    const noResults = photoData.length === 0 && !isLoading;
 
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {!hasPhotos && <div>There are no results for {searchTerm}.</div>}
+        {noResults && <div>There are no results for {searchTerm}.</div>}
         {hasPhotos && (
           <InfiniteScroll
             dataLength={photoData.length}

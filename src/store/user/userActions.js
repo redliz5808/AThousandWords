@@ -6,6 +6,7 @@ import {
   FETCH_USER_DATA_SUCCESS,
   SET_USERNAME,
   SET_FAVORITE_USERS,
+  USER_CLEAN_UP,
 } from "./userTypes";
 
 export const retrieveUserData = (username) => async (dispatch, getState) => {
@@ -52,3 +53,7 @@ export const setUserAsFavorite = (id) => (dispatch, getState) => {
     });
   }
 };
+
+export const userCleanup = () => ({
+  type: USER_CLEAN_UP,
+})

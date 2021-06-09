@@ -13,6 +13,8 @@ import {
   StyledLink,
   StyledImage,
   StyledDiv,
+  MainContainer,
+  SubContainer,
 } from "./collectionPhotos.styles";
 
 class CollectionPhotos extends React.Component {
@@ -52,29 +54,33 @@ class CollectionPhotos extends React.Component {
               loader={<h4>Loading more photos...</h4>}
               endMessage={
                 <StyledParagraph>
-                  There are no more photos to laod.
+                  There are no more photos to load.
                 </StyledParagraph>
               }
             >
-              <ResponsiveMasonry
-                columnsCountBreakPoints={columnBreaks}
-                gutter="0"
-              >
-                <Masonry>
-                  {data.map((photo) => {
-                    return (
-                      <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
-                        <StyledDiv backgroundColor={photo.color}>
-                          <StyledImage
-                            src={photo.urls.small}
-                            alt={photo.alt_description}
-                          />
-                        </StyledDiv>
-                      </StyledLink>
-                    );
-                  })}
-                </Masonry>
-              </ResponsiveMasonry>
+              <MainContainer>
+                <SubContainer>
+                  <ResponsiveMasonry
+                    columnsCountBreakPoints={columnBreaks}
+                    gutter="0"
+                  >
+                    <Masonry>
+                      {data.map((photo) => {
+                        return (
+                          <StyledLink to={`/photo/${photo.id}`} key={photo.id}>
+                            <StyledDiv backgroundColor={photo.color}>
+                              <StyledImage
+                                src={photo.urls.small}
+                                alt={photo.alt_description}
+                              />
+                            </StyledDiv>
+                          </StyledLink>
+                        );
+                      })}
+                    </Masonry>
+                  </ResponsiveMasonry>
+                </SubContainer>
+              </MainContainer>
             </InfiniteScroll>
           </>
         )}

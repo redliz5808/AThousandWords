@@ -19,16 +19,26 @@ export const ModalSubContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   position: relative;
   background-color: ${(props) => props.theme.main};
-  width: 932px;
-  height: auto;
+  width: 892px;
+  height: 813px;
   border-radius: 5px;
+
+  @media (max-width: 1600px) {
+    height: calc(813px - 210px);
+    width: calc(932px - 200px);
+  }
+  @media (max-width: 700px) {
+    width: calc(892px - 500px);
+    height: calc(932px - 500px);
+  }
 `;
 
 export const CloseButton = styled.button`
   position: absolute;
-  top: 10px;
+  top: 20px;
   right: 3px;
   z-index: 2;
   background-color: ${(props) => props.theme.main};
@@ -53,9 +63,9 @@ export const ModalImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 500px;
-  height: 550px;
-  margin: 0px 31px 27px 31px;
+  width: 100%;
+  height: 100%;
+  margin: 0px 31px 0px 31px;
   background-color: ${(props) => props.theme.main};
   border-radius: 5px;
 `;
@@ -63,7 +73,15 @@ export const ModalImageContainer = styled.div`
 export const SliderContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  height: 813px;
+
+  @media (max-width: 1600px) {
+    height: calc(813px - 210px);
+  }
+  @media (max-width: 700px) {
+    height: calc(932px - 500px);
+  }
 `;
 
 export const StyledSlider = styled(Slider)`
@@ -78,7 +96,14 @@ export const StyledSlider = styled(Slider)`
     }
   }
   .slick-list {
+    height: 100%;
     border-radius: 5px;
+  }
+  @media (max-width: 1600px) {
+    width: calc(932px - 200px);
+  }
+  @media (max-width: 700px) {
+    width: calc(932px - 500px);
   }
 `;
 
@@ -86,7 +111,7 @@ export const ModalUserContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 10px 0px 20px 15px;
+  margin: 20px 0px 20px 15px;
 `;
 
 export const StyledLink = styled(Link)`
@@ -121,24 +146,40 @@ export const ImageBackgroundDiv = styled.div`
 export const StyledImageLink = styled(Link)`
   text-decoration: none;
   display: flex;
+  justify-content: center;
   align-items: center;
   color: ${(props) => props.theme.text};
 `;
 
 export const StyledImage = styled.img`
   border-radius: 5px;
-  max-width: 70vw;
+  max-width: 852px;
   max-height: 600px;
+
+  @media (max-width: 1600px) {
+    max-width: calc(852px - 225px);
+    max-height: calc(813px - 225px - 130px);
+  }
+  @media (max-width: 700px) {
+    max-width: calc(852px - 500px);
+    max-height: calc(813px - 520px);
+  }
 `;
 
 export const ModalStatsContainer = styled.div`
   background-color: ${(props) => props.theme.main};
-  margin: 5px 10px 0px 15px;
+  margin: 5px 10px 10px 15px;
   width: calc(100% - 25px);
+  display: flex;
 `;
 
 export const StyledDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 97%;
 `;
+
+export const HeartIcon = styled.img`
+  display: inline;
+`

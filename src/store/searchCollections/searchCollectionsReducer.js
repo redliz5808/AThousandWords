@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   collectionData: [],
-  isLoading: false,
+  isLoading: true,
   favoriteCollections: {},
   error: false,
   hasMore: true,
@@ -31,6 +31,7 @@ function searchCollectionsReducer(state = initialState, action) {
       return {
         ...state,
         error: true,
+        isLoading: false,
       };
     case GET_MORE_COLLECTION_DATA_SUCCESS:
       return {

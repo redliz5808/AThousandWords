@@ -5,13 +5,13 @@ export const StyledSpan = styled.span`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
-  font-size: 16px;
+  font-size: 18px;
 `;
 
 export const StyledIcon = styled.span`
-  font-size: 20px;
+  font-size: 30px;
   svg path {
-    color: ${(props) => props.color};
+    color: ${(props) => (props.type === "star" ? "#F6CF58" : props.color)};
   }
 `;
 

@@ -3,7 +3,6 @@ import { MainContainer, SubContainer, StyledLink } from "./notFound.styles";
 
 const NotFound = (props) => {
   const location = useLocation();
-  console.log(props.errorMessage);
   return (
     <MainContainer>
       <SubContainer>
