@@ -1,12 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Home, User, Photo, Search, Collection, Favorites } from "pages";
+import {
+  Home,
+  User,
+  Photo,
+  Search,
+  Collection,
+  Favorites,
+  NotFound,
+} from "pages";
 import { SearchBar } from "components";
-import { logo } from "assets";
+import { logo, cameraIcon, heartIcon, themeIcon } from "assets";
 import { lightTheme, darkTheme } from "./theme";
 import { GlobalStyle } from "./global";
 import { ThemeProvider } from "styled-components";
-import { GiStripedSun } from "react-icons/gi";
 import {
   StyledDiv,
   Logo,
@@ -16,8 +23,9 @@ import {
   StyledLink,
   NavButtonLi,
   Overlay,
-  StyledCamera,
-  StyledHeart,
+  StyledLabel,
+  Photos,
+  Saved,
 } from "./app.styles";
 import "./App.css";
 
@@ -55,10 +63,10 @@ export class App extends React.Component {
                         stateTheme ? "activeLight" : "activeDark"
                       }
                     >
-                      <Overlay>
-                        <StyledCamera />
+                      <Overlay className="photos">
+                        <Photos classname="photos" src={cameraIcon} alt="Photos" />
                       </Overlay>
-                      <div>Photos</div>
+                      <StyledLabel>Photos</StyledLabel>
                     </StyledLink>
                   </NavButtonLi>
                   <NavButtonLi>
@@ -68,17 +76,17 @@ export class App extends React.Component {
                         stateTheme ? "activeLight" : "activeDark"
                       }
                     >
-                      <Overlay>
-                        <StyledHeart />
+                      <Overlay className="saved">
+                        <Saved classname="saved" src={heartIcon} alt="Saved" />
                       </Overlay>
-                      <div>Saved</div>
+                      <StyledLabel>Saved</StyledLabel>
                     </StyledLink>
                   </NavButtonLi>
                   <NavButtonLi onClick={this.handleClick}>
                     <Overlay>
-                      <GiStripedSun />
+                    <img src={themeIcon} alt="Theme" />
                     </Overlay>
-                    <div>Theme</div>
+                    <StyledLabel>Theme</StyledLabel>
                   </NavButtonLi>
                 </StyledUl>
               </StyledNav>
@@ -86,14 +94,22 @@ export class App extends React.Component {
 
             <Switch>
               <Route component={Home} exact path="/"></Route>
-              <Route component={User} path="/user/:username"></Route>
-              <Route component={Photo} path="/photo/:photoid"></Route>
-              <Route component={Search} path="/search/:searchTerm"></Route>
-              <Route component={Favorites} path="/favorites"></Route>
+              <Route component={User} exact path="/user/:username"></Route>
+              <Route component={Photo} exact path="/photo/:photoid"></Route>
+              <Route
+                component={Search}
+                exact
+                path="/search/:searchTerm"
+              ></Route>
+              <Route component={Favorites} exact path="/favorites"></Route>
               <Route
                 component={Collection}
+                exact
                 path="/collection/:collectionid"
               ></Route>
+              <Route path="*">
+                <NotFound />
+              </Route>
             </Switch>
           </div>
         </Router>

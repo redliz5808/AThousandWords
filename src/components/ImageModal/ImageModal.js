@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FaHeart } from "react-icons/fa";
-import { Icon } from "components";
+import { FaRegStar, FaStar } from "react-icons/fa";
+import { Icon, NextArrow, PrevArrow } from "components";
+import { closeButton, heartOutline } from "assets";
 import { displayPhoto, handleModalClose } from "store/home/homeActions";
 import { setFavoriteImage } from "store/photo/photoActions";
 import {
@@ -16,18 +17,20 @@ import {
   UserImage,
   Username,
   CloseButton,
+  CloseButtonImg,
   StyledSlider,
   StyledImageLink,
   ImageDiv,
   SliderContainer,
   ImageBackgroundDiv,
+  HeartIcon,
 } from "./imageModal.styles";
 
 class ImageModal extends React.Component {
   render() {
     const { showModal, data } = this.props.home;
     const { photo } = this.props;
-    const readyToLoad = showModal && data.length;
+    const readyToLoad = showModal && data.length > 0;
 
     const settings = {
       dots: false,
@@ -36,6 +39,8 @@ class ImageModal extends React.Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       initialSlide: this.props.home.index,
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />,
     };
 
     return (
@@ -43,7 +48,9 @@ class ImageModal extends React.Component {
         {readyToLoad && (
           <ModalMainContainer>
             <ModalSubContainer>
-              <CloseButton onClick={this.props.handleModalClose}>X</CloseButton>
+              <CloseButton onClick={this.props.handleModalClose}>
+                <CloseButtonImg src={closeButton} alt="close button" />
+              </CloseButton>
               <ModalImageContainer>
                 <StyledSlider {...settings}>
                   {data.map((item) => {
@@ -70,28 +77,28 @@ class ImageModal extends React.Component {
                             </ImageBackgroundDiv>
                           </ImageDiv>
                           <ModalStatsContainer>
+                            <HeartIcon src={heartOutline} alt="heart" />
                             <StyledDiv>
+                              <Icon stats={item.likes} type="heart" />
                               {photo.favoritePhotos[item.id] ? (
                                 <Icon
-                                  id={item.id}
-                                  icon={<FaHeart />}
+                                  icon={<FaStar />}
                                   handleClick={() =>
                                     this.props.setFavoriteImage(item.id)
                                   }
-                                  stats={item.likes}
-                                  color="#9d0707"
-                                  type="heart"
+                                  stats=""
+                                  color="#F6CF58"
+                                  type="star"
                                 />
                               ) : (
                                 <Icon
-                                  id={item.id}
-                                  icon={<FaHeart />}
+                                  icon={<FaRegStar />}
                                   handleClick={() =>
                                     this.props.setFavoriteImage(item.id)
                                   }
-                                  stats={item.likes}
+                                  stats=""
                                   color="#8c8c8c"
-                                  type="heart"
+                                  type="star"
                                 />
                               )}
                             </StyledDiv>

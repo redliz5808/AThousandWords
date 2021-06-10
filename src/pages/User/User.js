@@ -6,6 +6,7 @@ import {
   setUserAsFavorite,
   retrieveUserData,
   setUsername,
+  userCleanup,
 } from "store/user/userActions";
 import {
   MainContainer,
@@ -37,6 +38,16 @@ class User extends React.Component {
     if (prevProps.user.isLoading !== isLoading && !isLoading) {
       this.loadingBar.current.complete();
     }
+    if (
+      prevProps.user.error !== this.props.user.error &&
+      this.props.user.error
+    ) {
+      this.props.history.push("/unknownuser");
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.userCleanup();
   }
 
   handleChange = (event, newValue) => {
@@ -47,13 +58,13 @@ class User extends React.Component {
     this.props.setUserAsFavorite(id);
   };
 
+  convertedNumbers = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   render() {
     const { data, username, isLoading } = this.props.user;
     const readyToLoad = data && !isLoading;
-
-    const convertedNumbers = (x) => {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    };
 
     return (
       <MainContainer>
@@ -76,19 +87,19 @@ class User extends React.Component {
                 <StatsContainer>
                   <StyledDiv>
                     <StyledNumbers>
-                      {convertedNumbers(data.downloads)}
+                      {this.convertedNumbers(data.downloads)}
                     </StyledNumbers>
                     <div>Downloads</div>
                   </StyledDiv>
                   <StyledDiv>
                     <StyledNumbers>
-                      {convertedNumbers(data.followers_count)}
+                      {this.convertedNumbers(data.followers_count)}
                     </StyledNumbers>
                     <div>Followers</div>
                   </StyledDiv>
                   <StyledDiv>
                     <StyledNumbers>
-                      {convertedNumbers(data.following_count)}
+                      {this.convertedNumbers(data.following_count)}
                     </StyledNumbers>
                     <div>Following</div>
                   </StyledDiv>
@@ -112,6 +123,7 @@ const mapDispatchToProps = {
   setUserAsFavorite,
   retrieveUserData,
   setUsername,
+  userCleanup,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

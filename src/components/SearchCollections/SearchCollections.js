@@ -11,6 +11,7 @@ import {
 } from "store/searchCollections/searchCollectionsActions";
 import {
   StyledParagraph,
+  MainContainer,
   Container,
   CollectionLink,
   StyledImage,
@@ -60,13 +61,13 @@ class SearchCollections extends React.Component {
 
   render() {
     const { searchTerm } = this.props;
-    const { collectionData, hasMore } = this.props.searchCollections;
-    const haveCollections = collectionData.length;
-
+    const { collectionData, hasMore, isLoading } = this.props.searchCollections;
+    const haveCollections = collectionData.length > 0;
+    const noResults = collectionData.length === 0 && !isLoading;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {!haveCollections && <div>There are no results for {searchTerm}.</div>}
+        {noResults && <div>There are no results for {searchTerm}.</div>}
         {haveCollections && (
           <InfiniteScroll
             dataLength={collectionData.length}
@@ -77,30 +78,32 @@ class SearchCollections extends React.Component {
               <StyledParagraph>End of Search Results.</StyledParagraph>
             }
           >
-            <ResponsiveMasonry
-              columnsCountBreakPoints={columnBreaks}
-              gutter="0"
-            >
-              <Masonry>
-                {collectionData.map((collection) => {
-                  return (
-                    <Container key={collection.id}>
-                      <CollectionLink to={`/collection/${collection.id}`}>
-                        <StyledImage
-                          src={collection.cover_photo.urls.small}
-                          alt={collection.title}
-                        />
-                        <StatsContainer>
-                          <StatsOverlay>
-                            <Stats>{collection.total_photos} photos</Stats>
-                          </StatsOverlay>
-                        </StatsContainer>
-                      </CollectionLink>
-                    </Container>
-                  );
-                })}
-              </Masonry>
-            </ResponsiveMasonry>
+            <MainContainer>
+              <ResponsiveMasonry
+                columnsCountBreakPoints={columnBreaks}
+                gutter="0"
+              >
+                <Masonry>
+                  {collectionData.map((collection) => {
+                    return (
+                      <Container key={collection.id}>
+                        <CollectionLink to={`/collection/${collection.id}`}>
+                          <StyledImage
+                            src={collection.cover_photo.urls.small}
+                            alt={collection.title}
+                          />
+                          <StatsContainer>
+                            <StatsOverlay>
+                              <Stats>{collection.total_photos} photos</Stats>
+                            </StatsOverlay>
+                          </StatsContainer>
+                        </CollectionLink>
+                      </Container>
+                    );
+                  })}
+                </Masonry>
+              </ResponsiveMasonry>
+            </MainContainer>
           </InfiniteScroll>
         )}
       </>

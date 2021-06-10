@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
+import { NotFound } from "pages";
 import { CollectionPhotos } from "components";
-import {
-  getCollectionData,
-} from "store/collection/collectionActions";
+import { getCollectionData } from "store/collection/collectionActions";
 import {
   MainContainer,
   SubContainer,
@@ -37,38 +36,42 @@ class Collection extends React.Component {
   }
 
   render() {
-    const { data, isLoading } = this.props.collection;
+    const { data, isLoading, error, errorMessage } = this.props.collection;
     const readyToLoad = data && !isLoading;
     const tagsAvailable = data && data.tags.length > 0;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {readyToLoad && (
-          <MainContainer>
-            <SubContainer>
-              <Title>
-                <CollectionName>{data.title}</CollectionName>
-              </Title>
-              {data.description ? (
-                <Description>{data.description}</Description>
-              ) : null}
-              <StyledLink to={`/user/${data.user.username}`}>
-                <UserPhoto src={data.user.profile_image.small} />
-                <UserName>{data.user.name}</UserName>
-              </StyledLink>
-              <Tags>
-                {tagsAvailable &&
-                  data.tags
-                    .filter((tag, index) => index < 6)
-                    .map((tag) => (
-                      <TagLink key={tag.title} to={`/search/${tag.title}`}>
-                        {tag.title}
-                      </TagLink>
-                    ))}
-              </Tags>
-              <CollectionPhotos collectionid={data.id} />
-            </SubContainer>
-          </MainContainer>
+        {!error ? (
+          readyToLoad && (
+            <MainContainer>
+              <SubContainer>
+                <Title>
+                  <CollectionName>{data.title}</CollectionName>
+                </Title>
+                {data.description ? (
+                  <Description>{data.description}</Description>
+                ) : null}
+                <StyledLink to={`/user/${data.user.username}`}>
+                  <UserPhoto src={data.user.profile_image.small} />
+                  <UserName>{data.user.name}</UserName>
+                </StyledLink>
+                <Tags>
+                  {tagsAvailable &&
+                    data.tags
+                      .filter((tag, index) => index < 6)
+                      .map((tag) => (
+                        <TagLink key={tag.title} to={`/search/${tag.title}`}>
+                          {tag.title}
+                        </TagLink>
+                      ))}
+                </Tags>
+                <CollectionPhotos collectionid={data.id} />
+              </SubContainer>
+            </MainContainer>
+          )
+        ) : (
+          <NotFound errorMessage={errorMessage} />
         )}
       </>
     );

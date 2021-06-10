@@ -8,6 +8,8 @@ export const StyledParagraph = styled.p`
 
 export const MainContainer = styled.div`
   text-align: center;
+  margin-left: 10px;
+  width: 932px;
 `;
 
 export const StyledLink = styled(Link)`
@@ -17,15 +19,15 @@ export const StyledLink = styled(Link)`
 
 export const StyledImage = styled.img`
   border-radius: 10px;
-  width: 265px;
-  height: 265px;
+  width: 290px;
+  height: 290px;
   object-fit: cover;
 `;
 
 export const StyledDiv = styled.div`
-  height: 265px;
-  width: 265px;
-  margin: 20px 0px;
+  height: 290px;
+  width: 290px;
+  margin: 10px 10px;
   border-radius: 10px;
   background-color: ${(props) => props.backgroundColor || "gray"};
-`
+`;

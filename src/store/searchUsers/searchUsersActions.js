@@ -20,6 +20,11 @@ export const getUserData = (searchTerm, page) => async (dispatch, getState) => {
       type: GET_USER_DATA_SUCCESS,
       payload: results,
     });
+    if (results.length > 1 && results.length < 29) {
+      dispatch({
+        type: GET_MORE_USER_DATA_END_DATA,
+      });
+    }
   } catch (error) {
     dispatch({
       type: GET_USER_DATA_ERROR,

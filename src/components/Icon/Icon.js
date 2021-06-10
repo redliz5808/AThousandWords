@@ -10,11 +10,15 @@ const Icon = (props) => {
   return (
     <StyledSpan>
       <StyledButton type={props.type}>
-        <StyledIcon color={props.color} onClick={props.handleClick}>
+        <StyledIcon
+          type={props.type}
+          color={props.color}
+          onClick={props.handleClick}
+        >
           {props.icon}
         </StyledIcon>
       </StyledButton>
-      {convertedNumbers(props.stats)}
+      <p>{convertedNumbers(props.stats)}</p>
     </StyledSpan>
   );
 };

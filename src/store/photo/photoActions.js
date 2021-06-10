@@ -22,6 +22,7 @@ export const retrievePhoto = (photoid) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: FETCH_PHOTO_ERROR,
+      payload: error,
     });
   }
 };

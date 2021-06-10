@@ -6,7 +6,7 @@ export const MainContainer = styled.div`
 `;
 
 export const SubContainer = styled.div`
-  width: 920px;
+  width: calc(932px + 20px);
 
   @media (max-width: 780px) {
     width: 80vw;
@@ -27,7 +27,8 @@ export const StyledSpan = styled.span`
 export const Tabs = styled.div`
   display: flex;
   justify-content: flex-start;
-  width: 100%;
+  width: calc(932px - 22px);
+  margin-left: 22px;
 
   @media (max-width: 780px) {
     justify-content: center;
@@ -53,6 +54,7 @@ export const PhotosButton = styled.button`
   cursor: pointer;
   text-align: right;
   font-size: 18px;
+  margin-right: 10px;
 
   ${({ value, theme: { resultsSelected } }) =>
     value === 0 &&
@@ -68,8 +70,9 @@ export const UsersButton = styled.button`
   outline: none;
   color: ${(props) => props.theme.resultsUnselected};
   cursor: pointer;
-  text-align: right;
+  text-align: left;
   font-size: 18px;
+  padding: 0px;
 
   ${({ value, theme: { resultsSelected } }) =>
     value === 2 &&
@@ -86,6 +89,7 @@ export const CollectionsButton = styled.button`
   color: ${(props) => props.theme.resultsUnselected};
   cursor: pointer;
   text-align: right;
+  padding: 0px;
   font-size: 18px;
 
   ${({ value, theme: { resultsSelected } }) =>

@@ -4,6 +4,7 @@ import {
   FETCH_USER_DATA_ERROR,
   SET_USERNAME,
   SET_FAVORITE_USERS,
+  USER_CLEAN_UP,
 } from "./userTypes";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   isLoading: false,
   favoriteUsers: {},
   error: false,
+  errorMessage: "",
 };
 
 function userReducer(state = initialState, action) {
@@ -21,17 +23,20 @@ function userReducer(state = initialState, action) {
         ...state,
         data: action.payload,
         isLoading: false,
+        error: false,
       };
     case FETCH_USER_DATA_PENDING:
       return {
         ...state,
         isLoading: true,
+        error: false,
       };
     case FETCH_USER_DATA_ERROR:
       return {
         ...state,
         error: true,
         isLoading: false,
+        errorMessage: action.payload,
       };
     case SET_USERNAME:
       return {
@@ -43,6 +48,8 @@ function userReducer(state = initialState, action) {
         ...state,
         favoriteUsers: action.payload,
       };
+    case USER_CLEAN_UP:
+      return initialState;
     default:
       return state;
   }

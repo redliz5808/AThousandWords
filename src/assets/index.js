@@ -1,8 +1,8 @@
-export { default as logo } from "./AThousandWords.png";
-export { default as logoInverse } from "./AThousandWordsInverse.png";
-export { default as logoTransparent } from "./AThousandWordsTransparent.png";
-export { default as favorites } from "./favorites.png";
-export { default as favoritesBlur } from "./favoritesBlur.png";
-export { default as favoritesSmall } from "./favoritesSmall.png";
-export { default as favoritesTransparent } from "./favoritesTransparent.png";
+export { default as logo } from "./AThousandWordsLogoOnly.png";
 export { default as UnavailableCover } from "./UnavailableCover.png";
+export { default as closeButton } from "./closeButton.svg";
+export { default as searchIcon } from "./searchIcon.svg";
+export { default as cameraIcon } from "./cameraIcon.svg";
+export { default as heartIcon } from "./heartIcon.svg";
+export { default as themeIcon } from "./themeIcon.svg";
+export { default as heartOutline } from "./heartOutline.svg";

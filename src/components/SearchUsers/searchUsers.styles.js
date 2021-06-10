@@ -8,6 +8,8 @@ export const StyledParagraph = styled.p`
 
 export const MainContainer = styled.div`
   text-align: center;
+  margin-left: 10px;
+  width: 937px;
 `;
 
 export const SubContainer = styled.div`

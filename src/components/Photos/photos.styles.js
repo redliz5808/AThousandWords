@@ -9,18 +9,18 @@ export const StyledParagraph = styled.p`
 export const MainContainer = styled.div`
   display: flex;
   justify-content: center;
+  margin-left: 10px;
 `;
 
 export const SubContainer = styled.div`
-  text-align: center;
-  width: 932px;
+  width: 940px;
 `;
 
 export const StyledImage = styled.img`
-  width: 265px;
-  height: 265px;
+  width: 290px;
+  height: 290px;
   object-fit: cover;
-  margin: 20px 0px;
+  margin: 10px 0px;
   border-radius: 5px;
 `;
 

@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingBar from "react-top-loading-bar";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
-import { columnBreaks } from "utils";
+import { userColumnBreaks } from "utils";
 import { getUserData, fetchData } from "store/searchUsers/searchUsersActions";
 import {
   MainContainer,
@@ -58,12 +58,13 @@ class SearchUsers extends React.Component {
 
   render() {
     const { searchTerm } = this.props;
-    const { userData, hasMore } = this.props.searchUsers;
-    const haveUsers = userData.length;
+    const { userData, hasMore, isLoading } = this.props.searchUsers;
+    const haveUsers = userData.length > 0;
+    const noResults = userData.length === 0 && !isLoading;
     return (
       <>
         <LoadingBar color="#6958f2" ref={this.loadingBar} />
-        {!haveUsers && <div>There are no results for {searchTerm}.</div>}
+        {noResults && <div>There are no results for {searchTerm}.</div>}
         {haveUsers && (
           <InfiniteScroll
             dataLength={userData.length}
@@ -76,7 +77,7 @@ class SearchUsers extends React.Component {
           >
             <MainContainer>
               <ResponsiveMasonry
-                columnsCountBreakPoints={columnBreaks}
+                columnsCountBreakPoints={userColumnBreaks}
                 gutter="0"
               >
                 <Masonry>

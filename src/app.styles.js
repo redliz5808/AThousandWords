@@ -6,12 +6,15 @@ import { AiFillHeart } from "react-icons/ai";
 export const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 `;
 
 export const Logo = styled.img`
-  margin-left: 3px;
-  margin-top: 10px;
-  max-height: 100px;
+  margin-top: 5px;
+  height: 49px;
+  width: 49px;
+  border-radius: 5px;
 
   @media (max-width: 768px) {
     margin-left: 20px;
@@ -21,9 +24,8 @@ export const Logo = styled.img`
 export const StyledNav = styled.nav`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   text-align: center;
-  width: 932px;
+  width: calc(932px - 20px);
 
   @media (max-width: 780px) {
     flex-direction: column;
@@ -35,7 +37,6 @@ export const StyledNav = styled.nav`
 
 export const StyledUl = styled.ul`
   display: flex;
-  align-items: center;
   padding: 0px;
   margin: 0px;
   width: calc(932px - 709px - 26px);
@@ -58,6 +59,10 @@ export const Overlay = styled.div`
   font-size: 24px;
 `;
 
+export const StyledLabel = styled.div`
+  color: #999999;
+`;
+
 export const StyledLi = styled.li`
   list-style: none;
   padding: 0px;
@@ -67,11 +72,15 @@ export const StyledLi = styled.li`
 export const NavButtonLi = styled.li`
   list-style: none;
   text-align: center;
-  margin: 0px 10px;
+  margin: 0px 19px;
   width: 49px;
   color: ${(props) => props.theme.text};
   cursor: pointer;
 `;
+
+export const Photos = styled.img``;
+
+export const Saved = styled.img``;
 
 export const StyledLink = styled(NavLink)`
   display: block;
@@ -79,28 +88,42 @@ export const StyledLink = styled(NavLink)`
   color: ${(props) => props.theme.text};
   &.activeLight {
     ${Overlay} {
-      border-radius: 5px;
-      background-color: #2b2b2b;
-      color: #fff;
-      svg {
-        background-color: #2b2b2b;
+      &.saved {
+        border-radius: 5px;
+        background-color: #ffb4bc;
       }
-      svg path {
-        fill: #fff;
+    }
+    ${Overlay} {
+      &.photos {
+        border-radius: 5px;
+        background-color: #a2c8fa;
       }
+    }
+    ${Photos} {
+      background-color: #a2c8fa;
+    }
+    ${Saved} {
+      background-color: #ffb4bc;
     }
   }
   &.activeDark {
     ${Overlay} {
-      border-radius: 5px;
-      background-color: #fff;
-      color: #2b2b2b;
-      svg {
-        background-color: #fff;
+      &.saved {
+        border-radius: 5px;
+        background-color: #ffb4bc;
       }
-      svg path {
-        fill: #2b2b2b;
+    }
+    ${Overlay} {
+      &.photos {
+        border-radius: 5px;
+        background-color: #a2c8fa;
       }
+    }
+    ${Photos} {
+      background-color: #a2c8fa;
+    }
+    ${Saved} {
+      background-color: #ffb4bc;
     }
   }
 `;

@@ -8,10 +8,7 @@ import photo from "./photo/photoReducer";
 import user from "./user/userReducer";
 import collectionPhoto from "./collectionPhoto/collectionPhotoReducer";
 import userCollections from "./userCollections/userCollectionsReducer";
-import favoriteCollection from "./favoriteCollection/favoriteCollectionReducer";
 import favoritePhoto from "./favoritePhoto/favoritePhotoReducer";
-import favoritesSlider from "./favoriteSlider/favoriteSliderReducer";
-import favoriteUser from "./favoriteUser/favoriteUserReducer";
 import userPhotos from "./userPhotos/userPhotosReducer";
 import searchCollections from "./searchCollections/searchCollectionsReducer";
 import searchPhotos from "./searchPhotos/searchPhotosReducer";
@@ -31,10 +28,7 @@ const reducers = combineReducers({
   user,
   collectionPhoto,
   userCollections,
-  favoriteCollection,
   favoritePhoto,
-  favoritesSlider,
-  favoriteUser,
   userPhotos,
   searchCollections,
   searchPhotos,
